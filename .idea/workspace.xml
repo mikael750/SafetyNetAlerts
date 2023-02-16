@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d0055eb-dd6f-48b4-8f46-f25c90aaa8a0" name="Changes" comment="MHE - created classes">
+    <list default="true" id="9d0055eb-dd6f-48b4-8f46-f25c90aaa8a0" name="Changes" comment="MHE - Complete models">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/FireStations.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/FireStations.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/MedicalRecords.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/MedicalRecords.java" afterDir="false" />
@@ -16,6 +16,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JpbToolWindowState">
@@ -66,7 +71,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676058082212</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="MHE - Complete models">
+      <created>1676545082205</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1676545082205</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -74,7 +86,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="develop" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -82,6 +106,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="MHE - created classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="MHE - created classes" />
+    <MESSAGE value="MHE - Complete models" />
+    <option name="LAST_COMMIT_MESSAGE" value="MHE - Complete models" />
   </component>
 </project>
