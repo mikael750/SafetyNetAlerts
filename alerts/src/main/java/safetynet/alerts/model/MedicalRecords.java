@@ -1,7 +1,6 @@
 package safetynet.alerts.model;
 
 public class MedicalRecords {
-
     private int id;
     private String firstName;
     private String lastName;

@@ -1,7 +1,6 @@
 package safetynet.alerts.model;
 
 public class FireStations {
-
     private int id;
     private String address;
     private String station;
