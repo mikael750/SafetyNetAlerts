@@ -1,10 +1,12 @@
 package safetynet.alerts.DAO;
 
+import org.springframework.stereotype.Service;
 import safetynet.alerts.model.Persons;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class PersonsDaoImpl implements PersonsDao{
 
     public static List<Persons> persons = new ArrayList<>();

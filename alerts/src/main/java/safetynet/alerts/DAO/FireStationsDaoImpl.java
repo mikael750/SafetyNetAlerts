@@ -1,10 +1,12 @@
 package safetynet.alerts.DAO;
 
+import org.springframework.stereotype.Service;
 import safetynet.alerts.model.FireStations;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class FireStationsDaoImpl implements FireStationsDao{
 
     public static List<FireStations> fireStations = new ArrayList<>();
