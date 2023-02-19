@@ -31,9 +31,9 @@ public class PersonsController {
         return personsDao.findAll();
     }
 
-    @GetMapping(value = "/person/{id}")
-    public Persons afficherUnePersonne(@PathVariable int id) {
-        return personsDao.findById(id);
+    @GetMapping(value = "/person/{firstName}")
+    public Persons afficherUnePersonne(@PathVariable String firstName) {
+        return personsDao.findById(firstName);
     }
 
     @PostMapping(value = "/person")
@@ -44,20 +44,19 @@ public class PersonsController {
         }
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(personsAdded.getId())
+                .path("/{firstName}")
+                .buildAndExpand(personsAdded.getFirstName())//, lastName
                 .toUri();
         return ResponseEntity.created(location).build();
     }
 
-    @PutMapping(value = "/person/{id}")
-    public ResponseEntity<Persons> updatePersons(@PathVariable int id,@RequestBody Persons personsDetails) throws Exception {
-        Persons updatePersons = personsDao.findById(id);
-        if (updatePersons == null){
-            throw new Exception("Cette personne n'existe pas avec l'id: " + id);
+    @PutMapping(value = "/person/{firstName}")
+    public ResponseEntity<Persons> updatePersons(@PathVariable String firstName,@RequestBody Persons personsDetails) throws Exception {
+        Persons updatePersons = personsDao.findById(firstName);
+        if (Objects.isNull(updatePersons)){
+            throw new Exception(firstName + " n'est pas inscrit");
         }
-
-        updatePersons.setFirstName(personsDetails.getFirstName());
+        //updatePersons.setFirstName(personsDetails.getFirstName());
         updatePersons.setLastName(personsDetails.getLastName());
         updatePersons.setAddress(personsDetails.getAddress());
         updatePersons.setCity(personsDetails.getCity());
@@ -70,16 +69,16 @@ public class PersonsController {
         return ResponseEntity.ok(updatePersons);
     }
 
-    @DeleteMapping(value = "/person/{id}")
-    public ResponseEntity<String> deletePersons(@PathVariable String id) {
+    @DeleteMapping(value = "/person/{firstName}")
+    public ResponseEntity<String> deletePersons(@PathVariable String firstName) {
 
-        boolean isDeleted = personsDao.delete(Integer.valueOf(id));
+        boolean isDeleted = personsDao.delete(firstName);
 
         if (!isDeleted) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return ResponseEntity.ok(id);
+        return ResponseEntity.ok(firstName);
 
     }
 

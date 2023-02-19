@@ -1,7 +1,6 @@
 package safetynet.alerts.model;
 
 public class Persons {
-    private int id;
     private String firstName;
     private String lastName;
     private String address;
@@ -12,8 +11,7 @@ public class Persons {
 
     public Persons(){}
 
-    public Persons(int id, String firstName, String lastName, String address, String city, String zip, String phone, String email) {
-        this.id = id;
+    public Persons(String firstName, String lastName, String address, String city, String zip, String phone, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -21,14 +19,6 @@ public class Persons {
         this.zip = zip;
         this.phone = phone;
         this.email = email;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -90,8 +80,7 @@ public class Persons {
     @Override
     public String toString() {
         return "persons{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
+                "firstName='" + firstName +
                 ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
