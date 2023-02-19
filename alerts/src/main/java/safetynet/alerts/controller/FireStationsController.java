@@ -1,5 +1,6 @@
 package safetynet.alerts.controller;
 
+import org.springframework.http.HttpStatus;
 import safetynet.alerts.DAO.FireStationsDao;
 import safetynet.alerts.model.FireStations;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import safetynet.alerts.model.Persons;
 
 import java.net.URI;
 import java.util.List;
@@ -30,9 +32,9 @@ public class FireStationsController {
         return fireStationsDao.findAll();
     }
 
-    @GetMapping(value = "/firestation/{id}")
-    public FireStations afficherFireStations(@PathVariable int id) {
-        return fireStationsDao.findById(id);
+    @GetMapping(value = "/firestation/{address}")
+    public FireStations afficherFireStations(@PathVariable String address) {
+        return fireStationsDao.findById(address);
     }
 
     @PostMapping(value = "/firestation")
@@ -43,9 +45,34 @@ public class FireStationsController {
         }
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(fireStationsAdded.getId())
+                .path("/{address}")
+                .buildAndExpand(fireStationsAdded.getAddress())
                 .toUri();
         return ResponseEntity.created(location).build();
+    }
+
+    @PutMapping(value = "/firestation/{address}")
+    public ResponseEntity<FireStations> updateFireStations(@PathVariable String address, @RequestBody FireStations fireStationsDetails) throws Exception {
+        FireStations updateFireStations = fireStationsDao.findById(address);
+        if (Objects.isNull(updateFireStations)){
+            throw new Exception(address + " n'est pas une bonne adresse");
+        }
+        updateFireStations.setStation(fireStationsDetails.getStation());
+
+        fireStationsDao.save(updateFireStations);
+
+        return ResponseEntity.ok(updateFireStations);
+    }
+
+    @DeleteMapping(value = "/person/{address}")
+    public ResponseEntity<String> deleteAddress(@PathVariable String address) {
+
+        boolean isDeleted = fireStationsDao.delete(address);
+
+        if (!isDeleted) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return ResponseEntity.ok(address);
     }
 }

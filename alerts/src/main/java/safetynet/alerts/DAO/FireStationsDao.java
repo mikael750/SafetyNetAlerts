@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface FireStationsDao {
     List<FireStations> findAll();
-    FireStations findById(int id);
+    FireStations findById(String address);
     FireStations save(FireStations fireStations);
+    boolean delete(String address);
 }
