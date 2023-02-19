@@ -1,7 +1,6 @@
 package safetynet.alerts.model;
 
 public class MedicalRecords {
-    private int id;
     private String firstName;
     private String lastName;
     private String birthdate;
@@ -10,21 +9,12 @@ public class MedicalRecords {
 
     public MedicalRecords(){}
 
-    public MedicalRecords(int id, String firstName, String lastName, String birthdate, String[] medications, String[] allergies){
-        this.id = id;
+    public MedicalRecords(String firstName, String lastName, String birthdate, String[] medications, String[] allergies){
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
         this.medications = medications;
         this.allergies = allergies;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -70,8 +60,7 @@ public class MedicalRecords {
     @Override
     public String toString() {
         return "medicalrecords{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
+                "firstName='" + firstName +
                 ", lastName='" + lastName + '\'' +
                 ", birthdate='" + birthdate + '\'' +
                 ", medications='" + medications + '\'' +

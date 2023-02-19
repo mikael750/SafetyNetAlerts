@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d0055eb-dd6f-48b4-8f46-f25c90aaa8a0" name="Changes" comment="MHE - Retirer ID de Persons">
+    <list default="true" id="9d0055eb-dd6f-48b4-8f46-f25c90aaa8a0" name="Changes" comment="MHE - Put et Delete de FireStations et Retirer ID">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/FireStationsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/FireStationsDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/FireStationsDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/FireStationsDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/FireStationsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/FireStationsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/FireStations.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/FireStations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/MedicalRecordsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/MedicalRecordsDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/MedicalRecordsDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/MedicalRecordsDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/MedicalRecordsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/MedicalRecordsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/MedicalRecords.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/MedicalRecords.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,7 +213,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676809723776</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="MHE - Put et Delete de FireStations et Retirer ID">
+      <created>1676832003633</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1676832003633</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -246,7 +253,8 @@
     <MESSAGE value="MHE - Ajout @Service pour les implementations" />
     <MESSAGE value="MHE - Premiere version de put et delete dans Persons" />
     <MESSAGE value="MHE - Retirer ID de Persons" />
-    <option name="LAST_COMMIT_MESSAGE" value="MHE - Retirer ID de Persons" />
+    <MESSAGE value="MHE - Put et Delete de FireStations et Retirer ID" />
+    <option name="LAST_COMMIT_MESSAGE" value="MHE - Put et Delete de FireStations et Retirer ID" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

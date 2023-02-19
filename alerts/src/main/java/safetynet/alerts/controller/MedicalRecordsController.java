@@ -1,5 +1,6 @@
 package safetynet.alerts.controller;
 
+import org.springframework.http.HttpStatus;
 import safetynet.alerts.DAO.MedicalRecordsDao;
 import safetynet.alerts.model.MedicalRecords;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import safetynet.alerts.model.Persons;
 
 import java.net.URI;
 import java.util.List;
@@ -30,9 +32,9 @@ public class MedicalRecordsController {
         return medicalRecordsDao.findAll();
     }
 
-    @GetMapping(value = "/medicalrecord/{id}")
-    public MedicalRecords afficherMedicalRecords(@PathVariable int id) {
-        return medicalRecordsDao.findById(id);
+    @GetMapping(value = "/medicalrecord/{firstName}")
+    public MedicalRecords afficherMedicalRecords(@PathVariable String firstName) {
+        return medicalRecordsDao.findById(firstName);
     }
 
     @PostMapping(value = "/medicalrecord")
@@ -43,9 +45,38 @@ public class MedicalRecordsController {
         }
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(medicalRecordsAdded.getId())
+                .path("/{firstName}")
+                .buildAndExpand(medicalRecordsAdded.getFirstName())
                 .toUri();
         return ResponseEntity.created(location).build();
+    }
+
+    @PutMapping(value = "/medicalrecord/{firstName}")
+    public ResponseEntity<MedicalRecords> updateMedicalRecords(@PathVariable String firstName, @RequestBody MedicalRecords medicalRecordsDetails) throws Exception {
+        MedicalRecords updateMedicalRecords = medicalRecordsDao.findById(firstName);
+        if (Objects.isNull(updateMedicalRecords)){
+            throw new Exception(firstName + " na pas de donne medical");
+        }
+        updateMedicalRecords.setLastName(medicalRecordsDetails.getLastName());
+        updateMedicalRecords.setBirthdate(medicalRecordsDetails.getBirthdate());
+        updateMedicalRecords.setMedications(medicalRecordsDetails.getMedications());
+        updateMedicalRecords.setAllergies(medicalRecordsDetails.getAllergies());
+
+        medicalRecordsDao.save(updateMedicalRecords);
+
+        return ResponseEntity.ok(updateMedicalRecords);
+    }
+
+    @DeleteMapping(value = "/medicalrecord/{firstName}")
+    public ResponseEntity<String> deleteMedicalrecord(@PathVariable String firstName) {
+
+        boolean isDeleted = medicalRecordsDao.delete(firstName);
+
+        if (!isDeleted) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return ResponseEntity.ok(firstName);
+
     }
 }
