@@ -13,16 +13,16 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
 
     static{
         medicalRecords.add(new MedicalRecords(1, "John", "Boyd","03/06/1984", new String[]{"aznol:350mg", "hydrapermazol:100mg"}, new String[]{"nillacilan"} ));
-        medicalRecords.add(new MedicalRecords(2, "Jacob", "Boyd", "03/06/1989", new String[]{"pharmacol:5000mg", "terazine:10mg", "noznazol:250mg"} , new String[]{""} ));
-        medicalRecords.add(new MedicalRecords(3, "Tenley", "Boyd", "02/18/2012", new String[]{""} , new String[]{"peanut"} ));
-        medicalRecords.add(new MedicalRecords(4, "Roger", "Boyd", "09/06/2017", new String[]{""} , new String[]{""} ));
+        medicalRecords.add(new MedicalRecords(2, "Jacob", "Boyd", "03/06/1989", new String[]{"pharmacol:5000mg", "terazine:10mg", "noznazol:250mg"} , new String[]{} ));
+        medicalRecords.add(new MedicalRecords(3, "Tenley", "Boyd", "02/18/2012", new String[]{} , new String[]{"peanut"} ));
+        medicalRecords.add(new MedicalRecords(4, "Roger", "Boyd", "09/06/2017", new String[]{} , new String[]{} ));
         medicalRecords.add(new MedicalRecords(5, "Felicia", "Boyd", "01/08/1986", new String[]{"tetracyclaz:650mg"} , new String[]{"xilliathal"} ));
-        medicalRecords.add(new MedicalRecords(6, "Jonanathan", "Marrack", "01/03/1989", new String[]{""} , new String[]{""} ));
-        medicalRecords.add(new MedicalRecords(7, "Tessa", "Carman", "02/18/2012", new String[]{""} , new String[]{""} ));
-        medicalRecords.add(new MedicalRecords(8, "Peter", "Duncan", "09/06/2000", new String[]{""} , new String[]{"shellfish"} ));
-        medicalRecords.add(new MedicalRecords(9, "Foster", "Shepard", "01/08/1980", new String[]{""} , new String[]{""} ));
+        medicalRecords.add(new MedicalRecords(6, "Jonanathan", "Marrack", "01/03/1989", new String[]{} , new String[]{} ));
+        medicalRecords.add(new MedicalRecords(7, "Tessa", "Carman", "02/18/2012", new String[]{} , new String[]{} ));
+        medicalRecords.add(new MedicalRecords(8, "Peter", "Duncan", "09/06/2000", new String[]{} , new String[]{"shellfish"} ));
+        medicalRecords.add(new MedicalRecords(9, "Foster", "Shepard", "01/08/1980", new String[]{} , new String[]{} ));
         medicalRecords.add(new MedicalRecords(10, "Tony", "Cooper", "03/06/1994", new String[]{"hydrapermazol:300mg", "dodoxadin:30mg"} , new String[]{"shellfish"} ));
-        medicalRecords.add(new MedicalRecords(11, "Lily", "Cooper", "03/06/1994", new String[]{""} , new String[]{""} ));
+        medicalRecords.add(new MedicalRecords(11, "Lily", "Cooper", "03/06/1994", new String[]{} , new String[]{} ));
         medicalRecords.add(new MedicalRecords(12, "Sophia", "Zemicks", "03/06/1988", new String[]{"aznol:60mg", "hydrapermazol:900mg", "pharmacol:5000mg", "terazine:500mg"} , new String[]{"peanut", "shellfish", "aznol"} ));
         medicalRecords.add(new MedicalRecords(13, "Warren","Zemicks", "03/06/1985", new String[]{} , new String[]{} ));
         medicalRecords.add(new MedicalRecords(14, "Zach", "Zemicks", "03/06/2017", new String[]{} , new String[]{} ));

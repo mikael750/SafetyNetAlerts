@@ -1,8 +1,17 @@
 package safetynet.alerts.DAO;
 
+import com.jsoniter.JsonIterator;
+import com.jsoniter.any.Any;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import safetynet.alerts.AlertsApplication;
 import safetynet.alerts.model.Persons;
 
+import javax.annotation.Resource;
+import javax.annotation.Resources;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +46,23 @@ public class PersonsDaoImpl implements PersonsDao{
         persons.add(new Persons(23, "Eric", "Cadigan", "951 LoneTree Rd", "Culver", "97451", "841-874-7458", "gramps@email.com"));
     }
 
+   /*
+    @Value("classpath:data/data.json")
+    Resource resourceFile;
+
+    public static void load(){
+        try {
+            JsonIterator iter = JsonIterator.parse(AlertsApplication.data);
+            Any any = iter.readAny();
+            Any personAny = any.get("persons");
+            personAny.forEach(a -> {
+                persons.add(new Persons(persons.size()+1, a.get("firstName").toString() , a.get("lastName").toString(), a.get("address").toString(), a.get("city").toString(), a.get("zip").toString(),a.get("phone").toString(), a.get("email").toString()));
+            });
+            } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }*/
+
     @Override
     public List<Persons> findAll() {
         return persons;
@@ -56,5 +82,13 @@ public class PersonsDaoImpl implements PersonsDao{
     public Persons save(Persons person) {
         persons.add(person);
         return person;
+    }
+
+    @Override
+    public boolean delete(int id) {
+
+        boolean isDeleted = persons.removeIf(persons -> persons.getId() == id);
+
+        return isDeleted;
     }
 }

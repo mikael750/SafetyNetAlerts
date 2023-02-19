@@ -10,4 +10,5 @@ public interface PersonsDao {
     List<Persons> findAll();
     Persons findById(int id);
     Persons save(Persons persons);
+    boolean delete(int id);
 }

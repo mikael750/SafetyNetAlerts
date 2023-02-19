@@ -1,5 +1,6 @@
 package safetynet.alerts.controller;
 
+import org.springframework.http.HttpStatus;
 import safetynet.alerts.DAO.PersonsDao;
 import safetynet.alerts.model.Persons;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,6 +48,39 @@ public class PersonsController {
                 .buildAndExpand(personsAdded.getId())
                 .toUri();
         return ResponseEntity.created(location).build();
+    }
+
+    @PutMapping(value = "/person/{id}")
+    public ResponseEntity<Persons> updatePersons(@PathVariable int id,@RequestBody Persons personsDetails) throws Exception {
+        Persons updatePersons = personsDao.findById(id);
+        if (updatePersons == null){
+            throw new Exception("Cette personne n'existe pas avec l'id: " + id);
+        }
+
+        updatePersons.setFirstName(personsDetails.getFirstName());
+        updatePersons.setLastName(personsDetails.getLastName());
+        updatePersons.setAddress(personsDetails.getAddress());
+        updatePersons.setCity(personsDetails.getCity());
+        updatePersons.setZip(personsDetails.getZip());
+        updatePersons.setPhone(personsDetails.getPhone());
+        updatePersons.setEmail(personsDetails.getEmail());
+
+        personsDao.save(updatePersons);
+
+        return ResponseEntity.ok(updatePersons);
+    }
+
+    @DeleteMapping(value = "/person/{id}")
+    public ResponseEntity<String> deletePersons(@PathVariable String id) {
+
+        boolean isDeleted = personsDao.delete(Integer.valueOf(id));
+
+        if (!isDeleted) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return ResponseEntity.ok(id);
+
     }
 
 /*
