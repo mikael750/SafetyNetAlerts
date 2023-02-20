@@ -14,10 +14,10 @@ import java.nio.file.Files;
 @SpringBootApplication
 public class AlertsApplication {
 
-	public static byte[] data = new byte[0];
+	//public static byte[] data = new byte[0];
 	public static void main(String[] args) throws IOException {
 		//data = Files.readAllBytes(new File("../resources/data.json").toPath());
-		//safetynet.alerts.DAO.PersonsDaoImpl.load();
+		safetynet.alerts.DAO.PersonsDaoImpl.load();
 		SpringApplication.run(AlertsApplication.class, args);
 	}
 

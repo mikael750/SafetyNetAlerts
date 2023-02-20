@@ -1,18 +1,22 @@
 package safetynet.alerts.DAO;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jsoniter.JsonIterator;
 import com.jsoniter.any.Any;
+import com.jsoniter.spi.Slice;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 import safetynet.alerts.AlertsApplication;
 import safetynet.alerts.model.Persons;
 
 import javax.annotation.Resource;
 import javax.annotation.Resources;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,7 +24,7 @@ import java.util.Objects;
 public class PersonsDaoImpl implements PersonsDao{
 
     public static List<Persons> persons = new ArrayList<>();
-
+/*
     static{
         persons.add(new Persons("John", "Boyd", "1509 Culver St", "Culver", "97451","841-874-6512", "jaboyd@email.com"));
         persons.add(new Persons("Jacob", "Boyd", "1509 Culver St", "Culver", "97451","841-874-6513", "drk@email.com"));
@@ -46,23 +50,22 @@ public class PersonsDaoImpl implements PersonsDao{
         persons.add(new Persons("Clive", "Ferguson", "748 Townings Dr", "Culver", "97451", "841-874-6741", "clivfd@ymail.com"));
         persons.add(new Persons("Eric", "Cadigan", "951 LoneTree Rd", "Culver", "97451", "841-874-7458", "gramps@email.com"));
     }
-
-   /*
-    @Value("classpath:data/data.json")
-    Resource resourceFile;
+*/
 
     public static void load(){
         try {
-            JsonIterator iter = JsonIterator.parse(AlertsApplication.data);
+            InputStream file = PersonsDaoImpl.class.getResourceAsStream("/data.json");
+            assert file != null;
+            JsonIterator iter = JsonIterator.parse(file.readAllBytes());
             Any any = iter.readAny();
             Any personAny = any.get("persons");
             personAny.forEach(a -> {
-                persons.add(new Persons(persons.size()+1, a.get("firstName").toString() , a.get("lastName").toString(), a.get("address").toString(), a.get("city").toString(), a.get("zip").toString(),a.get("phone").toString(), a.get("email").toString()));
+                persons.add(new Persons(a.get("firstName").toString() , a.get("lastName").toString(), a.get("address").toString(), a.get("city").toString(), a.get("zip").toString(),a.get("phone").toString(), a.get("email").toString()));
             });
-            } catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-    }*/
+    }/**/
 
     @Override
     public List<Persons> findAll() {
