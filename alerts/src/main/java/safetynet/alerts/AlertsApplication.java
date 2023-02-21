@@ -18,6 +18,8 @@ public class AlertsApplication {
 	public static void main(String[] args) throws IOException {
 		//data = Files.readAllBytes(new File("../resources/data.json").toPath());
 		safetynet.alerts.DAO.PersonsDaoImpl.load();
+		safetynet.alerts.DAO.FireStationsDaoImpl.load();
+		safetynet.alerts.DAO.MedicalRecordsDaoImpl.load();
 		SpringApplication.run(AlertsApplication.class, args);
 	}
 

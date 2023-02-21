@@ -1,9 +1,16 @@
 package safetynet.alerts.DAO;
 
+import com.jsoniter.JsonIterator;
+import com.jsoniter.any.Any;
 import org.springframework.stereotype.Service;
 import safetynet.alerts.model.MedicalRecords;
+import safetynet.alerts.model.Persons;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,7 +19,7 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
 
     public static List<MedicalRecords> medicalRecords = new ArrayList<>();
 
-    static{
+    /*static{
         medicalRecords.add(new MedicalRecords("John", "Boyd","03/06/1984", new String[]{"aznol:350mg", "hydrapermazol:100mg"}, new String[]{"nillacilan"} ));
         medicalRecords.add(new MedicalRecords("Jacob", "Boyd", "03/06/1989", new String[]{"pharmacol:5000mg", "terazine:10mg", "noznazol:250mg"} , new String[]{} ));
         medicalRecords.add(new MedicalRecords("Tenley", "Boyd", "02/18/2012", new String[]{} , new String[]{"peanut"} ));
@@ -36,6 +43,21 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
         medicalRecords.add(new MedicalRecords("Kendrik", "Stelzer", "03/06/2014", new String[]{"noxidian:100mg", "pharmacol:2500mg"} , new String[]{} ));
         medicalRecords.add(new MedicalRecords("Clive", "Ferguson", "03/06/1994", new String[]{} , new String[]{} ));
         medicalRecords.add(new MedicalRecords("Eric", "Cadigan", "08/06/1945", new String[]{"tradoxidine:400mg"} , new String[]{} ));
+    }*/
+
+    public static void load(){
+        try {
+            InputStream file = MedicalRecordsDaoImpl.class.getResourceAsStream("/data.json");
+            assert file != null;
+            JsonIterator iter = JsonIterator.parse(file.readAllBytes());
+            Any any = iter.readAny();
+            Any medicalRecordsAny = any.get("persons");
+            medicalRecordsAny.forEach(a -> {
+                medicalRecords.add(new MedicalRecords(a.get("firstName").toString() , a.get("lastName").toString(), a.get("birthdate").toString(), new String[]{a.get("medications").toString()}, a.get("allergies").keys().toArray(new String[]{})));//split(" ")
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
