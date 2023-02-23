@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PersonsDao {
     List<Persons> findAll();
-    Persons findById(String firstName);
+    Persons findById(String firstName, String lastName);
     Persons save(Persons persons);
-    boolean delete(String firstName);
+    boolean delete(String firstName, String lastName);
 }

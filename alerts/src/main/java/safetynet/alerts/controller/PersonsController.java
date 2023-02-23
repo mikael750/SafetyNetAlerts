@@ -31,9 +31,9 @@ public class PersonsController {
         return personsDao.findAll();
     }
 
-    @GetMapping(value = "/person/{firstName}")
-    public Persons afficherUnePersonne(@PathVariable String firstName) {
-        return personsDao.findById(firstName);
+    @GetMapping(value = "/person/{firstName}/{lastName}")
+    public Persons afficherUnePersonne(@PathVariable String firstName, @PathVariable String lastName) {
+        return personsDao.findById(firstName, lastName);
     }
 
     @PostMapping(value = "/person")
@@ -44,20 +44,20 @@ public class PersonsController {
         }
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("/{firstName}")
-                .buildAndExpand(personsAdded.getFirstName())//, lastName
+                .path("/{firstName}/{lastName}")
+                .buildAndExpand(personsAdded.getFirstName(),personsAdded.getLastName())//, lastName
                 .toUri();
         return ResponseEntity.created(location).build();
     }
 
-    @PutMapping(value = "/person/{firstName}")
-    public ResponseEntity<Persons> updatePersons(@PathVariable String firstName,@RequestBody Persons personsDetails) throws Exception {
-        Persons updatePersons = personsDao.findById(firstName);
+    @PutMapping(value = "/person/{firstName}/{lastName}")
+    public ResponseEntity<Persons> updatePersons(@PathVariable String firstName, @PathVariable String lastName,@RequestBody Persons personsDetails) throws Exception {
+        Persons updatePersons = personsDao.findById(firstName, lastName);
         if (Objects.isNull(updatePersons)){
             throw new Exception(firstName + " n'est pas inscrit");
         }
         //updatePersons.setFirstName(personsDetails.getFirstName());
-        updatePersons.setLastName(personsDetails.getLastName());
+        //updatePersons.setLastName(personsDetails.getLastName());
         updatePersons.setAddress(personsDetails.getAddress());
         updatePersons.setCity(personsDetails.getCity());
         updatePersons.setZip(personsDetails.getZip());
@@ -69,10 +69,10 @@ public class PersonsController {
         return ResponseEntity.ok(updatePersons);
     }
 
-    @DeleteMapping(value = "/person/{firstName}")
-    public ResponseEntity<String> deletePersons(@PathVariable String firstName) {
+    @DeleteMapping(value = "/person/{firstName}/{lastName}")
+    public ResponseEntity<String> deletePersons(@PathVariable String firstName, @PathVariable String lastName) {
 
-        boolean isDeleted = personsDao.delete(firstName);
+        boolean isDeleted = personsDao.delete(firstName, lastName);
 
         if (!isDeleted) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

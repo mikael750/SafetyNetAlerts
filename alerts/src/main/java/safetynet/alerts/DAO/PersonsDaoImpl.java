@@ -73,9 +73,9 @@ public class PersonsDaoImpl implements PersonsDao{
     }
 
     @Override
-    public Persons findById(String firstName) {
+    public Persons findById(String firstName, String lastName) {
         for (Persons person : persons){
-            if (Objects.equals(person.getFirstName(), firstName)){
+            if (Objects.equals(person.getFirstName(), firstName) && Objects.equals(person.getLastName(), lastName)){
                 return person;
             }
         }
@@ -89,9 +89,9 @@ public class PersonsDaoImpl implements PersonsDao{
     }
 
     @Override
-    public boolean delete(String firstName) {
+    public boolean delete(String firstName, String lastName) {
 
-        boolean isDeleted = persons.removeIf(persons -> persons.getFirstName() == firstName);
+        boolean isDeleted = (persons.removeIf((persons -> Objects.equals(persons.getFirstName(), firstName) && Objects.equals(persons.getLastName(), lastName))));
 
         return isDeleted;
     }
