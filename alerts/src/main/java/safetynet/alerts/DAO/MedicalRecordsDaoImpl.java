@@ -51,9 +51,9 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
             assert file != null;
             JsonIterator iter = JsonIterator.parse(file.readAllBytes());
             Any any = iter.readAny();
-            Any medicalRecordsAny = any.get("persons");
+            Any medicalRecordsAny = any.get("medicalrecords");
             medicalRecordsAny.forEach(a -> {
-                medicalRecords.add(new MedicalRecords(a.get("firstName").toString() , a.get("lastName").toString(), a.get("birthdate").toString(), new String[]{a.get("medications").toString()}, a.get("allergies").keys().toArray(new String[]{})));//split(" ")
+                medicalRecords.add(new MedicalRecords(a.get("firstName").toString() , a.get("lastName").toString(), a.get("birthdate").toString(), a.get("medications").as(List.class), a.get("allergies").as(List.class)));
             });
         } catch (IOException e) {
             e.printStackTrace();

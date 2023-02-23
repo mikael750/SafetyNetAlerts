@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d0055eb-dd6f-48b4-8f46-f25c90aaa8a0" name="Changes" comment="MHE - Update persons GET,POST,PUT,DELETE">
+    <list default="true" id="9d0055eb-dd6f-48b4-8f46-f25c90aaa8a0" name="Changes" comment="MHE - Update GET,POST,PUT,DELETE">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/FireStationsDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/FireStationsDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/MedicalRecordsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/MedicalRecordsDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/MedicalRecordsDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/MedicalRecordsDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/FireStationsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/FireStationsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/MedicalRecordsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/MedicalRecordsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/MedicalRecords.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/MedicalRecords.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -254,7 +251,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677153711172</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="MHE - Update GET,POST,PUT,DELETE">
+      <created>1677158583086</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1677158583086</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -292,7 +296,9 @@
     <MESSAGE value="MHE - lier fichier JSON a Persons" />
     <MESSAGE value="MHE - lier fichier JSON a FireSation et MedicalRecords" />
     <MESSAGE value="MHE - Update persons GET,POST,PUT,DELETE" />
-    <option name="LAST_COMMIT_MESSAGE" value="MHE - Update persons GET,POST,PUT,DELETE" />
+    <MESSAGE value="MHE - Update medical GET,POST,PUT,DELETE" />
+    <MESSAGE value="MHE - Update GET,POST,PUT,DELETE" />
+    <option name="LAST_COMMIT_MESSAGE" value="MHE - Update GET,POST,PUT,DELETE" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
