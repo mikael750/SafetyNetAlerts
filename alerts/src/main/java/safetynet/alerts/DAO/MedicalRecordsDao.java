@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface MedicalRecordsDao {
     List<MedicalRecords> findAll();
-    MedicalRecords findById(String firstName);
+    MedicalRecords findById(String firstName, String lastName);
     MedicalRecords save(MedicalRecords medicalRecords);
-    boolean delete(String firstName);
+    boolean delete(String firstName, String lastName);
 }

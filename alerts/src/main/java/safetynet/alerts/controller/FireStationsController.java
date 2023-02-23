@@ -64,7 +64,7 @@ public class FireStationsController {
         return ResponseEntity.ok(updateFireStations);
     }
 
-    @DeleteMapping(value = "/person/{address}")
+    @DeleteMapping(value = "/firestation/{address}")
     public ResponseEntity<String> deleteAddress(@PathVariable String address) {
 
         boolean isDeleted = fireStationsDao.delete(address);

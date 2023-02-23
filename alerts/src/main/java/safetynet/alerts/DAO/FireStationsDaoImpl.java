@@ -72,7 +72,7 @@ public class FireStationsDaoImpl implements FireStationsDao{
     @Override
     public boolean delete(String address) {
 
-        boolean isDeleted = fireStations.removeIf(fireStations -> fireStations.getAddress() == address);
+        boolean isDeleted = fireStations.removeIf(fireStations -> Objects.equals(fireStations.getAddress(), address));
 
         return isDeleted;
     }

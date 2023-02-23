@@ -32,9 +32,9 @@ public class MedicalRecordsController {
         return medicalRecordsDao.findAll();
     }
 
-    @GetMapping(value = "/medicalrecord/{firstName}")
-    public MedicalRecords afficherMedicalRecords(@PathVariable String firstName) {
-        return medicalRecordsDao.findById(firstName);
+    @GetMapping(value = "/medicalrecord/{firstName}/{lastName}")
+    public MedicalRecords afficherMedicalRecords(@PathVariable String firstName,@PathVariable String lastName) {
+        return medicalRecordsDao.findById(firstName, lastName);
     }
 
     @PostMapping(value = "/medicalrecord")
@@ -45,19 +45,19 @@ public class MedicalRecordsController {
         }
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("/{firstName}")
-                .buildAndExpand(medicalRecordsAdded.getFirstName())
+                .path("/{firstName}/{lastName}")
+                .buildAndExpand(medicalRecordsAdded.getFirstName(), medicalRecordsAdded.getLastName())
                 .toUri();
         return ResponseEntity.created(location).build();
     }
 
-    @PutMapping(value = "/medicalrecord/{firstName}")
-    public ResponseEntity<MedicalRecords> updateMedicalRecords(@PathVariable String firstName, @RequestBody MedicalRecords medicalRecordsDetails) throws Exception {
-        MedicalRecords updateMedicalRecords = medicalRecordsDao.findById(firstName);
+    @PutMapping(value = "/medicalrecord/{firstName}/{lastName}")
+     public ResponseEntity<MedicalRecords> updateMedicalRecords(@PathVariable String firstName, @PathVariable String lastName, @RequestBody MedicalRecords medicalRecordsDetails) throws Exception {
+        MedicalRecords updateMedicalRecords = medicalRecordsDao.findById(firstName,lastName);
         if (Objects.isNull(updateMedicalRecords)){
-            throw new Exception(firstName + " na pas de donne medical");
+            throw new Exception(firstName + lastName + " na pas de donne medical");
         }
-        updateMedicalRecords.setLastName(medicalRecordsDetails.getLastName());
+        //updateMedicalRecords.setLastName(medicalRecordsDetails.getLastName());
         updateMedicalRecords.setBirthdate(medicalRecordsDetails.getBirthdate());
         updateMedicalRecords.setMedications(medicalRecordsDetails.getMedications());
         updateMedicalRecords.setAllergies(medicalRecordsDetails.getAllergies());
@@ -67,10 +67,10 @@ public class MedicalRecordsController {
         return ResponseEntity.ok(updateMedicalRecords);
     }
 
-    @DeleteMapping(value = "/medicalrecord/{firstName}")
-    public ResponseEntity<String> deleteMedicalrecord(@PathVariable String firstName) {
+    @DeleteMapping(value = "/medicalrecord/{firstName}/{lastName}")
+    public ResponseEntity<String> deleteMedicalrecord(@PathVariable String firstName, @PathVariable String lastName) {
 
-        boolean isDeleted = medicalRecordsDao.delete(firstName);
+        boolean isDeleted = medicalRecordsDao.delete(firstName, lastName);
 
         if (!isDeleted) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

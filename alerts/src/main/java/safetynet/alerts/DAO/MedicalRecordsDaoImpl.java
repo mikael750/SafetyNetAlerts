@@ -66,9 +66,9 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
     }
 
     @Override
-    public MedicalRecords findById(String firstName) {
+    public MedicalRecords findById(String firstName, String lastName) {
         for (MedicalRecords medicalRecord : medicalRecords){
-            if (Objects.equals(medicalRecord.getFirstName(), firstName)){
+            if (Objects.equals(medicalRecord.getFirstName(), firstName) && Objects.equals(medicalRecord.getLastName(), lastName)){
                 return medicalRecord;
             }
         }
@@ -82,9 +82,9 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
     }
 
     @Override
-    public boolean delete(String firstName) {
+    public boolean delete(String firstName, String lastName) {
 
-        boolean isDeleted = medicalRecords.removeIf(medicalRecords -> medicalRecords.getFirstName() == firstName);
+        boolean isDeleted = medicalRecords.removeIf((medicalRecords -> Objects.equals(medicalRecords.getFirstName(), firstName) && Objects.equals(medicalRecords.getLastName(), lastName)));
 
         return isDeleted;
     }
