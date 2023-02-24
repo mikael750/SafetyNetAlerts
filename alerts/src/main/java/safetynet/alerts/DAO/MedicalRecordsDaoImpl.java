@@ -3,6 +3,7 @@ package safetynet.alerts.DAO;
 import com.jsoniter.JsonIterator;
 import com.jsoniter.any.Any;
 import org.springframework.stereotype.Service;
+import safetynet.alerts.DAO.Util.tools;
 import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
 
@@ -78,6 +79,8 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
     @Override
     public MedicalRecords save(MedicalRecords medicalRecord) {
         medicalRecords.add(medicalRecord);
+
+        tools.change();
         return medicalRecord;
     }
 
@@ -86,6 +89,7 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
 
         boolean isDeleted = medicalRecords.removeIf((medicalRecords -> Objects.equals(medicalRecords.getFirstName(), firstName) && Objects.equals(medicalRecords.getLastName(), lastName)));
 
+        tools.change();
         return isDeleted;
     }
 }

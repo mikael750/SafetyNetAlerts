@@ -26,7 +26,7 @@ public class PersonsController {
         this.personsDao = personsDao;
     }
 
-    @GetMapping(value = "/person")
+    @GetMapping(value = "/persons")
     public List<Persons> listePersons() {
         return personsDao.findAll();
     }
@@ -82,23 +82,16 @@ public class PersonsController {
 
     }
 
+    @GetMapping(value = "/firestation")
+    public ResponseEntity<String> getStationNumber(@RequestParam String stationNumber){
+        //TODO firestation?stationNumber=<station_number>
 /*
-    @GetMapping("/persons")
-    public String listePersons() {
-		return "Une personne est appeller en exemple";
+* Cette url doit retourner une liste des personnes couvertes par la caserne de pompiers correspondante.
+Donc, si le numéro de station = 1, elle doit renvoyer les habitants couverts par la station numéro 1. La liste
+doit inclure les informations spécifiques suivantes : prénom, nom, adresse, numéro de téléphone. De plus,
+elle doit fournir un décompte du nombre d'adultes et du nombre d'enfants (tout individu âgé de 18 ans ou
+moins) dans la zone desservie
+* */
+        return null;
     }
-
-	@GetMapping("/persons/{id}")
-	public String afficherPersonne(@PathVariable int id) {
-		return "Vous avez demandé une personne avec l'id  " + id;
-	}
-
-	//Récupérer un produit par son Id
-	@GetMapping(value = "/persons/{id}")
-	public Persons afficherUnePersonne(@PathVariable int id) {
-		Persons persons = new Persons(id, new String("John"), new String("Boyd"), new String("1509 Culver St"), new String("Culver")
-		new String("97451"),new String("841-874-6512"), new String("jaboyd@email.com"));
-		return persons;
-	}
-*/
 }

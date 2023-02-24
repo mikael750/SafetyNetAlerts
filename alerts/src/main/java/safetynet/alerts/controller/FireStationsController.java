@@ -8,11 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import safetynet.alerts.model.Persons;
 
 import java.net.URI;
 import java.util.List;
@@ -27,7 +25,7 @@ public class FireStationsController {
         this.fireStationsDao = fireStationsDao;
     }
 
-    @GetMapping(value = "/firestation")
+    @GetMapping(value = "/firestations")
     public List<FireStations> listeFireStations() {
         return fireStationsDao.findAll();
     }

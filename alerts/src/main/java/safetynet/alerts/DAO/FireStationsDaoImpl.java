@@ -3,6 +3,7 @@ package safetynet.alerts.DAO;
 import com.jsoniter.JsonIterator;
 import com.jsoniter.any.Any;
 import org.springframework.stereotype.Service;
+import safetynet.alerts.DAO.Util.tools;
 import safetynet.alerts.model.FireStations;
 import safetynet.alerts.model.Persons;
 
@@ -66,6 +67,8 @@ public class FireStationsDaoImpl implements FireStationsDao{
     @Override
     public FireStations save(FireStations fireStation) {
         fireStations.add(fireStation);
+
+        tools.change();
         return fireStation;
     }
 
@@ -74,6 +77,7 @@ public class FireStationsDaoImpl implements FireStationsDao{
 
         boolean isDeleted = fireStations.removeIf(fireStations -> Objects.equals(fireStations.getAddress(), address));
 
+        tools.change();
         return isDeleted;
     }
 }

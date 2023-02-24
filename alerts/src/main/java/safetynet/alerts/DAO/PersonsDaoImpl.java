@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 import safetynet.alerts.AlertsApplication;
+import safetynet.alerts.DAO.Util.tools;
 import safetynet.alerts.model.Persons;
 
 import javax.annotation.Resource;
@@ -85,6 +86,7 @@ public class PersonsDaoImpl implements PersonsDao{
     @Override
     public Persons save(Persons person) {
         persons.add(person);
+        tools.change();
         return person;
     }
 
@@ -93,6 +95,9 @@ public class PersonsDaoImpl implements PersonsDao{
 
         boolean isDeleted = (persons.removeIf((persons -> Objects.equals(persons.getFirstName(), firstName) && Objects.equals(persons.getLastName(), lastName))));
 
+        tools.change();
         return isDeleted;
     }
+
+    //TODO fonction liste firestation
 }

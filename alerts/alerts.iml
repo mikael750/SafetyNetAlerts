@@ -97,5 +97,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:5.3.24" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.9.0" level="project" />
     <orderEntry type="library" name="Maven: com.jsoniter:jsoniter:0.9.19" level="project" />
+    <orderEntry type="library" name="Maven: org.json:json:20220924" level="project" />
   </component>
 </module>

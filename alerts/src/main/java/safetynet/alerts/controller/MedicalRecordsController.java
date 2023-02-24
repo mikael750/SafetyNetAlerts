@@ -27,17 +27,17 @@ public class MedicalRecordsController {
         this.medicalRecordsDao = medicalRecordsDao;
     }
 
-    @GetMapping(value = "/medicalrecord")
+    @GetMapping(value = "/medicalRecords")
     public List<MedicalRecords> listeMedicalRecords() {
         return medicalRecordsDao.findAll();
     }
 
-    @GetMapping(value = "/medicalrecord/{firstName}/{lastName}")
+    @GetMapping(value = "/medicalRecord/{firstName}/{lastName}")
     public MedicalRecords afficherMedicalRecords(@PathVariable String firstName,@PathVariable String lastName) {
         return medicalRecordsDao.findById(firstName, lastName);
     }
 
-    @PostMapping(value = "/medicalrecord")
+    @PostMapping(value = "/medicalRecord")
     public ResponseEntity<MedicalRecords> ajouterMedicalRecords(@RequestBody MedicalRecords medicalRecords) {
         MedicalRecords medicalRecordsAdded = medicalRecordsDao.save(medicalRecords);
         if (Objects.isNull(medicalRecordsAdded)) {
@@ -51,7 +51,7 @@ public class MedicalRecordsController {
         return ResponseEntity.created(location).build();
     }
 
-    @PutMapping(value = "/medicalrecord/{firstName}/{lastName}")
+    @PutMapping(value = "/medicalRecord/{firstName}/{lastName}")
      public ResponseEntity<MedicalRecords> updateMedicalRecords(@PathVariable String firstName, @PathVariable String lastName, @RequestBody MedicalRecords medicalRecordsDetails) throws Exception {
         MedicalRecords updateMedicalRecords = medicalRecordsDao.findById(firstName,lastName);
         if (Objects.isNull(updateMedicalRecords)){
@@ -67,8 +67,8 @@ public class MedicalRecordsController {
         return ResponseEntity.ok(updateMedicalRecords);
     }
 
-    @DeleteMapping(value = "/medicalrecord/{firstName}/{lastName}")
-    public ResponseEntity<String> deleteMedicalrecord(@PathVariable String firstName, @PathVariable String lastName) {
+    @DeleteMapping(value = "/medicalRecord/{firstName}/{lastName}")
+    public ResponseEntity<String> deleteMedicalRecord(@PathVariable String firstName, @PathVariable String lastName) {
 
         boolean isDeleted = medicalRecordsDao.delete(firstName, lastName);
 
