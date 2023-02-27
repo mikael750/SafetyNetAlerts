@@ -9,5 +9,8 @@ public interface FireStationsDao {
     List<FireStations> findAll();
     FireStations findById(String address);
     FireStations save(FireStations fireStations);
+
+    FireStations update(FireStations fireStation);
+
     boolean delete(String address);
 }

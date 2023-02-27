@@ -64,7 +64,7 @@ public class PersonsController {
         updatePersons.setPhone(personsDetails.getPhone());
         updatePersons.setEmail(personsDetails.getEmail());
 
-        personsDao.save(updatePersons);
+        personsDao.update(updatePersons);
 
         return ResponseEntity.ok(updatePersons);
     }
@@ -92,6 +92,8 @@ doit inclure les informations spécifiques suivantes : prénom, nom, adresse, nu
 elle doit fournir un décompte du nombre d'adultes et du nombre d'enfants (tout individu âgé de 18 ans ou
 moins) dans la zone desservie
 * */
+        //controllerLogger.info("URI firestation/"+stationNumber+", displayed");
+        //return safetynetServiceController.getCustomStationNumber(stationNumber);
         return null;
     }
 }

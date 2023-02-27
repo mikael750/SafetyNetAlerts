@@ -1,23 +1,13 @@
 package safetynet.alerts.DAO;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jsoniter.JsonIterator;
 import com.jsoniter.any.Any;
-import com.jsoniter.spi.Slice;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
-import safetynet.alerts.AlertsApplication;
 import safetynet.alerts.DAO.Util.tools;
 import safetynet.alerts.model.Persons;
 
-import javax.annotation.Resource;
-import javax.annotation.Resources;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -89,6 +79,15 @@ public class PersonsDaoImpl implements PersonsDao{
         tools.change();
         return person;
     }
+
+    @Override
+    public Persons update(Persons person) {
+        persons.remove(person);
+        persons.add(person);
+        tools.change();
+        return person;
+    }
+
 
     @Override
     public boolean delete(String firstName, String lastName) {

@@ -62,7 +62,7 @@ public class MedicalRecordsController {
         updateMedicalRecords.setMedications(medicalRecordsDetails.getMedications());
         updateMedicalRecords.setAllergies(medicalRecordsDetails.getAllergies());
 
-        medicalRecordsDao.save(updateMedicalRecords);
+        medicalRecordsDao.update(updateMedicalRecords);
 
         return ResponseEntity.ok(updateMedicalRecords);
     }

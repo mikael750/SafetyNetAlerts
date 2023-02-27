@@ -5,7 +5,6 @@ import com.jsoniter.any.Any;
 import org.springframework.stereotype.Service;
 import safetynet.alerts.DAO.Util.tools;
 import safetynet.alerts.model.FireStations;
-import safetynet.alerts.model.Persons;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,7 +66,14 @@ public class FireStationsDaoImpl implements FireStationsDao{
     @Override
     public FireStations save(FireStations fireStation) {
         fireStations.add(fireStation);
+        tools.change();
+        return fireStation;
+    }
 
+    @Override
+    public FireStations update(FireStations fireStation) {
+        fireStations.remove(fireStation);
+        fireStations.add(fireStation);
         tools.change();
         return fireStation;
     }

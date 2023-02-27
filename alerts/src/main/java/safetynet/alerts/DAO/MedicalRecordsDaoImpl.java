@@ -5,13 +5,10 @@ import com.jsoniter.any.Any;
 import org.springframework.stereotype.Service;
 import safetynet.alerts.DAO.Util.tools;
 import safetynet.alerts.model.MedicalRecords;
-import safetynet.alerts.model.Persons;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -79,7 +76,14 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
     @Override
     public MedicalRecords save(MedicalRecords medicalRecord) {
         medicalRecords.add(medicalRecord);
+        tools.change();
+        return medicalRecord;
+    }
 
+    @Override
+    public MedicalRecords update(MedicalRecords medicalRecord) {
+        medicalRecords.remove(medicalRecord);
+        medicalRecords.add(medicalRecord);
         tools.change();
         return medicalRecord;
     }

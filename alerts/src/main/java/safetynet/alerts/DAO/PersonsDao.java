@@ -10,5 +10,8 @@ public interface PersonsDao {
     List<Persons> findAll();
     Persons findById(String firstName, String lastName);
     Persons save(Persons persons);
+
+    Persons update(Persons person);
+
     boolean delete(String firstName, String lastName);
 }

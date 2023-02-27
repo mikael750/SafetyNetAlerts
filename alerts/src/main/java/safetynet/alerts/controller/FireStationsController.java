@@ -57,7 +57,7 @@ public class FireStationsController {
         }
         updateFireStations.setStation(fireStationsDetails.getStation());
 
-        fireStationsDao.save(updateFireStations);
+        fireStationsDao.update(updateFireStations);
 
         return ResponseEntity.ok(updateFireStations);
     }
