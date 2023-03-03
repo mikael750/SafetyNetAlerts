@@ -1,29 +1,48 @@
 package safetynet.alerts.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.json.MappingJacksonValue;
+import safetynet.alerts.DAO.FireStationsDao;
+import safetynet.alerts.DAO.MedicalRecordsDao;
 import safetynet.alerts.DAO.PersonsDao;
+import safetynet.alerts.model.FireStations;
+import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import safetynet.alerts.model.response.SimplePerson;
 
 import java.net.URI;
-import java.util.List;
-import java.util.Objects;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @RestController
 public class PersonsController {
 
     private final PersonsDao personsDao;
+    private final FireStationsDao fireStationDao;
+    private final MedicalRecordsDao medicalRecordsDao;
 
-    public PersonsController(PersonsDao personsDao){
+    public PersonsController(PersonsDao personsDao, FireStationsDao fireStationsDao, FireStationsDao fireStation, FireStationsDao fireStationDao,  MedicalRecordsDao medicalRecordsDao){
         this.personsDao = personsDao;
+        this.fireStationDao = fireStationDao;
+        this.medicalRecordsDao = medicalRecordsDao;
     }
 
     @GetMapping(value = "/persons")
@@ -83,8 +102,9 @@ public class PersonsController {
     }
 
     @GetMapping(value = "/firestation")
-    public ResponseEntity<String> getStationNumber(@RequestParam String stationNumber){
+    public ResponseEntity getStationNumber(@RequestParam String stationNumber) throws JsonProcessingException, ParseException {
         //TODO firestation?stationNumber=<station_number>
+        //List<Persons>MappingJacksonValue
 /*
 * Cette url doit retourner une liste des personnes couvertes par la caserne de pompiers correspondante.
 Donc, si le numéro de station = 1, elle doit renvoyer les habitants couverts par la station numéro 1. La liste
@@ -92,8 +112,43 @@ doit inclure les informations spécifiques suivantes : prénom, nom, adresse, nu
 elle doit fournir un décompte du nombre d'adultes et du nombre d'enfants (tout individu âgé de 18 ans ou
 moins) dans la zone desservie
 * */
-        //controllerLogger.info("URI firestation/"+stationNumber+", displayed");
-        //return safetynetServiceController.getCustomStationNumber(stationNumber);
-        return null;
+
+        List<FireStations> findFireStations = fireStationDao.findAll();
+
+        List<Persons> listPersonsStations = new ArrayList<>();
+        for (FireStations station : findFireStations){
+            // si le numéro de station = stationNumber
+            if(Integer.parseInt(station.getStation()) == Integer.parseInt(stationNumber)){
+                listPersonsStations.addAll(personsDao.findByAddress(station.getAddress()));
+            }
+        }
+        //enleve les doublon
+        Set<Persons> set = new LinkedHashSet<>(listPersonsStations);
+        listPersonsStations.clear();
+        listPersonsStations.addAll(set);
+/**/
+
+        List<MedicalRecords> findMedicalRecords = medicalRecordsDao.findAll();
+        Date date = new Date();
+        SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
+        int mineurs = 0;
+        int majeurs = 0;
+        for (MedicalRecords records : findMedicalRecords){
+            int i = 0;
+            for (Persons person : listPersonsStations){
+                if (i < listPersonsStations.size()){
+                    if(Objects.equals(person.getFirstName(), records.getFirstName())) {//listPersonsStations.get(i)
+                        long diffInMillies = Math.abs(date.getTime() - DateFor.parse(records.getBirthdate()).getTime());
+                        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+                        long years = diff / 365;
+                        if (years < 18){mineurs++;}else{majeurs++;}
+                    }
+                }i++;
+            }
+        }
+        String minors = String.valueOf(mineurs);
+        String majors = String.valueOf(majeurs);
+
+        return  ResponseEntity.status(HttpStatus.OK).body(listPersonsStations.stream().map((x)-> new SimplePerson(x,minors,majors)));
     }
 }

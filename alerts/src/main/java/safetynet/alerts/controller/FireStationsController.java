@@ -41,12 +41,12 @@ public class FireStationsController {
         if (Objects.isNull(fireStationsAdded)) {
             return ResponseEntity.noContent().build();
         }
-        URI location = ServletUriComponentsBuilder
+        /*URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{address}")
                 .buildAndExpand(fireStationsAdded.getAddress())
-                .toUri();
-        return ResponseEntity.created(location).build();
+                .toUri();*/ // .created(location).build();
+        return ResponseEntity.ok(fireStationsAdded);
     }
 
     @PutMapping(value = "/firestation/{address}")

@@ -7,9 +7,9 @@ import safetynet.alerts.DAO.Util.tools;
 import safetynet.alerts.model.Persons;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class PersonsDaoImpl implements PersonsDao{
@@ -60,6 +60,8 @@ public class PersonsDaoImpl implements PersonsDao{
 
     @Override
     public List<Persons> findAll() {
+        //TODO Logger
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO,"found all persons");//log4j
         return persons;
     }
 
@@ -71,6 +73,17 @@ public class PersonsDaoImpl implements PersonsDao{
             }
         }
         return null;
+    }
+
+    @Override
+    public List<Persons> findByAddress(String address){
+        List<Persons> personsByAddress = new ArrayList<>();
+        for (Persons person : persons){
+            if (Objects.equals(person.getAddress(), address)){
+                personsByAddress.add(person);
+            }
+        }
+        return personsByAddress;
     }
 
     @Override
@@ -98,5 +111,5 @@ public class PersonsDaoImpl implements PersonsDao{
         return isDeleted;
     }
 
-    //TODO fonction liste firestation
+
 }
