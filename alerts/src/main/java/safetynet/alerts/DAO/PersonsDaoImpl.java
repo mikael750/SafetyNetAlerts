@@ -2,48 +2,29 @@ package safetynet.alerts.DAO;
 
 import com.jsoniter.JsonIterator;
 import com.jsoniter.any.Any;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import safetynet.alerts.DAO.Util.tools;
+import safetynet.alerts.model.FireStations;
+import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class PersonsDaoImpl implements PersonsDao{
 
     public static List<Persons> persons = new ArrayList<>();
-/*
-    static{
-        persons.add(new Persons("John", "Boyd", "1509 Culver St", "Culver", "97451","841-874-6512", "jaboyd@email.com"));
-        persons.add(new Persons("Jacob", "Boyd", "1509 Culver St", "Culver", "97451","841-874-6513", "drk@email.com"));
-        persons.add(new Persons("Tenley", "Boyd", "1509 Culver St", "Culver", "97451","841-874-6512","tenz@email.com"));
-        persons.add(new Persons("Roger", "Boyd", "1509 Culver St", "Culver", "97451","841-874-6512", "jaboyd@email.com"));
-        persons.add(new Persons("Felicia", "Boyd", "1509 Culver St", "Culver", "97451","841-874-6544", "jaboyd@email.com"));
-        persons.add(new Persons("Jonanathan", "Marrack", "29 15th St", "Culver", "97451","841-874-6513", "drk@email.com"));
-        persons.add(new Persons("Tessa", "Carman", "834 Binoc Ave", "Culver", "97451","841-874-6512", "tenz@email.com"));
-        persons.add(new Persons("Peter", "Duncan", "834 Binoc Ave", "Culver", "97451","841-874-6512", "jaboyd@email.com"));
-        persons.add(new Persons("Foster", "Shepard", "748 Townings Dr", "Culver", "97451","841-874-6544", "jaboyd@email.com"));
-        persons.add(new Persons("Tony", "Cooper", "112 Steppes Pl", "Culver", "97451", "841-874-6874", "tcoop@ymail.com"));
-        persons.add(new Persons("Lily", "Cooper", "489 Manchester St", "Culver", "97451", "841-874-9845", "lily@email.com"));
-        persons.add(new Persons("Sophia", "Zemicks", "892 Downing Ct", "Culver", "97451", "841-874-7878", "soph@email.com"));
-        persons.add(new Persons("Warren", "Zemicks", "892 Downing Ct", "Culver", "97451", "841-874-7512","ward@email.com"));
-        persons.add(new Persons("Zach", "Zemicks", "892 Downing Ct", "Culver", "97451", "841-874-7512", "zarc@email.com"));
-        persons.add(new Persons("Reginold", "Walker", "908 73rd St", "Culver", "97451", "841-874-8547", "reg@email.com"));
-        persons.add(new Persons("Jamie", "Peters", "908 73rd St", "Culver", "97451","841-874-7462", "jpeter@email.com"));
-        persons.add(new Persons("Ron", "Peters", "112 Steppes Pl", "Culver", "97451", "841-874-8888", "jpeter@email.com"));
-        persons.add(new Persons("Allison", "Boyd", "112 Steppes Pl", "Culver", "97451", "841-874-9888", "aly@imail.com"));
-        persons.add(new Persons("Brian", "Stelzer", "947 E. Rose Dr", "Culver", "97451", "841-874-7784", "bstel@email.com"));
-        persons.add(new Persons("Shawna", "Stelzer", "947 E. Rose Dr", "Culver", "97451","841-874-7784", "ssanw@email.com"));
-        persons.add(new Persons("Kendrik", "Stelzer", "947 E. Rose Dr", "Culver", "97451", "841-874-7784", "bstel@email.com"));
-        persons.add(new Persons("Clive", "Ferguson", "748 Townings Dr", "Culver", "97451", "841-874-6741", "clivfd@ymail.com"));
-        persons.add(new Persons("Eric", "Cadigan", "951 LoneTree Rd", "Culver", "97451", "841-874-7458", "gramps@email.com"));
-    }
-*/
+    private static final Logger logger = LogManager.getLogger(PersonsDaoImpl.class);
+
 
     public static void load(){
+        logger.info("Chargement des donner des personnes.");
         try {
             InputStream file = PersonsDaoImpl.class.getResourceAsStream("/data.json");
             assert file != null;
@@ -60,13 +41,13 @@ public class PersonsDaoImpl implements PersonsDao{
 
     @Override
     public List<Persons> findAll() {
-        //TODO Logger
-        Logger.getLogger(this.getClass().getName()).log(Level.INFO,"found all persons");//log4j
+        logger.info("Recherche de toutes les personnes.");
         return persons;
     }
 
     @Override
     public Persons findById(String firstName, String lastName) {
+        logger.info("Recherche d'une personne par nom et prenom.");
         for (Persons person : persons){
             if (Objects.equals(person.getFirstName(), firstName) && Objects.equals(person.getLastName(), lastName)){
                 return person;
@@ -76,7 +57,50 @@ public class PersonsDaoImpl implements PersonsDao{
     }
 
     @Override
+    public List<Persons> findByFireStation(List<FireStations> listStations, List<Persons> listPersonsStations, String stationNumber, PersonsDao personsDao){
+        logger.info("Recherche par caserne.");
+        for (FireStations station : listStations){
+            // si le numéro de station = stationNumber
+            if(Integer.parseInt(station.getStation()) == Integer.parseInt(stationNumber)){
+                listPersonsStations.addAll(personsDao.findByAddress(station.getAddress()));
+            }
+        }
+        //enleve les doublon
+        Set<Persons> set = new LinkedHashSet<>(listPersonsStations);
+        listPersonsStations.clear();
+        listPersonsStations.addAll(set);
+
+        return listPersonsStations;
+    }
+
+    @Override
+    public  String findPersonsAges(List<MedicalRecords> findMedicalRecords, List<Persons> listPersonsStations) throws ParseException {
+        logger.info("Recherche par ages des personnes");
+        Date date = new Date();
+        SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
+        int mineurs = 0;
+        int majeurs = 0;
+        for (MedicalRecords records : findMedicalRecords){
+            int i = 0;
+            for (Persons person : listPersonsStations){
+                if (i < listPersonsStations.size()){
+                    if(Objects.equals(person.getFirstName(), records.getFirstName())) {//listPersonsStations.get(i)
+                        long diffInMillies = Math.abs(date.getTime() - DateFor.parse(records.getBirthdate()).getTime());
+                        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+                        long years = diff / 365;
+                        if (years < 18){mineurs++;}else{majeurs++;}
+                    }
+                }i++;
+            }
+        }
+        //String minors = String.valueOf(mineurs);
+        //String majors = String.valueOf(majeurs);
+        return "Il y a " + mineurs + " mineurs sur " + majeurs + " majeurs";
+    }
+
+    @Override
     public List<Persons> findByAddress(String address){
+        logger.info("Recherche par adresse");
         List<Persons> personsByAddress = new ArrayList<>();
         for (Persons person : persons){
             if (Objects.equals(person.getAddress(), address)){
@@ -88,6 +112,7 @@ public class PersonsDaoImpl implements PersonsDao{
 
     @Override
     public Persons save(Persons person) {
+        logger.info("Sauvegarde des changements de la Dao des personnes");
         persons.add(person);
         tools.change();
         return person;
@@ -95,6 +120,7 @@ public class PersonsDaoImpl implements PersonsDao{
 
     @Override
     public Persons update(Persons person) {
+        logger.info("Mis à Jour de la Dao des personnes");
         persons.remove(person);
         persons.add(person);
         tools.change();
@@ -104,7 +130,7 @@ public class PersonsDaoImpl implements PersonsDao{
 
     @Override
     public boolean delete(String firstName, String lastName) {
-
+        logger.info("Suppression des donnees d'une personne");
         boolean isDeleted = (persons.removeIf((persons -> Objects.equals(persons.getFirstName(), firstName) && Objects.equals(persons.getLastName(), lastName))));
 
         tools.change();

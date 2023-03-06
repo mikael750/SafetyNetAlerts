@@ -11,15 +11,17 @@ public class SimplePerson {
     private String lastName;
     private String address;
     private String phone;
-    private String minors;
-    private String adults;
-
-    public SimplePerson(Persons person, String minors, String adults){
+    private String total;
+//    private String minors;
+//    private String adults;
+//String minors, String adults
+    public SimplePerson(Persons person, String total){
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
         this.address = person.getAddress();
         this.phone = person.getPhone();
-        this.minors = minors;
-        this.adults = adults;
+        this.total = total;
+        //this.minors = minors;
+        //this.adults = adults;
     }
 }

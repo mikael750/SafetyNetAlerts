@@ -1,5 +1,6 @@
 package safetynet.alerts;
 
+import org.apache.log4j.BasicConfigurator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +18,7 @@ public class AlertsApplication {
 	//public static byte[] data = new byte[0];
 	public static void main(String[] args) throws IOException {
 		//data = Files.readAllBytes(new File("../resources/data.json").toPath());
+		BasicConfigurator.configure();
 		safetynet.alerts.DAO.PersonsDaoImpl.load();
 		safetynet.alerts.DAO.FireStationsDaoImpl.load();
 		safetynet.alerts.DAO.MedicalRecordsDaoImpl.load();

@@ -112,43 +112,12 @@ doit inclure les informations spécifiques suivantes : prénom, nom, adresse, nu
 elle doit fournir un décompte du nombre d'adultes et du nombre d'enfants (tout individu âgé de 18 ans ou
 moins) dans la zone desservie
 * */
-
         List<FireStations> findFireStations = fireStationDao.findAll();
-
-        List<Persons> listPersonsStations = new ArrayList<>();
-        for (FireStations station : findFireStations){
-            // si le numéro de station = stationNumber
-            if(Integer.parseInt(station.getStation()) == Integer.parseInt(stationNumber)){
-                listPersonsStations.addAll(personsDao.findByAddress(station.getAddress()));
-            }
-        }
-        //enleve les doublon
-        Set<Persons> set = new LinkedHashSet<>(listPersonsStations);
-        listPersonsStations.clear();
-        listPersonsStations.addAll(set);
-/**/
-
         List<MedicalRecords> findMedicalRecords = medicalRecordsDao.findAll();
-        Date date = new Date();
-        SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
-        int mineurs = 0;
-        int majeurs = 0;
-        for (MedicalRecords records : findMedicalRecords){
-            int i = 0;
-            for (Persons person : listPersonsStations){
-                if (i < listPersonsStations.size()){
-                    if(Objects.equals(person.getFirstName(), records.getFirstName())) {//listPersonsStations.get(i)
-                        long diffInMillies = Math.abs(date.getTime() - DateFor.parse(records.getBirthdate()).getTime());
-                        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-                        long years = diff / 365;
-                        if (years < 18){mineurs++;}else{majeurs++;}
-                    }
-                }i++;
-            }
-        }
-        String minors = String.valueOf(mineurs);
-        String majors = String.valueOf(majeurs);
+        List<Persons> listPersonsStations = new ArrayList<>();
+        personsDao.findByFireStation(findFireStations,listPersonsStations,stationNumber,personsDao);
+        String total = personsDao.findPersonsAges(findMedicalRecords,listPersonsStations);
 
-        return  ResponseEntity.status(HttpStatus.OK).body(listPersonsStations.stream().map((x)-> new SimplePerson(x,minors,majors)));
+        return  ResponseEntity.status(HttpStatus.OK).body(listPersonsStations.stream().map((x)-> new SimplePerson(x, total)));
     }
 }

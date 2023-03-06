@@ -2,6 +2,8 @@ package safetynet.alerts.DAO;
 
 import com.jsoniter.JsonIterator;
 import com.jsoniter.any.Any;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import safetynet.alerts.DAO.Util.tools;
 import safetynet.alerts.model.FireStations;
@@ -16,24 +18,10 @@ import java.util.Objects;
 public class FireStationsDaoImpl implements FireStationsDao{
 
     public static List<FireStations> fireStations = new ArrayList<>();
-
-    /*static{
-        fireStations.add(new FireStations("1509 Culver St", "3"));
-        fireStations.add(new FireStations("29 15th St","2"));
-        fireStations.add(new FireStations("834 Binoc Ave", "3"));
-        fireStations.add(new FireStations("644 Gershwin Cir", "1"));
-        fireStations.add(new FireStations("748 Townings Dr", "3"));
-        fireStations.add(new FireStations("112 Steppes Pl", "3"));
-        fireStations.add(new FireStations("489 Manchester St", "4"));
-        fireStations.add(new FireStations("892 Downing Ct", "2"));
-        fireStations.add(new FireStations("908 73rd St", "1"));
-        fireStations.add(new FireStations("112 Steppes Pl", "4"));
-        fireStations.add(new FireStations("947 E. Rose Dr", "1"));
-        fireStations.add(new FireStations("748 Townings Dr", "3"));
-        fireStations.add(new FireStations("951 LoneTree Rd", "2"));
-    }*/
+    private static final Logger logger = LogManager.getLogger(FireStationsDaoImpl.class);
 
     public static void load(){
+        logger.info("Chargement des donner des casernes.");
         try {
             InputStream file = FireStationsDaoImpl.class.getResourceAsStream("/data.json");
             assert file != null;
@@ -50,11 +38,13 @@ public class FireStationsDaoImpl implements FireStationsDao{
 
     @Override
     public List<FireStations> findAll() {
+        logger.info("Recherche de toutes les casernes.");
         return fireStations;
     }
 
     @Override
     public FireStations findById(String address) {
+        logger.info("Recherche d'une caserne par address.");
         for (FireStations fireStation : fireStations){
             if (Objects.equals(fireStation.getAddress(), address)){
                 return fireStation;
@@ -65,6 +55,7 @@ public class FireStationsDaoImpl implements FireStationsDao{
 
     @Override
     public FireStations save(FireStations fireStation) {
+        logger.info("Sauvegarde des changements de la Dao des casernes");
         fireStations.add(fireStation);
         tools.change();
         return fireStation;
@@ -72,6 +63,7 @@ public class FireStationsDaoImpl implements FireStationsDao{
 
     @Override
     public FireStations update(FireStations fireStation) {
+        logger.info("Mis à Jour de la Dao des casernes");
         fireStations.remove(fireStation);
         fireStations.add(fireStation);
         tools.change();
@@ -80,7 +72,7 @@ public class FireStationsDaoImpl implements FireStationsDao{
 
     @Override
     public boolean delete(String address) {
-
+        logger.info("Suppression de l'adress d'une casernes");
         boolean isDeleted = fireStations.removeIf(fireStations -> Objects.equals(fireStations.getAddress(), address));
 
         tools.change();
