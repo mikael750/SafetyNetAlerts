@@ -12,9 +12,10 @@ import safetynet.alerts.model.Persons;
 
 import java.io.*;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
+
+import static safetynet.alerts.DAO.Util.tools.calculateAge;
+import static safetynet.alerts.DAO.Util.tools.deleteDoublon;
 
 @Service
 public class PersonsDaoImpl implements PersonsDao{
@@ -57,45 +58,37 @@ public class PersonsDaoImpl implements PersonsDao{
     }
 
     @Override
-    public List<Persons> findByFireStation(List<FireStations> listStations, List<Persons> listPersonsStations, String stationNumber, PersonsDao personsDao){
+    public List<Persons> findByFireStation(List<FireStations> listStations , String stationNumber, PersonsDao personsDao){
         logger.info("Recherche par caserne.");
-        for (FireStations station : listStations){
+        List<Persons> listPersonsStations = new ArrayList<>();
+        for (FireStations station : listStations) {
             // si le numéro de station = stationNumber
-            if(Integer.parseInt(station.getStation()) == Integer.parseInt(stationNumber)){
+            if (Integer.parseInt(station.getStation()) == Integer.parseInt(stationNumber)) {
                 listPersonsStations.addAll(personsDao.findByAddress(station.getAddress()));
             }
         }
-        //enleve les doublon
-        Set<Persons> set = new LinkedHashSet<>(listPersonsStations);
-        listPersonsStations.clear();
-        listPersonsStations.addAll(set);
+        deleteDoublon(listPersonsStations);
 
         return listPersonsStations;
     }
 
+
+
     @Override
-    public  String findPersonsAges(List<MedicalRecords> findMedicalRecords, List<Persons> listPersonsStations) throws ParseException {
+    public List<String> findPersonsAges(List<MedicalRecords> findMedicalRecords, List<Persons> listPersons) throws ParseException {
         logger.info("Recherche par ages des personnes");
-        Date date = new Date();
-        SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
-        int mineurs = 0;
-        int majeurs = 0;
+        List<String> ages = new ArrayList<>();
         for (MedicalRecords records : findMedicalRecords){
             int i = 0;
-            for (Persons person : listPersonsStations){
-                if (i < listPersonsStations.size()){
-                    if(Objects.equals(person.getFirstName(), records.getFirstName())) {//listPersonsStations.get(i)
-                        long diffInMillies = Math.abs(date.getTime() - DateFor.parse(records.getBirthdate()).getTime());
-                        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-                        long years = diff / 365;
-                        if (years < 18){mineurs++;}else{majeurs++;}
+            for (Persons person : listPersons){
+                if (i < listPersons.size()){
+                    if(Objects.equals(person.getFirstName(), records.getFirstName()) && Objects.equals(person.getLastName(), records.getLastName())) {
+                        ages.add(String.valueOf(calculateAge(records)));
                     }
                 }i++;
             }
         }
-        //String minors = String.valueOf(mineurs);
-        //String majors = String.valueOf(majeurs);
-        return "Il y a " + mineurs + " mineurs sur " + majeurs + " majeurs";
+        return ages;
     }
 
     @Override

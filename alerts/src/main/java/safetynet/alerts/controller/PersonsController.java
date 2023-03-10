@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import safetynet.alerts.model.response.ChildAlert;
+import safetynet.alerts.model.response.CountPersons;
 import safetynet.alerts.model.response.SimplePerson;
 
 import java.net.URI;
@@ -31,6 +33,8 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static safetynet.alerts.DAO.Util.tools.deleteDoublon;
 
 @RestController
 public class PersonsController {
@@ -101,23 +105,55 @@ public class PersonsController {
 
     }
 
+    /*
+    * Retourne une liste des personnes couvertes par la caserne de pompiers correspondante.
+    * Fourni un décompte du nombre d'adultes et du nombre d'enfants dans la zone desservie.
+    */
     @GetMapping(value = "/firestation")
-    public ResponseEntity getStationNumber(@RequestParam String stationNumber) throws JsonProcessingException, ParseException {
-        //TODO firestation?stationNumber=<station_number>
-        //List<Persons>MappingJacksonValue
-/*
-* Cette url doit retourner une liste des personnes couvertes par la caserne de pompiers correspondante.
-Donc, si le numéro de station = 1, elle doit renvoyer les habitants couverts par la station numéro 1. La liste
-doit inclure les informations spécifiques suivantes : prénom, nom, adresse, numéro de téléphone. De plus,
-elle doit fournir un décompte du nombre d'adultes et du nombre d'enfants (tout individu âgé de 18 ans ou
-moins) dans la zone desservie
-* */
+    public ResponseEntity getStationNumber(@RequestParam String stationNumber) throws ParseException {
         List<FireStations> findFireStations = fireStationDao.findAll();
         List<MedicalRecords> findMedicalRecords = medicalRecordsDao.findAll();
-        List<Persons> listPersonsStations = new ArrayList<>();
-        personsDao.findByFireStation(findFireStations,listPersonsStations,stationNumber,personsDao);
-        String total = personsDao.findPersonsAges(findMedicalRecords,listPersonsStations);
-
-        return  ResponseEntity.status(HttpStatus.OK).body(listPersonsStations.stream().map((x)-> new SimplePerson(x, total)));
+        List<Persons> listPersonsStations = personsDao.findByFireStation(findFireStations,stationNumber,personsDao);
+        List<String> ages = personsDao.findPersonsAges(findMedicalRecords,listPersonsStations);
+        int children = 0;
+        int adults = 0;
+        for (String age : ages){
+            if (Integer.parseInt(age) < 18){children++;}else{adults++;}
+        }
+        CountPersons result = new CountPersons();
+        result.setPersons(listPersonsStations.stream().map((x)-> new SimplePerson(x)).toList());
+        result.setAdults(adults);
+        result.setChildren(children);
+        return  ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
+    /*
+     * retourne une liste d'enfants habitant à cette adresse.
+     */
+    @GetMapping(value = "/childAlert")
+    public ResponseEntity getChildList(@RequestParam String address) throws ParseException {
+
+        List<Persons> persons = personsDao.findAll();
+        List<MedicalRecords> findBirthDate = medicalRecordsDao.findAll();
+        List<Persons> listByAddress = personsDao.findByAddress(address);
+        List<String> personsAgesInAddress = personsDao.findPersonsAges(findBirthDate,listByAddress);
+        List<Persons> foyer = new ArrayList<>();
+        List<ChildAlert> childList = new ArrayList<>();
+        int i = 0;
+        for (String age : personsAgesInAddress){
+            if (Integer.parseInt(age) < 18){
+                for (Persons person : listByAddress){
+                    for (Persons habitant: persons){
+                        if(Objects.equals(person.getAddress(),habitant.getAddress())){
+                            foyer.add(habitant);
+                        }
+                    }
+                }
+                deleteDoublon(foyer);
+                childList.add(new ChildAlert(listByAddress.get(i), age, foyer));
+            }i++;
+        }
+        return  ResponseEntity.status(HttpStatus.OK).body(childList);
+    }
+
 }

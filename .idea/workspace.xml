@@ -4,13 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d0055eb-dd6f-48b4-8f46-f25c90aaa8a0" name="Changes" comment="MHE - ajouter update et mis dans PUT">
-      <change afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/response/SimplePerson.java" afterDir="false" />
+    <list default="true" id="9d0055eb-dd6f-48b4-8f46-f25c90aaa8a0" name="Changes" comment="MHE - log4j et modification">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__log4j_log4j_1_2_17.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/response/ChildAlert.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/response/CountPersons.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/PersonsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/PersonsDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/PersonsDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/PersonsDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/FireStationsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/FireStationsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/Util/tools.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/Util/tools.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/PersonsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/PersonsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/FireStations.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/FireStations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/MedicalRecords.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/MedicalRecords.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/Persons.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/Persons.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/response/SimplePerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/response/SimplePerson.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +75,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -283,7 +290,21 @@
       <option name="project" value="LOCAL" />
       <updated>1677532747887</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="MHE - getStationNumber + new model SimplePerson">
+      <created>1677876224898</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1677876224898</updated>
+    </task>
+    <task id="LOCAL-00022" summary="MHE - log4j et modification">
+      <created>1678134006868</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1678134006868</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -326,7 +347,9 @@
     <MESSAGE value="MHE - Changer String[] en List&lt;String&gt;" />
     <MESSAGE value="MHE - netoyage et ajouter Util.tools et des TODO" />
     <MESSAGE value="MHE - ajouter update et mis dans PUT" />
-    <option name="LAST_COMMIT_MESSAGE" value="MHE - ajouter update et mis dans PUT" />
+    <MESSAGE value="MHE - getStationNumber + new model SimplePerson" />
+    <MESSAGE value="MHE - log4j et modification" />
+    <option name="LAST_COMMIT_MESSAGE" value="MHE - log4j et modification" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -335,6 +358,11 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="8" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/PersonsController.java</url>
+          <line>158</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
