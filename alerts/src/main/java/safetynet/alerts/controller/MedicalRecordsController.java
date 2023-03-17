@@ -27,37 +27,63 @@ public class MedicalRecordsController {
         this.medicalRecordsDao = medicalRecordsDao;
     }
 
+    /**
+     * affiche une liste des record medical dans la database
+     *
+     * @return List MedicalRecords
+     */
     @GetMapping(value = "/medicalRecords")
     public List<MedicalRecords> listeMedicalRecords() {
         return medicalRecordsDao.findAll();
     }
 
+    /**
+     * affiche les record medical par le nom et le prenom preciser dans lurl
+     *
+     * @param firstName firstName
+     * @param lastName lastName
+     * @return MedicalRecord
+     */
     @GetMapping(value = "/medicalRecord/{firstName}/{lastName}")
     public MedicalRecords afficherMedicalRecords(@PathVariable String firstName,@PathVariable String lastName) {
         return medicalRecordsDao.findById(firstName, lastName);
     }
 
+    /**
+     * ajoute un record medical a la database MedicalRecords
+     *
+     * @param medicalRecords medicalRecords
+     * @return medicalRecordsAdded
+     */
     @PostMapping(value = "/medicalRecord")
     public ResponseEntity<MedicalRecords> ajouterMedicalRecords(@RequestBody MedicalRecords medicalRecords) {
         MedicalRecords medicalRecordsAdded = medicalRecordsDao.save(medicalRecords);
         if (Objects.isNull(medicalRecordsAdded)) {
             return ResponseEntity.noContent().build();
         }
-        URI location = ServletUriComponentsBuilder
+        /*URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{firstName}/{lastName}")
                 .buildAndExpand(medicalRecordsAdded.getFirstName(), medicalRecordsAdded.getLastName())
-                .toUri();
-        return ResponseEntity.created(location).build();
+                .toUri();*/
+        return ResponseEntity.ok(medicalRecordsAdded);//.created(location).build()
     }
 
+    /**
+     * modifies les donnees dun record medical existante
+     *
+     * @param firstName firstName
+     * @param lastName lastName
+     * @param medicalRecordsDetails medicalRecordsDetails
+     * @return updateMedicalRecords
+     * @throws Exception (firstName + lastName + " na pas de donnee medical")
+     */
     @PutMapping(value = "/medicalRecord/{firstName}/{lastName}")
      public ResponseEntity<MedicalRecords> updateMedicalRecords(@PathVariable String firstName, @PathVariable String lastName, @RequestBody MedicalRecords medicalRecordsDetails) throws Exception {
         MedicalRecords updateMedicalRecords = medicalRecordsDao.findById(firstName,lastName);
         if (Objects.isNull(updateMedicalRecords)){
-            throw new Exception(firstName + lastName + " na pas de donne medical");
+            throw new Exception(firstName + lastName + " na pas de donnee medical");
         }
-        //updateMedicalRecords.setLastName(medicalRecordsDetails.getLastName());
         updateMedicalRecords.setBirthdate(medicalRecordsDetails.getBirthdate());
         updateMedicalRecords.setMedications(medicalRecordsDetails.getMedications());
         updateMedicalRecords.setAllergies(medicalRecordsDetails.getAllergies());
@@ -67,6 +93,13 @@ public class MedicalRecordsController {
         return ResponseEntity.ok(updateMedicalRecords);
     }
 
+    /**
+     * Supprime un record medical de la database
+     *
+     * @param firstName firstName
+     * @param lastName lastName
+     * @return HttpStatus
+     */
     @DeleteMapping(value = "/medicalRecord/{firstName}/{lastName}")
     public ResponseEntity<String> deleteMedicalRecord(@PathVariable String firstName, @PathVariable String lastName) {
 

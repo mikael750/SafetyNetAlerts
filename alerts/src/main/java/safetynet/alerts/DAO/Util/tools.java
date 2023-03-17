@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class tools {
-    public static void change() {
+    public static boolean change() {
         JSONObject Objet = new JSONObject();
         Objet.put("persons",PersonsDaoImpl.persons);
         Objet.put("medicalrecords",MedicalRecordsDaoImpl.medicalRecords);
@@ -27,7 +27,9 @@ public class tools {
             out.write(Objet.toString());
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
     public static int calculateAge(MedicalRecords records) throws ParseException {
