@@ -4,16 +4,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
-import safetynet.alerts.DAO.PersonsDao;
 import safetynet.alerts.DAO.PersonsDaoImpl;
-import safetynet.alerts.controller.PersonsController;
 import safetynet.alerts.model.Persons;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 public class PersonsDAOTest {
@@ -25,18 +21,40 @@ public class PersonsDAOTest {
 
     @BeforeAll
     private static void setUp() throws Exception {
+        PersonsDaoImpl.load();
     }
 
     @BeforeEach
     private void setUpPerTest() {
         personsDaoImpl = new PersonsDaoImpl();
+        persons = new Persons("Michael","Jackson","HisAddress","OldCity","zip","555","not@hisemail.com");
     }
 
     @Test
     public void saveTest(){
-        Persons persons = new Persons("Michael","Jackson","","","","","");
         personsDaoImpl.save(persons);
         assertTrue(personsDaoImpl.findAll().contains(persons));
     }
     //TODO test unitaire par fonction
+
+    @Test
+    public void findByIdTest(){
+        Persons newPersons = new Persons("Michael","Jordan","HisAddress","OldCity","zip","555","not@hisemail.com");
+        personsDaoImpl.save(newPersons);
+        assertEquals(personsDaoImpl.findById("Michael","Jordan"),newPersons);
+    }
+
+    @Test
+    public void updateTest(){
+        persons.setCity("newCity");
+        personsDaoImpl.update(persons);
+        assertEquals("newCity",persons.getCity());
+    }
+
+    @Test
+    public void deleteTest(){
+        saveTest();
+        personsDaoImpl.delete("Michael","Jackson");
+        assertFalse(personsDaoImpl.findAll().contains(persons));
+    }
 }
