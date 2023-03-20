@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import safetynet.alerts.DAO.Util.tools;
 import safetynet.alerts.model.MedicalRecords;
+import safetynet.alerts.model.Persons;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,6 +53,20 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
             }
         }
         return null;
+    }
+
+    @Override
+    public List<MedicalRecords> findByAddress(List<Persons> listByAddress){
+        logger.info("Recherche par adresse");
+        List<MedicalRecords> personsByAddress = new ArrayList<>();
+        for (MedicalRecords record : medicalRecords){
+            for (Persons person : listByAddress){
+                if (Objects.equals(record.getFirstName(), person.getFirstName()) && Objects.equals(record.getLastName(), person.getLastName())){
+                    personsByAddress.add(record);
+                }
+            }
+        }
+        return personsByAddress;
     }
 
     @Override

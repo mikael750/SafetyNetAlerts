@@ -2,6 +2,7 @@ package safetynet.alerts.model.response;
 
 import lombok.Getter;
 import lombok.Setter;
+import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
 
 import java.util.List;
@@ -12,11 +13,11 @@ public class ChildAlert {
     private String firstName;
     private String lastName;
     private String age;
-    private List<Persons> foyer;
+    private List<MedicalRecords> foyer;
 //La liste doit comprendre le prénom et le nom de famille de chaque enfant, son âge et une liste des autres
 //membres du foyer.
 
-    public ChildAlert(Persons person, String age, List<Persons> foyer){
+    public ChildAlert(Persons person, String age, List<MedicalRecords> foyer){
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
         this.age = age;

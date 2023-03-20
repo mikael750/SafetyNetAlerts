@@ -161,12 +161,13 @@ public class PersonsController {
      */
     @GetMapping(value = "/childAlert")
     public ResponseEntity getChildList(@RequestParam String address) throws ParseException {
-        List<MedicalRecords> findBirthDate = medicalRecordsDao.findAll();//findByNameFirstName
+        //List<MedicalRecords> findBirthDate = medicalRecordsDao.findAll();//findByNameFirstName
         List<Persons> listByAddress = personsDao.findByAddress(address);
-        List<String> personsAgesInAddress = personsDao.findPersonsAges(findBirthDate,listByAddress);
-        List<Persons> persons = personsDao.findAll();
+        List<MedicalRecords> recordsByAddress = medicalRecordsDao.findByAddress(listByAddress);
+        List<String> personsAgesInAddress = personsDao.findPersonsAges(recordsByAddress,listByAddress);
+        //List<Persons> persons = personsDao.findAll();
         List<ChildAlert> childList = new ArrayList<>();
-        List<Persons> foyer = new ArrayList<>();
+        List<MedicalRecords> foyer = new ArrayList<>();
         int i = 0;
         //TODO avoir la liste des personne en fonction d'une adresse
         //TODO recuperer le medical record de chaque personne
@@ -174,19 +175,17 @@ public class PersonsController {
         //TODO si mineur, recuperer tout les personne qui habite a cette adresse
         for (String age : personsAgesInAddress){
             if (Integer.parseInt(age) < 18){
-
-                for (Persons person : listByAddress){
+                /*for (Persons person : listByAddress){
                     for (Persons habitant: persons){
                         if(Objects.equals(person.getAddress(),habitant.getAddress())){
                             foyer.add(habitant);
                         }
                     }
-                }
-
+                }*/
+                foyer.addAll(recordsByAddress);
                 deleteDoublon(foyer);
-
+                childList.add(new ChildAlert(listByAddress.get(i), age, foyer));
             }i++;
-            childList.add(new ChildAlert(listByAddress.get(i), age, foyer));
         }
         return  ResponseEntity.status(HttpStatus.OK).body(childList);
     }
