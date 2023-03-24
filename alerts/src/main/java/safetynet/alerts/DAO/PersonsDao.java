@@ -8,11 +8,17 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public interface PersonsDao {
     List<Persons> findAll();
     Persons findById(String firstName, String lastName);
 
+//TODO commentaire et inheritence
+    /**
+     * @param listStations
+     * @param stationNumber
+     * @param personsDao
+     * @return
+     */
     List<Persons> findByFireStation(List<FireStations> listStations, String stationNumber, PersonsDao personsDao);
 
     List<String> findPersonsAges(List<MedicalRecords> findMedicalRecords, List<Persons> listPersons) throws ParseException;

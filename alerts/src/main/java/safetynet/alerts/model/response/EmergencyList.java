@@ -9,17 +9,20 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ChildAlert {
+public class EmergencyList {
     private String firstName;
     private String lastName;
+    private String phone;
     private int age;
-    private List<Persons> foyer;
+    private List<String> medications;
+    private List<String> allergies;
 
-    public ChildAlert(Persons person, int age, List<Persons> foyer){
+    public EmergencyList(Persons person, int age, MedicalRecords medicalRecords){
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
+        this.phone = person.getPhone();
         this.age = age;
-        this.foyer = foyer;
-
+        this.medications = medicalRecords.getMedications();
+        this.allergies = medicalRecords.getAllergies();
     }
 }

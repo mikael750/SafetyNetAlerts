@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import safetynet.alerts.DAO.FireStationsDao;
 import safetynet.alerts.DAO.MedicalRecordsDao;
 import safetynet.alerts.DAO.PersonsDao;
+import safetynet.alerts.DAO.Util.tools;
 import safetynet.alerts.model.FireStations;
 import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 
 import safetynet.alerts.model.response.ChildAlert;
 import safetynet.alerts.model.response.CountPersons;
+import safetynet.alerts.model.response.EmergencyList;
 import safetynet.alerts.model.response.SimplePerson;
 
 import java.text.ParseException;
@@ -154,31 +156,15 @@ public class PersonsController {
      */
     @GetMapping(value = "/childAlert")
     public ResponseEntity getChildList(@RequestParam String address) throws ParseException {
-        //List<MedicalRecords> findBirthDate = medicalRecordsDao.findAll();//findByNameFirstName
         List<Persons> listByAddress = personsDao.findByAddress(address);
-        List<MedicalRecords> recordsByAddress = medicalRecordsDao.findByAddress(listByAddress);
-        List<String> personsAgesInAddress = personsDao.findPersonsAges(recordsByAddress,listByAddress);
-        //List<Persons> persons = personsDao.findAll();
         List<ChildAlert> childList = new ArrayList<>();
-        List<MedicalRecords> foyer = new ArrayList<>();
-        int i = 0;
-        //TODO avoir la liste des personne en fonction d'une adresse
-        //TODO recuperer le medical record de chaque personne
-        //TODO faire la condition si la personne est mineur
-        //TODO si mineur, recuperer tout les personne qui habite a cette adresse
-        for (String age : personsAgesInAddress){
-            if (Integer.parseInt(age) < 18){
-                /*for (Persons person : listByAddress){
-                    for (Persons habitant: persons){
-                        if(Objects.equals(person.getAddress(),habitant.getAddress())){
-                            foyer.add(habitant);
-                        }
-                    }
-                }*/
-                foyer.addAll(recordsByAddress);
-                deleteDoublon(foyer);
-                childList.add(new ChildAlert(listByAddress.get(i), age, foyer));
-            }i++;
+        List<Persons> foyer = new ArrayList<>(listByAddress);
+        for (Persons personne : listByAddress){
+            int age = tools.calculateAge(medicalRecordsDao.findById(personne.getFirstName(),personne.getLastName()));
+            if (age < 18){
+                foyer.remove(personne);
+                childList.add(new ChildAlert(personne, age, foyer));
+            }
         }
         return  ResponseEntity.status(HttpStatus.OK).body(childList);
     }
@@ -199,5 +185,27 @@ public class PersonsController {
         }
         deleteDoublon(listPhoneNumber);
         return ResponseEntity.status(HttpStatus.OK).body(listPhoneNumber);
+    }
+
+    /**
+     * Cette url retourne la liste des habitants vivant à l’adresse donnée ainsi que le numéro
+     * de la caserne de pompiers la desservant
+     *
+     * @param address address
+     * @return emergencyList
+     * @throws ParseException calculateAge
+     */
+    @GetMapping(value = "/fire")
+    public ResponseEntity getEmergencyList(@RequestParam String address) throws ParseException {
+        List<EmergencyList> emergencyList = new ArrayList<>();
+        List<Persons> listPersons = personsDao.findByAddress(address);
+
+        for(Persons person : listPersons){
+            MedicalRecords medicalRecord = medicalRecordsDao.findById(person.getFirstName(),person.getLastName());
+            int age = tools.calculateAge(medicalRecord);
+            emergencyList.add(new EmergencyList(person, age, medicalRecord));
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(emergencyList);
     }
 }

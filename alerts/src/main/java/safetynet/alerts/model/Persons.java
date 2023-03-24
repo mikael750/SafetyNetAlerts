@@ -28,6 +28,18 @@ public class Persons {
         this.email = email;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Persons persons = (Persons) o;
+        return Objects.equals(firstName, persons.firstName) && Objects.equals(lastName, persons.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName);
+    }
 
     @Override
     public String toString() {
