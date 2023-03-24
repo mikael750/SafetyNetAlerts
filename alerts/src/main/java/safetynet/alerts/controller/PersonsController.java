@@ -14,12 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import safetynet.alerts.model.response.ChildAlert;
 import safetynet.alerts.model.response.CountPersons;
 import safetynet.alerts.model.response.SimplePerson;
 
-import java.net.URI;
 import java.text.ParseException;
 import java.util.*;
 
@@ -72,12 +70,7 @@ public class PersonsController {
         if (Objects.isNull(personsAdded)) {
             return ResponseEntity.noContent().build();
         }
-        /*URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{firstName}/{lastName}")
-                .buildAndExpand(personsAdded.getFirstName(),personsAdded.getLastName())//, lastName
-                .toUri();*/
-        return ResponseEntity.ok(personsAdded);//.created(location).build()
+        return ResponseEntity.ok(personsAdded);
     }
 
     /**

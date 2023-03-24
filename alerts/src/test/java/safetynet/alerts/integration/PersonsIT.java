@@ -3,20 +3,15 @@ package safetynet.alerts.integration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import safetynet.alerts.DAO.FireStationsDao;
 import safetynet.alerts.DAO.MedicalRecordsDao;
 import safetynet.alerts.DAO.PersonsDao;
-import safetynet.alerts.DAO.Util.tools;
 import safetynet.alerts.controller.PersonsController;
 import safetynet.alerts.model.Persons;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 public class PersonsIT {
@@ -29,9 +24,14 @@ public class PersonsIT {
     private MedicalRecordsDao medicalRecordsDao;
 
     PersonsController personsController;
+    static Persons test1;
+    static Persons test2;
 
     @BeforeAll
     private static void setUp() throws Exception {
+        test1 = new Persons("Michael","Jackson","2nd House Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
+        test2 = new Persons("Jean","Dujardin","2nd House Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
+
     }
 
     @BeforeEach
@@ -41,7 +41,6 @@ public class PersonsIT {
 
     @Test
     public void personsController_ShouldAddNewPerson(){
-        Persons test1 = new Persons("Michael","Jackson","2nd House Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
         personsController.ajouterPersons(test1);
         assertTrue(personsController.listePersons().contains(test1));
     }
@@ -49,7 +48,6 @@ public class PersonsIT {
 
     @Test
     public void personsController_ShouldUpdatePerson(){
-        Persons test2 = new Persons("Jean","Dujardin","2nd House Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
         personsController.ajouterPersons(test2);
         Persons personsDetail = new Persons("Jean","Dujardin","3rd Manor Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
         try {
@@ -58,6 +56,13 @@ public class PersonsIT {
             e.printStackTrace();
         }
         assertSame("3rd Manor Street", personsController.afficherUnePersonne("Jean", "Dujardin").getAddress());
+    }
+
+    @Test
+    public void personsController_ShouldDeletePerson() {
+        personsController_ShouldAddNewPerson();
+        personsController.deletePersons("Michael","Jackson");
+        assertFalse(personsController.listePersons().contains(test1));
     }
 
 }

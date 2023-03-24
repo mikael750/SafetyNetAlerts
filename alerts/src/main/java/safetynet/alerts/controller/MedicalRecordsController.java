@@ -8,13 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import safetynet.alerts.model.Persons;
-
-import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 
@@ -61,12 +56,7 @@ public class MedicalRecordsController {
         if (Objects.isNull(medicalRecordsAdded)) {
             return ResponseEntity.noContent().build();
         }
-        /*URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{firstName}/{lastName}")
-                .buildAndExpand(medicalRecordsAdded.getFirstName(), medicalRecordsAdded.getLastName())
-                .toUri();*/
-        return ResponseEntity.ok(medicalRecordsAdded);//.created(location).build()
+        return ResponseEntity.ok(medicalRecordsAdded);
     }
 
     /**
