@@ -4,14 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d0055eb-dd6f-48b4-8f46-f25c90aaa8a0" name="Changes" comment="MHE - Optimisation getChildList + 1 TestIT">
-      <change afterPath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/integration/FireStationsIT.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/integration/MedicalRecordsIT.java" afterDir="false" />
+    <list default="true" id="9d0055eb-dd6f-48b4-8f46-f25c90aaa8a0" name="Changes" comment="MHE - Tests Integration + cleaning up">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/FireStationsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/FireStationsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/MedicalRecordsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/MedicalRecordsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/FireStationsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/FireStationsDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/FireStationsDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/FireStationsDaoImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/PersonsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/PersonsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/integration/PersonsIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/integration/PersonsIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/response/ChildAlert.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/response/ChildAlert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +85,7 @@
       <recent name="safetynet.alerts" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.MedicalRecordsIT">
+  <component name="RunManager" selected="Application.AlertsApplication">
     <configuration name="AlertsApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="safetynet.alerts.AlertsApplication" />
       <module name="alerts" />
@@ -171,11 +170,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.AlertsApplication" />
         <item itemvalue="JUnit.MedicalRecordsIT" />
         <item itemvalue="JUnit.FireStationsIT" />
         <item itemvalue="JUnit.FireStationsIT.personsController_ShouldDeletePerson" />
         <item itemvalue="JUnit.FireStationsIT.personsController_ShouldUpdatePerson" />
-        <item itemvalue="Application.AlertsApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -370,7 +369,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679347812610</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="MHE - Tests Integration + cleaning up">
+      <created>1679664450957</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1679664450957</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -419,7 +425,8 @@
     <MESSAGE value="MHE - Test IT et UNI + commentaire + cleaning up" />
     <MESSAGE value="MHE - Test Unitaires" />
     <MESSAGE value="MHE - Optimisation getChildList + 1 TestIT" />
-    <option name="LAST_COMMIT_MESSAGE" value="MHE - Optimisation getChildList + 1 TestIT" />
+    <MESSAGE value="MHE - Tests Integration + cleaning up" />
+    <option name="LAST_COMMIT_MESSAGE" value="MHE - Tests Integration + cleaning up" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

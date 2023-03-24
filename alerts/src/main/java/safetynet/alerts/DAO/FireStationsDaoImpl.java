@@ -7,12 +7,15 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import safetynet.alerts.DAO.Util.tools;
 import safetynet.alerts.model.FireStations;
+import safetynet.alerts.model.Persons;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static safetynet.alerts.DAO.Util.tools.deleteDoublon;
 
 @Service
 public class FireStationsDaoImpl implements FireStationsDao{
@@ -51,6 +54,21 @@ public class FireStationsDaoImpl implements FireStationsDao{
             }
         }
         return null;
+    }
+
+    @Override
+    public List<Persons> findByNumberStation(String fireStationNumber, PersonsDao personsDao){
+        logger.info("Recherche par station.");
+        List<Persons> listPersonsFireStations = new ArrayList<>();
+        for (FireStations station : fireStations) {
+            // si le numéro de station = fireStationNumber
+            if (Integer.parseInt(station.getStation()) == Integer.parseInt(fireStationNumber)) {
+                listPersonsFireStations.addAll(personsDao.findByAddress(station.getAddress()));
+            }
+        }
+        deleteDoublon(listPersonsFireStations);
+
+        return listPersonsFireStations;
     }
 
     @Override

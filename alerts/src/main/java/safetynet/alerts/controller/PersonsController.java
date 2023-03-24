@@ -183,4 +183,21 @@ public class PersonsController {
         return  ResponseEntity.status(HttpStatus.OK).body(childList);
     }
 
+    /**
+     * Cette url retourne une liste des numéros de téléphone des résidents desservis par la caserne de
+     * pompiers
+     *
+     * @param firestation firestation
+     * @return listPhoneNumber
+     */
+    @GetMapping(value = "/phoneAlert")
+    public ResponseEntity getListPhoneNumber(@RequestParam String firestation) {
+        List<Persons> listPersonsStations = fireStationDao.findByNumberStation(firestation,personsDao);
+        List<Object> listPhoneNumber = new ArrayList<>();
+        for(Persons fireStations : listPersonsStations){
+            listPhoneNumber.add(fireStations.getPhone());
+        }
+        deleteDoublon(listPhoneNumber);
+        return ResponseEntity.status(HttpStatus.OK).body(listPhoneNumber);
+    }
 }

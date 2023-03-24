@@ -14,8 +14,6 @@ public class ChildAlert {
     private String lastName;
     private String age;
     private List<MedicalRecords> foyer;
-//La liste doit comprendre le prénom et le nom de famille de chaque enfant, son âge et une liste des autres
-//membres du foyer.
 
     public ChildAlert(Persons person, String age, List<MedicalRecords> foyer){
         this.firstName = person.getFirstName();
