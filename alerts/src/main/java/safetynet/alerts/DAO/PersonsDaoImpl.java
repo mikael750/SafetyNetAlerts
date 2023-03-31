@@ -11,7 +11,6 @@ import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
 
 import java.io.*;
-import java.lang.annotation.Inherited;
 import java.text.ParseException;
 import java.util.*;
 
@@ -25,6 +24,9 @@ public class PersonsDaoImpl implements PersonsDao{
     private static final Logger logger = LogManager.getLogger(PersonsDaoImpl.class);
 
 
+    /**
+     * Charge les information de la database persons
+     */
     public static void load(){
         logger.info("Chargement des donner des personnes.");
         try {
@@ -39,8 +41,11 @@ public class PersonsDaoImpl implements PersonsDao{
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }/**/
+    }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public List<Persons> findAll() {
         logger.info("Recherche de toutes les personnes.");
@@ -59,6 +64,21 @@ public class PersonsDaoImpl implements PersonsDao{
     }
 
     @Override
+    public List<Persons> findByNames(String firstName, String lastName) {
+        logger.info("Recherche des personnes par nom et prenom.");
+        List<Persons> listPersons = new ArrayList<>();
+        for (Persons person : persons){
+            if (Objects.equals(person.getFirstName(), firstName) && Objects.equals(person.getLastName(), lastName)){
+                listPersons.add(person);
+            }
+        }
+        return listPersons;
+    }
+
+    /**
+     *{@inheritDoc}
+     */
+    @Override
     public List<Persons> findByFireStation(List<FireStations> listStations , String stationNumber, PersonsDao personsDao){
         logger.info("Recherche par caserne.");
         List<Persons> listPersonsStations = new ArrayList<>();
@@ -74,7 +94,9 @@ public class PersonsDaoImpl implements PersonsDao{
     }
 
 
-
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public List<String> findPersonsAges(List<MedicalRecords> findMedicalRecords, List<Persons> listPersons) throws ParseException {
         logger.info("Recherche par ages des personnes");
@@ -92,6 +114,9 @@ public class PersonsDaoImpl implements PersonsDao{
         return ages;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public List<Persons> findByAddress(String address){
         logger.info("Recherche par adresse");
@@ -104,6 +129,9 @@ public class PersonsDaoImpl implements PersonsDao{
         return personsByAddress;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public Persons save(Persons person) {
         logger.info("Sauvegarde des changements de la Dao des personnes");
@@ -112,6 +140,9 @@ public class PersonsDaoImpl implements PersonsDao{
         return person;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public Persons update(Persons person) {
         logger.info("Mis à Jour de la Dao des personnes");
@@ -122,6 +153,9 @@ public class PersonsDaoImpl implements PersonsDao{
     }
 
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public boolean delete(String firstName, String lastName) {
         logger.info("Suppression des donnees d'une personne");

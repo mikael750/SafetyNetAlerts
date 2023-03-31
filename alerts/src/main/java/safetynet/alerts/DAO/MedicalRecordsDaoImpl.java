@@ -21,7 +21,9 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
     public static List<MedicalRecords> medicalRecords = new ArrayList<>();
     private static final Logger logger = LogManager.getLogger(MedicalRecordsDaoImpl.class);
 
-
+    /**
+     * Charge les information de la database firestations
+     */
     public static void load(){
         logger.info("Chargement des donner des records medicals.");
         try {
@@ -38,12 +40,18 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
         }
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public List<MedicalRecords> findAll() {
         logger.info("Recherche de toutes les records medicals.");
         return medicalRecords;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public MedicalRecords findById(String firstName, String lastName) {
         logger.info("Recherche d'un record medical par nom et prenom.");
@@ -55,6 +63,9 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
         return null;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public List<MedicalRecords> findByAddress(List<Persons> listByAddress){
         logger.info("Recherche par adresse");
@@ -69,6 +80,9 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
         return personsByAddress;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public MedicalRecords save(MedicalRecords medicalRecord) {
         logger.info("Sauvegarde des changements de la Dao des record medical");
@@ -77,6 +91,9 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
         return medicalRecord;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public MedicalRecords update(MedicalRecords medicalRecord) {
         logger.info("Mis à Jour de la Dao des records medical");
@@ -86,6 +103,9 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
         return medicalRecord;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public boolean delete(String firstName, String lastName) {
         logger.info("Suppression des record medical d'une personne");

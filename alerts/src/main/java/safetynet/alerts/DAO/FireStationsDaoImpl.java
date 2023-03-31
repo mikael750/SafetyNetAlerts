@@ -23,6 +23,9 @@ public class FireStationsDaoImpl implements FireStationsDao{
     public static List<FireStations> fireStations = new ArrayList<>();
     private static final Logger logger = LogManager.getLogger(FireStationsDaoImpl.class);
 
+    /**
+     * Charge les information de la database medicalrecords
+     */
     public static void load(){
         logger.info("Chargement des donner des casernes.");
         try {
@@ -39,12 +42,18 @@ public class FireStationsDaoImpl implements FireStationsDao{
         }
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public List<FireStations> findAll() {
         logger.info("Recherche de toutes les casernes.");
         return fireStations;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public FireStations findById(String address) {
         logger.info("Recherche d'une caserne par address.");
@@ -56,6 +65,9 @@ public class FireStationsDaoImpl implements FireStationsDao{
         return null;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public List<Persons> findByNumberStation(String fireStationNumber, PersonsDao personsDao){
         logger.info("Recherche par station.");
@@ -71,6 +83,9 @@ public class FireStationsDaoImpl implements FireStationsDao{
         return listPersonsFireStations;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public FireStations save(FireStations fireStation) {
         logger.info("Sauvegarde des changements de la Dao des casernes");
@@ -79,6 +94,9 @@ public class FireStationsDaoImpl implements FireStationsDao{
         return fireStation;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public FireStations update(FireStations fireStation) {
         logger.info("Mis à Jour de la Dao des casernes");
@@ -88,6 +106,9 @@ public class FireStationsDaoImpl implements FireStationsDao{
         return fireStation;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public boolean delete(String address) {
         logger.info("Suppression de l'adress d'une casernes");

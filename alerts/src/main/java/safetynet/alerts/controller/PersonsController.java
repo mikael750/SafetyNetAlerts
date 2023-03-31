@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.http.ResponseEntity;
 
-import safetynet.alerts.model.response.ChildAlert;
-import safetynet.alerts.model.response.CountPersons;
-import safetynet.alerts.model.response.EmergencyList;
-import safetynet.alerts.model.response.SimplePerson;
+import safetynet.alerts.model.response.*;
 
 import java.text.ParseException;
 import java.util.*;
@@ -196,7 +193,7 @@ public class PersonsController {
      * @throws ParseException calculateAge
      */
     @GetMapping(value = "/fire")
-    public ResponseEntity getEmergencyList(@RequestParam String address) throws ParseException {
+    public ResponseEntity getListForFire(@RequestParam String address) throws ParseException {
         List<EmergencyList> emergencyList = new ArrayList<>();
         List<Persons> listPersons = personsDao.findByAddress(address);
 
@@ -208,4 +205,70 @@ public class PersonsController {
 
         return ResponseEntity.status(HttpStatus.OK).body(emergencyList);
     }
+
+    /**
+     * @param stations stations
+     * @return listAddressFoyer
+     * @throws ParseException calculateAge
+     */
+    /*
+    http://localhost:8080/flood/stations?stations=<a list of station_numbers>
+Cette url doit retourner une liste de tous les foyers desservis par la caserne, et les regroupe les
+personnes par adresse. Elle doit aussi inclure le nom, le numéro de téléphone et l'âge des habitants, et
+faire figurer leurs antécédents médicaux (médicaments, posologie et allergies) à côté de chaque nom.
+     */
+    @GetMapping(value = "/flood/stations")
+    public ResponseEntity getListForFlood(@RequestParam List<String> stations) throws ParseException {
+        List<EmergencyList> emergencyList = new ArrayList<>();
+        List<Persons> listPersons = new ArrayList<>();
+        List<AddressList> listAddressFoyer = new ArrayList<>();
+        List<String> peopleAddress = new ArrayList<>();
+
+        List<FireStations> findFireStations = fireStationDao.findAll();
+
+        for (String stationNumber : stations){
+            listPersons.addAll(personsDao.findByFireStation(findFireStations,stationNumber,personsDao));
+        }
+        /*for(Persons person : listPersons){
+            peopleAddress.add(person.getAddress());
+        }*/
+
+        deleteDoublon(peopleAddress);
+        for(Persons person : listPersons){
+        //for(String a : peopleAddress){
+            MedicalRecords medicalRecord = medicalRecordsDao.findById(person.getFirstName(),person.getLastName());
+            int age = tools.calculateAge(medicalRecord);
+            emergencyList.add(new EmergencyList(person, age, medicalRecord));
+            listAddressFoyer.add(new AddressList(person, emergencyList));
+        }//}
+        deleteDoublon(listAddressFoyer);
+
+        return ResponseEntity.status(HttpStatus.OK).body(listAddressFoyer);
+    }
+
+    /**
+     * @param firstName firstName
+     * @param lastName lastName
+     * @return infoList
+     * @throws ParseException calculateAge
+     */
+    @GetMapping(value = "/personInfo")
+    public ResponseEntity getInfoOnPerson(@RequestParam String firstName,@RequestParam String lastName) throws ParseException {
+        List<InfoList> infoList = new ArrayList<>();
+        List<Persons> listPersons = personsDao.findByNames(firstName,lastName);
+
+        for(Persons person : listPersons){
+            MedicalRecords medicalRecord = medicalRecordsDao.findById(person.getFirstName(),person.getLastName());
+            int age = tools.calculateAge(medicalRecord);
+            infoList.add(new InfoList(person, age, medicalRecord));
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(infoList);
+    }
+
+    /*
+    http://localhost:8080/communityEmail?city=<city>
+Cette url doit retourner les adresses mail de tous les habitants de la ville.
+     */
+
 }
