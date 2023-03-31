@@ -32,14 +32,6 @@ public interface PersonsDao {
     List<Persons> findByNames(String firstName, String lastName);
 
     /**
-     * @param listStations
-     * @param stationNumber
-     * @param personsDao
-     * @return
-     */
-    List<Persons> findByFireStation(List<FireStations> listStations, String stationNumber, PersonsDao personsDao);
-
-    /**
      * @param findMedicalRecords
      * @param listPersons
      * @return

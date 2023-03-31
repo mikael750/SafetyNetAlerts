@@ -128,9 +128,8 @@ public class PersonsController {
      */
     @GetMapping(value = "/firestation")
     public ResponseEntity getStationNumber(@RequestParam String stationNumber) throws ParseException {
-        List<FireStations> findFireStations = fireStationDao.findAll();
         List<MedicalRecords> findMedicalRecords = medicalRecordsDao.findAll();
-        List<Persons> listPersonsStations = personsDao.findByFireStation(findFireStations,stationNumber,personsDao);
+        List<Persons> listPersonsStations = fireStationDao.findByNumberStation(stationNumber,personsDao);
         List<String> ages = personsDao.findPersonsAges(findMedicalRecords,listPersonsStations);
         int children = 0;
         int adults = 0;
@@ -224,10 +223,8 @@ faire figurer leurs antécédents médicaux (médicaments, posologie et allergie
         List<AddressList> listAddressFoyer = new ArrayList<>();
         List<String> peopleAddress = new ArrayList<>();
 
-        List<FireStations> findFireStations = fireStationDao.findAll();
-
         for (String stationNumber : stations){
-            listPersons.addAll(personsDao.findByFireStation(findFireStations,stationNumber,personsDao));
+            listPersons.addAll(fireStationDao.findByNumberStation(stationNumber,personsDao));
         }
         /*for(Persons person : listPersons){
             peopleAddress.add(person.getAddress());

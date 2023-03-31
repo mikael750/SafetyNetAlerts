@@ -23,7 +23,6 @@ public class PersonsDaoImpl implements PersonsDao{
     public static List<Persons> persons = new ArrayList<>();
     private static final Logger logger = LogManager.getLogger(PersonsDaoImpl.class);
 
-
     /**
      * Charge les information de la database persons
      */
@@ -80,25 +79,6 @@ public class PersonsDaoImpl implements PersonsDao{
         }
         return listPersons;
     }
-
-    /**
-     *{@inheritDoc}
-     */
-    @Override
-    public List<Persons> findByFireStation(List<FireStations> listStations , String stationNumber, PersonsDao personsDao){
-        logger.info("Recherche par caserne.");
-        List<Persons> listPersonsStations = new ArrayList<>();
-        for (FireStations station : listStations) {
-            // si le numéro de station = stationNumber
-            if (Integer.parseInt(station.getStation()) == Integer.parseInt(stationNumber)) {
-                listPersonsStations.addAll(personsDao.findByAddress(station.getAddress()));
-            }
-        }
-        deleteDoublon(listPersonsStations);
-
-        return listPersonsStations;
-    }
-
 
     /**
      *{@inheritDoc}
