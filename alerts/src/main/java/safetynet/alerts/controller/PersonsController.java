@@ -247,6 +247,9 @@ faire figurer leurs antécédents médicaux (médicaments, posologie et allergie
     }
 
     /**
+     * Cette retourne le nom, l'adresse, l'âge, l'adresse mail et les antécédents médicaux (médicaments,
+     * posologie, allergies) de chaque habitant préciser.
+     *
      * @param firstName firstName
      * @param lastName lastName
      * @return infoList
@@ -266,9 +269,20 @@ faire figurer leurs antécédents médicaux (médicaments, posologie et allergie
         return ResponseEntity.status(HttpStatus.OK).body(infoList);
     }
 
-    /*
-    http://localhost:8080/communityEmail?city=<city>
-Cette url doit retourner les adresses mail de tous les habitants de la ville.
+    /**
+     * Cette url doit retourner les adresses mail de tous les habitants de la ville.
+     *
+     * @param city city
+     * @return listEmail
      */
+    @GetMapping(value = "/communityEmail")
+    public ResponseEntity getAllMailOfCity(@RequestParam String city){
+        List<String> listEmail = new ArrayList<>();
+        List<Persons> listPerson = personsDao.findByCity(city);
+        for (Persons email : listPerson){
+            listEmail.add(email.getEmail());
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(listEmail);
+    }
 
 }

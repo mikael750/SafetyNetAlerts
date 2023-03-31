@@ -24,6 +24,11 @@ public interface PersonsDao {
     Persons findById(String firstName, String lastName);
 
 
+    /**
+     * @param firstName
+     * @param lastName
+     * @return
+     */
     List<Persons> findByNames(String firstName, String lastName);
 
     /**
@@ -47,6 +52,12 @@ public interface PersonsDao {
      * @return
      */
     List<Persons> findByAddress(String address);
+
+    /**
+     * @param city
+     * @return
+     */
+    List<Persons> findByCity(String city);
 
     /**
      * @param persons

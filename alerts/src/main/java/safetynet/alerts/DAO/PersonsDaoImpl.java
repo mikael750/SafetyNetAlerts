@@ -52,6 +52,9 @@ public class PersonsDaoImpl implements PersonsDao{
         return persons;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public Persons findById(String firstName, String lastName) {
         logger.info("Recherche d'une personne par nom et prenom.");
@@ -63,6 +66,9 @@ public class PersonsDaoImpl implements PersonsDao{
         return null;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public List<Persons> findByNames(String firstName, String lastName) {
         logger.info("Recherche des personnes par nom et prenom.");
@@ -127,6 +133,21 @@ public class PersonsDaoImpl implements PersonsDao{
             }
         }
         return personsByAddress;
+    }
+
+    /**
+     *{@inheritDoc}
+     */
+    @Override
+    public List<Persons> findByCity(String city){
+        logger.info("Recherche par ville");
+        List<Persons> personsByCity = new ArrayList<>();
+        for (Persons person : persons){
+            if (Objects.equals(person.getCity(), city)){
+                personsByCity.add(person);
+            }
+        }
+        return personsByCity;
     }
 
     /**
