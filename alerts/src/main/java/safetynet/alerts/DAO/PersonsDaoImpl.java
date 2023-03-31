@@ -6,16 +6,16 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import safetynet.alerts.DAO.Util.tools;
-import safetynet.alerts.model.FireStations;
 import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
+import safetynet.alerts.model.response.AddressList;
+import safetynet.alerts.model.response.EmergencyList;
 
 import java.io.*;
 import java.text.ParseException;
 import java.util.*;
 
 import static safetynet.alerts.DAO.Util.tools.calculateAge;
-import static safetynet.alerts.DAO.Util.tools.deleteDoublon;
 
 @Service
 public class PersonsDaoImpl implements PersonsDao{
@@ -128,6 +128,31 @@ public class PersonsDaoImpl implements PersonsDao{
             }
         }
         return personsByCity;
+    }
+
+    /**
+     *{@inheritDoc}
+     */
+    @Override
+    public List<AddressList> findAddressFoyer(List<String> stations, FireStationsDao fireStationDao, MedicalRecordsDao medicalRecordsDao) throws ParseException {
+        List<AddressList> listAddressFoyer = new ArrayList<>();
+        List<Persons> listPersons;
+        List<String> peopleAddress;
+        for (String stationNumber : stations){
+            peopleAddress = fireStationDao.findAddressByStation(stationNumber);
+            for (String address : peopleAddress){
+                listPersons = findByAddress(address);
+                List<EmergencyList> emergencyList = new ArrayList<>();
+                for(Persons person : listPersons){
+                    MedicalRecords medicalRecord = medicalRecordsDao.findById(person.getFirstName(),person.getLastName());
+                    int age = tools.calculateAge(medicalRecord);
+                    emergencyList.add(new EmergencyList(person, age, medicalRecord));
+                }
+                listAddressFoyer.add((new AddressList(address,emergencyList)));
+            }
+        }
+
+        return listAddressFoyer;
     }
 
     /**

@@ -83,6 +83,20 @@ public class FireStationsDaoImpl implements FireStationsDao{
         return listPersonsFireStations;
     }
 
+    @Override
+    public List<String> findAddressByStation(String stationNumber){
+        logger.info("Recherche address par station.");
+        List<String> listAddress = new ArrayList<>();
+        for (FireStations station : fireStations) {
+            if (Integer.parseInt(station.getStation()) == Integer.parseInt(stationNumber)) {
+                listAddress.add(station.getAddress());
+            }
+        }
+        deleteDoublon(listAddress);
+
+        return listAddress;
+    }
+
     /**
      *{@inheritDoc}
      */

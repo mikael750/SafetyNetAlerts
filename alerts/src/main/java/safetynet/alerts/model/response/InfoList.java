@@ -17,8 +17,7 @@ public class InfoList {
     private String email;
     private List<String> medications;
     private List<String> allergies;
-//Cette url doit retourner le nom, l'adresse, l'âge, l'adresse mail et les antécédents médicaux (médicaments,
-//posologie, allergies) de chaque habitant.
+
     public InfoList(Persons person, int age, MedicalRecords medicalRecords){
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();

@@ -3,6 +3,7 @@ package safetynet.alerts.DAO;
 import safetynet.alerts.model.FireStations;
 import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
+import safetynet.alerts.model.response.AddressList;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -50,6 +51,15 @@ public interface PersonsDao {
      * @return
      */
     List<Persons> findByCity(String city);
+
+    /**
+     * @param stations
+     * @param fireStationDao
+     * @param medicalRecordsDao
+     * @return
+     * @throws ParseException
+     */
+    List<AddressList> findAddressFoyer(List<String> stations, FireStationsDao fireStationDao, MedicalRecordsDao medicalRecordsDao) throws ParseException;
 
     /**
      * @param persons

@@ -206,40 +206,16 @@ public class PersonsController {
     }
 
     /**
+     * Cette url doit retourner une liste de tous les foyers desservis par la caserne, et les regroupe les
+     * personnes par adresse.
+     *
      * @param stations stations
      * @return listAddressFoyer
      * @throws ParseException calculateAge
      */
-    /*
-    http://localhost:8080/flood/stations?stations=<a list of station_numbers>
-Cette url doit retourner une liste de tous les foyers desservis par la caserne, et les regroupe les
-personnes par adresse. Elle doit aussi inclure le nom, le numéro de téléphone et l'âge des habitants, et
-faire figurer leurs antécédents médicaux (médicaments, posologie et allergies) à côté de chaque nom.
-     */
     @GetMapping(value = "/flood/stations")
     public ResponseEntity getListForFlood(@RequestParam List<String> stations) throws ParseException {
-        List<EmergencyList> emergencyList = new ArrayList<>();
-        List<Persons> listPersons = new ArrayList<>();
-        List<AddressList> listAddressFoyer = new ArrayList<>();
-        List<String> peopleAddress = new ArrayList<>();
-
-        for (String stationNumber : stations){
-            listPersons.addAll(fireStationDao.findByNumberStation(stationNumber,personsDao));
-        }
-        /*for(Persons person : listPersons){
-            peopleAddress.add(person.getAddress());
-        }*/
-
-        deleteDoublon(peopleAddress);
-        for(Persons person : listPersons){
-        //for(String a : peopleAddress){
-            MedicalRecords medicalRecord = medicalRecordsDao.findById(person.getFirstName(),person.getLastName());
-            int age = tools.calculateAge(medicalRecord);
-            emergencyList.add(new EmergencyList(person, age, medicalRecord));
-            listAddressFoyer.add(new AddressList(person, emergencyList));
-        }//}
-        deleteDoublon(listAddressFoyer);
-
+        List<AddressList> listAddressFoyer = personsDao.findAddressFoyer(stations,fireStationDao,medicalRecordsDao);
         return ResponseEntity.status(HttpStatus.OK).body(listAddressFoyer);
     }
 

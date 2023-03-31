@@ -27,6 +27,12 @@ public interface FireStationsDao {
     List<Persons> findByNumberStation(String firestationNumber, PersonsDao personsDao);
 
     /**
+     * @param stationNumber
+     * @return
+     */
+    List<String> findAddressByStation(String stationNumber);
+
+    /**
      * @param fireStations
      * @return
      */

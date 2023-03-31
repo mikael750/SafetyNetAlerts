@@ -12,8 +12,8 @@ public class AddressList {
     private String address;
     private List<EmergencyList> emergencyList;
 
-    public AddressList(Persons person, List<EmergencyList> emergencyList){
-        this.address = person.getAddress();
+    public AddressList(String address, List<EmergencyList> emergencyList){
+        this.address = address;
         this.emergencyList = emergencyList;
     }
 }
