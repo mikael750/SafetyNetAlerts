@@ -17,6 +17,12 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class tools {
+
+    /**
+     * assure la modification de la base de donner en sortie
+     *
+     * @return boolean
+     */
     public static boolean change() {
         JSONObject Objet = new JSONObject();
         Objet.put("persons",PersonsDaoImpl.persons);
@@ -32,6 +38,13 @@ public class tools {
         return true;
     }
 
+    /**
+     * Calcule l'age d'une personne selon les record medical donner
+     *
+     * @param records records
+     * @return years
+     * @throws ParseException DateFor
+     */
     public static int calculateAge(MedicalRecords records) throws ParseException {
         Date date = new Date();
         SimpleDateFormat DateFor = new SimpleDateFormat("MM/dd/yyyy");
@@ -41,6 +54,12 @@ public class tools {
         return (int) years;
     }
 
+    /**
+     * Supprime les doublons dans une liste
+     *
+     * @param list list
+     * @return list
+     */
     public static List deleteDoublon(List list){
         Set set = new LinkedHashSet<>(list);
         list.clear();

@@ -125,7 +125,7 @@ public class FireStationsDaoImpl implements FireStationsDao{
      */
     @Override
     public boolean delete(String address) {
-        logger.info("Suppression de l'adress d'une casernes");
+        logger.info("Suppression de l'adresse d'une caserne");
         boolean isDeleted = fireStations.removeIf(fireStations -> Objects.equals(fireStations.getAddress(), address));
 
         tools.change();

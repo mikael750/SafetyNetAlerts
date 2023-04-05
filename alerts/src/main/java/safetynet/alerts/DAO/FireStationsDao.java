@@ -1,7 +1,6 @@
 package safetynet.alerts.DAO;
 
 import safetynet.alerts.model.FireStations;
-import org.springframework.stereotype.Repository;
 import safetynet.alerts.model.Persons;
 
 import java.util.List;
@@ -9,44 +8,58 @@ import java.util.List;
 public interface FireStationsDao {
 
     /**
-     * @return
+     * Trouve toutes les casernes
+     *
+     * @return fireStations
      */
     List<FireStations> findAll();
 
     /**
-     * @param address
-     * @return
+     * Trouve une caserne par l'adresse donner
+     *
+     * @param address address
+     * @return fireStation
      */
     FireStations findById(String address);
 
     /**
-     * @param firestationNumber
-     * @param personsDao
-     * @return
+     * Recherche les personnes par le numero de station
+     *
+     * @param fireStationNumber fireStationNumber
+     * @param personsDao personsDao
+     * @return listPersonsFireStations
      */
-    List<Persons> findByNumberStation(String firestationNumber, PersonsDao personsDao);
+    List<Persons> findByNumberStation(String fireStationNumber, PersonsDao personsDao);
 
     /**
-     * @param stationNumber
-     * @return
+     * Recherche les personnes par l'adresse de la station
+     *
+     * @param stationNumber stationNumber
+     * @return listAddress
      */
     List<String> findAddressByStation(String stationNumber);
 
     /**
-     * @param fireStations
-     * @return
+     * Sauvegarde les changements de la base de donner des casernes
+     *
+     * @param fireStations fireStation
+     * @return fireStation
      */
     FireStations save(FireStations fireStations);
 
     /**
-     * @param fireStation
-     * @return
+     * Mis à Jour de la base de donner des casernes
+     *
+     * @param fireStation fireStation
+     * @return fireStation
      */
     FireStations update(FireStations fireStation);
 
     /**
-     * @param address
-     * @return
+     * Supprime l'adresse d'une caserne
+     *
+     * @param address address
+     * @return boolean
      */
     boolean delete(String address);
 }

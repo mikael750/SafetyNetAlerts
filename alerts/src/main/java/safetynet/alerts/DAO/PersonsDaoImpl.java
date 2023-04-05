@@ -135,6 +135,7 @@ public class PersonsDaoImpl implements PersonsDao{
      */
     @Override
     public List<AddressList> findAddressFoyer(List<String> stations, FireStationsDao fireStationDao, MedicalRecordsDao medicalRecordsDao) throws ParseException {
+        logger.info("Recherche des addresses des foyers");
         List<AddressList> listAddressFoyer = new ArrayList<>();
         List<Persons> listPersons;
         List<String> peopleAddress;

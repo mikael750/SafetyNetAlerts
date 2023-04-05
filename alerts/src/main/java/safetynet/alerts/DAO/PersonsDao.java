@@ -1,82 +1,99 @@
 package safetynet.alerts.DAO;
 
-import safetynet.alerts.model.FireStations;
 import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
 import safetynet.alerts.model.response.AddressList;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 public interface PersonsDao {
-    //TODO commentaire et inheritence {@inheritDoc}
 
     /**
-     * @return
+     * Trouve toutes les personnes
+     *
+     * @return persons
      */
     List<Persons> findAll();
 
     /**
-     * @param firstName
-     * @param lastName
-     * @return
+     * Trouve une personne par nom et prénom
+     *
+     * @param firstName firstName
+     * @param lastName lastName
+     * @return person
      */
     Persons findById(String firstName, String lastName);
 
 
     /**
-     * @param firstName
-     * @param lastName
-     * @return
+     * Trouves une liste des personnes par nom et prénom
+     *
+     * @param firstName firstName
+     * @param lastName lastName
+     * @return listPersons
      */
     List<Persons> findByNames(String firstName, String lastName);
 
     /**
-     * @param findMedicalRecords
-     * @param listPersons
-     * @return
-     * @throws ParseException
+     * Trouves une liste d'ages d'après une liste de personnes
+     *
+     * @param findMedicalRecords findMedicalRecords
+     * @param listPersons listPersons
+     * @return ages
+     * @throws ParseException calculateAge
      */
     List<String> findPersonsAges(List<MedicalRecords> findMedicalRecords, List<Persons> listPersons) throws ParseException;
 
     /**
-     * @param address
-     * @return
+     * Trouve par adresse une liste de personnes
+     *
+     * @param address address
+     * @return personsByAddress
      */
     List<Persons> findByAddress(String address);
 
     /**
-     * @param city
-     * @return
+     * Trouve les personnes par leur ville
+     *
+     * @param city city
+     * @return personsByCity
      */
     List<Persons> findByCity(String city);
 
     /**
-     * @param stations
-     * @param fireStationDao
-     * @param medicalRecordsDao
-     * @return
-     * @throws ParseException
+     * Trouves les addresses des foyers
+     *
+     * @param stations stations
+     * @param fireStationDao fireStationDao
+     * @param medicalRecordsDao medicalRecordsDao
+     * @return listAddressFoyer
+     * @throws ParseException calculateAge
      */
     List<AddressList> findAddressFoyer(List<String> stations, FireStationsDao fireStationDao, MedicalRecordsDao medicalRecordsDao) throws ParseException;
 
     /**
-     * @param persons
-     * @return
+     * Sauvegarde les changements de la base de donner des personnes
+     *
+     * @param person person
+     * @return person
      */
-    Persons save(Persons persons);
+    Persons save(Persons person);
 
     /**
-     * @param person
-     * @return
+     * Mis à Jour de la base de donner des personnes
+     *
+     * @param person person
+     * @return person
      */
     Persons update(Persons person);
 
     /**
-     * @param firstName
-     * @param lastName
-     * @return
+     * Supprime la personne de la base de donner
+     *
+     * @param firstName firstName
+     * @param lastName lastName
+     * @return boolean
      */
     boolean delete(String firstName, String lastName);
 }
