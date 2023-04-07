@@ -37,27 +37,27 @@ public class MedicalRecordsIT {
 
     @Test
     public void medicalRecordsController_ShouldAddNewRecord(){
-        medicalRecordsController.ajouterMedicalRecords(test1);
-        assertTrue(medicalRecordsController.listeMedicalRecords().contains(test1));
+        medicalRecordsController.addMedicalRecords(test1);
+        assertTrue(medicalRecordsController.getMedicalRecords().contains(test1));
     }
 
     @Test
     public void medicalRecordsController_ShouldUpdateRecord(){
-        medicalRecordsController.ajouterMedicalRecords(test2);
+        medicalRecordsController.addMedicalRecords(test2);
         MedicalRecords recordsDetail = new MedicalRecords("Jean","Dujardin","03/03/2003",new ArrayList<>(),new ArrayList<>());
         try {
             medicalRecordsController.updateMedicalRecords("Jean","Dujardin", recordsDetail);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        assertSame("03/03/2003", medicalRecordsController.afficherMedicalRecords("Jean", "Dujardin").getBirthdate());
+        assertSame("03/03/2003", medicalRecordsController.showMedicalRecords("Jean", "Dujardin").getBirthdate());
     }
 
     @Test
     public void medicalRecordsController_ShouldDeleteRecord() {
         medicalRecordsController_ShouldAddNewRecord();
         medicalRecordsController.deleteMedicalRecord("Michael","Jackson");
-        assertFalse(medicalRecordsController.listeMedicalRecords().contains(test1));
+        assertFalse(medicalRecordsController.getMedicalRecords().contains(test1));
     }
 
 }

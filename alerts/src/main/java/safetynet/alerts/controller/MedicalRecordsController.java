@@ -27,8 +27,8 @@ public class MedicalRecordsController {
      *
      * @return List MedicalRecords
      */
-    @GetMapping(value = "/medicalRecords")
-    public List<MedicalRecords> listeMedicalRecords() {
+    @GetMapping(value = "/medicalRecord")
+    public List<MedicalRecords> getMedicalRecords() {
         return medicalRecordsDao.findAll();
     }
 
@@ -40,7 +40,7 @@ public class MedicalRecordsController {
      * @return MedicalRecord
      */
     @GetMapping(value = "/medicalRecord/{firstName}/{lastName}")
-    public MedicalRecords afficherMedicalRecords(@PathVariable String firstName,@PathVariable String lastName) {
+    public MedicalRecords showMedicalRecords(@PathVariable String firstName, @PathVariable String lastName) {
         return medicalRecordsDao.findById(firstName, lastName);
     }
 
@@ -51,7 +51,7 @@ public class MedicalRecordsController {
      * @return medicalRecordsAdded
      */
     @PostMapping(value = "/medicalRecord")
-    public ResponseEntity<MedicalRecords> ajouterMedicalRecords(@RequestBody MedicalRecords medicalRecords) {
+    public ResponseEntity<MedicalRecords> addMedicalRecords(@RequestBody MedicalRecords medicalRecords) {
         MedicalRecords medicalRecordsAdded = medicalRecordsDao.save(medicalRecords);
         if (Objects.isNull(medicalRecordsAdded)) {
             return ResponseEntity.noContent().build();

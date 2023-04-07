@@ -41,28 +41,28 @@ public class PersonsIT {
 
     @Test
     public void personsController_ShouldAddNewPerson(){
-        personsController.ajouterPersons(test1);
-        assertTrue(personsController.listePersons().contains(test1));
+        personsController.addPersons(test1);
+        assertTrue(personsController.getPersons().contains(test1));
     }
     //TODO test integration
 
     @Test
     public void personsController_ShouldUpdatePerson(){
-        personsController.ajouterPersons(test2);
+        personsController.addPersons(test2);
         Persons personsDetail = new Persons("Jean","Dujardin","3rd Manor Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
         try {
             personsController.updatePersons("Jean","Dujardin", personsDetail);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        assertSame("3rd Manor Street", personsController.afficherUnePersonne("Jean", "Dujardin").getAddress());
+        assertSame("3rd Manor Street", personsController.showAPerson("Jean", "Dujardin").getAddress());
     }
 
     @Test
     public void personsController_ShouldDeletePerson() {
         personsController_ShouldAddNewPerson();
         personsController.deletePersons("Michael","Jackson");
-        assertFalse(personsController.listePersons().contains(test1));
+        assertFalse(personsController.getPersons().contains(test1));
     }
 
 }

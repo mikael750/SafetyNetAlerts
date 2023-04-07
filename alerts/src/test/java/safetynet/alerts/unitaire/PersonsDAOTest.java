@@ -6,7 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import safetynet.alerts.DAO.PersonsDaoImpl;
+import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
+
+import java.text.ParseException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -57,4 +61,20 @@ public class PersonsDAOTest {
         personsDaoImpl.delete("Michael","Jackson");
         assertFalse(personsDaoImpl.findAll().contains(persons));
     }
+
+    @Test
+    public void findByNamesTest(){
+        saveTest();
+        List<Persons> listPersons = personsDaoImpl.findByNames("Michael","Jackson");
+        assertNotNull(listPersons);
+    }
+    /*
+    @Test
+    public void findPersonsAgesTest() throws ParseException {
+        List<MedicalRecords> listRecord = null;
+        List<Persons> listPersons = null;
+        personsDaoImpl.findPersonsAges(listRecord,listPersons);
+        
+    }*/
+
 }

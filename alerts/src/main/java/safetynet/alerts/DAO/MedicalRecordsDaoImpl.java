@@ -5,7 +5,7 @@ import com.jsoniter.any.Any;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-import safetynet.alerts.DAO.Util.tools;
+import safetynet.alerts.Util.AlertsUtils;
 import safetynet.alerts.model.MedicalRecords;
 
 import java.io.IOException;
@@ -21,12 +21,11 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
     private static final Logger logger = LogManager.getLogger(MedicalRecordsDaoImpl.class);
 
     /**
-     * Charge les information de la database firestations
+     * Charge les informations de la database firestations
      */
     public static void load(){
         logger.info("Chargement des donner des records medicals.");
-        try {
-            InputStream file = MedicalRecordsDaoImpl.class.getResourceAsStream("/data.json");
+        try (InputStream file = MedicalRecordsDaoImpl.class.getResourceAsStream("/saveData")){
             assert file != null;
             JsonIterator iter = JsonIterator.parse(file.readAllBytes());
             Any any = iter.readAny();
@@ -35,7 +34,7 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
                 medicalRecords.add(new MedicalRecords(a.get("firstName").toString() , a.get("lastName").toString(), a.get("birthdate").toString(), a.get("medications").as(List.class), a.get("allergies").as(List.class)));
             });
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 
@@ -69,7 +68,7 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
     public MedicalRecords save(MedicalRecords medicalRecord) {
         logger.info("Sauvegarde des changements de la Dao des record medical");
         medicalRecords.add(medicalRecord);
-        tools.change();
+        AlertsUtils.writeJsonFile();
         return medicalRecord;
     }
 
@@ -81,7 +80,7 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
         logger.info("Mis à Jour de la Dao des records medical");
         medicalRecords.remove(medicalRecord);
         medicalRecords.add(medicalRecord);
-        tools.change();
+        AlertsUtils.writeJsonFile();
         return medicalRecord;
     }
 
@@ -93,7 +92,7 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
         logger.info("Suppression des record medical d'une personne");
         boolean isDeleted = medicalRecords.removeIf((medicalRecords -> Objects.equals(medicalRecords.getFirstName(), firstName) && Objects.equals(medicalRecords.getLastName(), lastName)));
 
-        tools.change();
+        AlertsUtils.writeJsonFile();
         return isDeleted;
     }
 }

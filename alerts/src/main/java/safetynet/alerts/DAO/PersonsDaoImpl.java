@@ -5,7 +5,7 @@ import com.jsoniter.any.Any;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-import safetynet.alerts.DAO.Util.tools;
+import safetynet.alerts.Util.AlertsUtils;
 import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
 import safetynet.alerts.model.response.AddressList;
@@ -15,7 +15,7 @@ import java.io.*;
 import java.text.ParseException;
 import java.util.*;
 
-import static safetynet.alerts.DAO.Util.tools.calculateAge;
+import static safetynet.alerts.Util.AlertsUtils.calculateAge;
 
 @Service
 public class PersonsDaoImpl implements PersonsDao{
@@ -24,12 +24,11 @@ public class PersonsDaoImpl implements PersonsDao{
     private static final Logger logger = LogManager.getLogger(PersonsDaoImpl.class);
 
     /**
-     * Charge les information de la database persons
+     * Charge les informations de la database persons
      */
     public static void load(){
         logger.info("Chargement des donner des personnes.");
-        try {
-            InputStream file = PersonsDaoImpl.class.getResourceAsStream("/data.json");
+        try (InputStream file = PersonsDaoImpl.class.getResourceAsStream("/saveData")){
             assert file != null;
             JsonIterator iter = JsonIterator.parse(file.readAllBytes());
             Any any = iter.readAny();
@@ -38,7 +37,7 @@ public class PersonsDaoImpl implements PersonsDao{
                 persons.add(new Persons(a.get("firstName").toString() , a.get("lastName").toString(), a.get("address").toString(), a.get("city").toString(), a.get("zip").toString(),a.get("phone").toString(), a.get("email").toString()));
             });
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 
@@ -146,7 +145,7 @@ public class PersonsDaoImpl implements PersonsDao{
                 List<EmergencyList> emergencyList = new ArrayList<>();
                 for(Persons person : listPersons){
                     MedicalRecords medicalRecord = medicalRecordsDao.findById(person.getFirstName(),person.getLastName());
-                    int age = tools.calculateAge(medicalRecord);
+                    int age = AlertsUtils.calculateAge(medicalRecord);
                     emergencyList.add(new EmergencyList(person, age, medicalRecord));
                 }
                 listAddressFoyer.add((new AddressList(address,emergencyList)));
@@ -163,7 +162,7 @@ public class PersonsDaoImpl implements PersonsDao{
     public Persons save(Persons person) {
         logger.info("Sauvegarde des changements de la Dao des personnes");
         persons.add(person);
-        tools.change();
+        AlertsUtils.writeJsonFile();
         return person;
     }
 
@@ -175,7 +174,7 @@ public class PersonsDaoImpl implements PersonsDao{
         logger.info("Mis à Jour de la Dao des personnes");
         persons.remove(person);
         persons.add(person);
-        tools.change();
+        AlertsUtils.writeJsonFile();
         return person;
     }
 
@@ -188,7 +187,7 @@ public class PersonsDaoImpl implements PersonsDao{
         logger.info("Suppression des donnees d'une personne");
         boolean isDeleted = (persons.removeIf((persons -> Objects.equals(persons.getFirstName(), firstName) && Objects.equals(persons.getLastName(), lastName))));
 
-        tools.change();
+        AlertsUtils.writeJsonFile();
         return isDeleted;
     }
 

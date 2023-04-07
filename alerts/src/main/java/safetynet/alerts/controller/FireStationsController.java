@@ -27,19 +27,19 @@ public class FireStationsController {
      *
      * @return List FireStations
      */
-    @GetMapping(value = "/firestations")
-    public List<FireStations> listeFireStations() {
+    @GetMapping(value = "/fireStation")
+    public List<FireStations> getFireStations() {
         return fireStationsDao.findAll();
     }
 
     /**
-     * affiche les stations par ladresse preciser dans l'url
+     * affiche les stations par l'adresse preciser dans l'URL
      *
      * @param address address
      * @return FireStation
      */
     @GetMapping(value = "/firestation/{address}")
-    public FireStations afficherFireStations(@PathVariable String address) {
+    public FireStations showFireStations(@PathVariable String address) {
         return fireStationsDao.findById(address);
     }
 
@@ -50,7 +50,7 @@ public class FireStationsController {
      * @return fireStationsAdded
      */
     @PostMapping(value = "/firestation")
-    public ResponseEntity<FireStations> ajouterFireStations(@RequestBody FireStations fireStations) {
+    public ResponseEntity<FireStations> addFireStations(@RequestBody FireStations fireStations) {
         FireStations fireStationsAdded = fireStationsDao.save(fireStations);
         if (Objects.isNull(fireStationsAdded)) {
             return ResponseEntity.noContent().build();

@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import safetynet.alerts.DAO.FireStationsDao;
 import safetynet.alerts.DAO.MedicalRecordsDao;
 import safetynet.alerts.DAO.PersonsDao;
-import safetynet.alerts.DAO.Util.tools;
+import safetynet.alerts.Util.AlertsUtils;
 import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,7 @@ import safetynet.alerts.model.response.*;
 import java.text.ParseException;
 import java.util.*;
 
-import static safetynet.alerts.DAO.Util.tools.deleteDoublon;
+import static safetynet.alerts.Util.AlertsUtils.deleteDoublon;
 
 @RestController
 public class PersonsController {
@@ -39,31 +39,31 @@ public class PersonsController {
      *
      * @return List Persons
      */
-    @GetMapping(value = "/persons")
-    public List<Persons> listePersons() {
+    @GetMapping(value = "/person")
+    public List<Persons> getPersons() {
         return personsDao.findAll();
     }
 
     /**
-     * affiche la personne et ces donnee preciser dans l'url
+     * affiche la personne et ces donnee preciser dans l'URL
      *
      * @param firstName firstName
      * @param lastName lastName
      * @return Persons
      */
     @GetMapping(value = "/person/{firstName}/{lastName}")
-    public Persons afficherUnePersonne(@PathVariable String firstName, @PathVariable String lastName) {
+    public Persons showAPerson(@PathVariable String firstName, @PathVariable String lastName) {
         return personsDao.findById(firstName, lastName);
     }
 
     /**
-     * ajoute une personne a la database Persons
+     * ajoute une personne à la database Persons
      *
      * @param persons persons
      * @return personsAdded
      */
     @PostMapping(value = "/person")
-    public ResponseEntity<Persons> ajouterPersons(@RequestBody Persons persons) {
+    public ResponseEntity<Persons> addPersons(@RequestBody Persons persons) {
         Persons personsAdded = personsDao.save(persons);
         if (Objects.isNull(personsAdded)) {
             return ResponseEntity.noContent().build();
@@ -147,7 +147,7 @@ public class PersonsController {
      *
      * @param address address
      * @return childList
-     * @throws ParseException
+     * @throws ParseException calculateAge
      */
     @GetMapping(value = "/childAlert")
     public ResponseEntity getChildList(@RequestParam String address) throws ParseException {
@@ -155,7 +155,7 @@ public class PersonsController {
         List<ChildAlert> childList = new ArrayList<>();
         List<Persons> foyer = new ArrayList<>(listByAddress);
         for (Persons personne : listByAddress){
-            int age = tools.calculateAge(medicalRecordsDao.findById(personne.getFirstName(),personne.getLastName()));
+            int age = AlertsUtils.calculateAge(medicalRecordsDao.findById(personne.getFirstName(),personne.getLastName()));
             if (age < 18){
                 foyer.remove(personne);
                 childList.add(new ChildAlert(personne, age, foyer));
@@ -168,12 +168,12 @@ public class PersonsController {
      * Cette url retourne une liste des numéros de téléphone des résidents desservis par la caserne de
      * pompiers
      *
-     * @param firestation firestation
+     * @param fireStation fireStation
      * @return listPhoneNumber
      */
     @GetMapping(value = "/phoneAlert")
-    public ResponseEntity getListPhoneNumber(@RequestParam String firestation) {
-        List<Persons> listPersonsStations = fireStationDao.findByNumberStation(firestation,personsDao);
+    public ResponseEntity getListPhoneNumber(@RequestParam String fireStation) {
+        List<Persons> listPersonsStations = fireStationDao.findByNumberStation(fireStation,personsDao);
         List<Object> listPhoneNumber = new ArrayList<>();
         for(Persons fireStations : listPersonsStations){
             listPhoneNumber.add(fireStations.getPhone());
@@ -197,7 +197,7 @@ public class PersonsController {
 
         for(Persons person : listPersons){
             MedicalRecords medicalRecord = medicalRecordsDao.findById(person.getFirstName(),person.getLastName());
-            int age = tools.calculateAge(medicalRecord);
+            int age = AlertsUtils.calculateAge(medicalRecord);
             emergencyList.add(new EmergencyList(person, age, medicalRecord));
         }
 
@@ -219,7 +219,7 @@ public class PersonsController {
     }
 
     /**
-     * Cette retourne le nom, l'adresse, l'âge, l'adresse mail et les antécédents médicaux (médicaments,
+     * Cette url retourne le nom, l'adresse, l'âge, l'adresse mail et les antécédents médicaux (médicaments,
      * posologie, allergies) de chaque habitant préciser.
      *
      * @param firstName firstName
@@ -234,7 +234,7 @@ public class PersonsController {
 
         for(Persons person : listPersons){
             MedicalRecords medicalRecord = medicalRecordsDao.findById(person.getFirstName(),person.getLastName());
-            int age = tools.calculateAge(medicalRecord);
+            int age = AlertsUtils.calculateAge(medicalRecord);
             infoList.add(new InfoList(person, age, medicalRecord));
         }
 

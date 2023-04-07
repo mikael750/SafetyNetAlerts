@@ -35,27 +35,27 @@ public class FireStationsIT {
 
     @Test
     public void fireStationsController_ShouldAddNewStation(){
-        fireStationsController.ajouterFireStations(test1);
-        assertTrue(fireStationsController.listeFireStations().contains(test1));
+        fireStationsController.addFireStations(test1);
+        assertTrue(fireStationsController.getFireStations().contains(test1));
     }
 
     @Test
     public void fireStationsController_ShouldUpdateStation(){
-        fireStationsController.ajouterFireStations(test2);
+        fireStationsController.addFireStations(test2);
         FireStations fireStationsDetail = new FireStations("2ndHouse","3");
         try {
             fireStationsController.updateFireStations("2ndHouse",fireStationsDetail);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        assertSame("3", fireStationsController.afficherFireStations("2ndHouse").getStation());
+        assertSame("3", fireStationsController.showFireStations("2ndHouse").getStation());
     }
 
     @Test
     public void fireStationsController_ShouldDeleteStation() {
         fireStationsController_ShouldAddNewStation();
         fireStationsController.deleteAddress("1stHouse");
-        assertFalse(fireStationsController.listeFireStations().contains(test1));
+        assertFalse(fireStationsController.getFireStations().contains(test1));
     }
 
 }

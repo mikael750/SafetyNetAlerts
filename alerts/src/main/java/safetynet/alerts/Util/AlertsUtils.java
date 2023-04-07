@@ -1,5 +1,7 @@
-package safetynet.alerts.DAO.Util;
+package safetynet.alerts.Util;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import safetynet.alerts.DAO.FireStationsDaoImpl;
 import safetynet.alerts.DAO.MedicalRecordsDaoImpl;
@@ -16,23 +18,27 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-public class tools {
+public class AlertsUtils {
+
+    private final static String FILE_PATH = "alerts/src/main/resources/saveData";
+
+    private static final Logger logger = LogManager.getLogger(MedicalRecordsDaoImpl.class);
 
     /**
      * assure la modification de la base de donner en sortie
      *
      * @return boolean
      */
-    public static boolean change() {
-        JSONObject Objet = new JSONObject();
+    public static boolean writeJsonFile() {
+        var Objet = new JSONObject();
         Objet.put("persons",PersonsDaoImpl.persons);
         Objet.put("medicalrecords",MedicalRecordsDaoImpl.medicalRecords);
         Objet.put("firestations",FireStationsDaoImpl.fireStations);
 
-        try (PrintWriter out = new PrintWriter(new FileWriter("alerts/target/classes/data.json"))) {
+        try (PrintWriter out = new PrintWriter(new FileWriter(FILE_PATH))) {
             out.write(Objet.toString());
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e);
             return false;
         }
         return true;

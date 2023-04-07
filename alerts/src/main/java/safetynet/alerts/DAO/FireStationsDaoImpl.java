@@ -5,7 +5,7 @@ import com.jsoniter.any.Any;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-import safetynet.alerts.DAO.Util.tools;
+import safetynet.alerts.Util.AlertsUtils;
 import safetynet.alerts.model.FireStations;
 import safetynet.alerts.model.Persons;
 
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static safetynet.alerts.DAO.Util.tools.deleteDoublon;
+import static safetynet.alerts.Util.AlertsUtils.deleteDoublon;
 
 @Service
 public class FireStationsDaoImpl implements FireStationsDao{
@@ -28,8 +28,7 @@ public class FireStationsDaoImpl implements FireStationsDao{
      */
     public static void load(){
         logger.info("Chargement des donner des casernes.");
-        try {
-            InputStream file = FireStationsDaoImpl.class.getResourceAsStream("/data.json");
+        try (InputStream file = FireStationsDaoImpl.class.getResourceAsStream("/saveData")){
             assert file != null;
             JsonIterator iter = JsonIterator.parse(file.readAllBytes());
             Any any = iter.readAny();
@@ -38,7 +37,7 @@ public class FireStationsDaoImpl implements FireStationsDao{
                 fireStations.add(new FireStations(a.get("address").toString() , a.get("station").toString()));
             });
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 
@@ -104,7 +103,7 @@ public class FireStationsDaoImpl implements FireStationsDao{
     public FireStations save(FireStations fireStation) {
         logger.info("Sauvegarde des changements de la Dao des casernes");
         fireStations.add(fireStation);
-        tools.change();
+        AlertsUtils.writeJsonFile();
         return fireStation;
     }
 
@@ -116,7 +115,7 @@ public class FireStationsDaoImpl implements FireStationsDao{
         logger.info("Mis à Jour de la Dao des casernes");
         fireStations.remove(fireStation);
         fireStations.add(fireStation);
-        tools.change();
+        AlertsUtils.writeJsonFile();
         return fireStation;
     }
 
@@ -128,7 +127,7 @@ public class FireStationsDaoImpl implements FireStationsDao{
         logger.info("Suppression de l'adresse d'une caserne");
         boolean isDeleted = fireStations.removeIf(fireStations -> Objects.equals(fireStations.getAddress(), address));
 
-        tools.change();
+        AlertsUtils.writeJsonFile();
         return isDeleted;
     }
 }
