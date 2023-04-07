@@ -5,7 +5,6 @@ import safetynet.alerts.DAO.FireStationsDao;
 import safetynet.alerts.DAO.MedicalRecordsDao;
 import safetynet.alerts.DAO.PersonsDao;
 import safetynet.alerts.DAO.Util.tools;
-import safetynet.alerts.model.FireStations;
 import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
 import org.springframework.web.bind.annotation.GetMapping;

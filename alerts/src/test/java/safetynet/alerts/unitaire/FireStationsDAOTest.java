@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import safetynet.alerts.DAO.FireStationsDaoImpl;
-import safetynet.alerts.DAO.MedicalRecordsDaoImpl;
+import safetynet.alerts.DAO.PersonsDao;
 import safetynet.alerts.model.FireStations;
-import safetynet.alerts.model.MedicalRecords;
+import safetynet.alerts.model.Persons;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,6 +21,9 @@ public class FireStationsDAOTest {
 
     @Mock
     private static FireStations fireStations;
+
+    @Mock
+    private static PersonsDao personsDao;
 
     @BeforeAll
     private static void setUp() throws Exception {
@@ -38,7 +41,6 @@ public class FireStationsDAOTest {
         fireStationsDaoImpl.save(fireStations);
         assertTrue(fireStationsDaoImpl.findAll().contains(fireStations));
     }
-    //TODO test unitaire par fonction
 
     @Test
     public void findByIdTest(){
@@ -61,4 +63,15 @@ public class FireStationsDAOTest {
         assertFalse(fireStationsDaoImpl.findAll().contains(fireStations));
     }
 
+    @Test
+    public void findAddressByStationTest(){
+        List<String> listString = fireStationsDaoImpl.findAddressByStation("1");
+        assertNotNull(listString);
+    }
+
+    @Test
+    public void findByNumberStationTest(){
+        List<Persons> listPersons = fireStationsDaoImpl.findByNumberStation("1",personsDao);
+        assertNotNull(listPersons);
+    }
 }
