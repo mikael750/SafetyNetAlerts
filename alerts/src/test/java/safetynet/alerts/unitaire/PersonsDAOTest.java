@@ -5,15 +5,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import safetynet.alerts.DAO.FireStationsDao;
+import safetynet.alerts.DAO.MedicalRecordsDao;
 import safetynet.alerts.DAO.PersonsDaoImpl;
 import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
+import safetynet.alerts.model.response.AddressList;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 public class PersonsDAOTest {
@@ -22,6 +26,12 @@ public class PersonsDAOTest {
 
     @Mock
     private static Persons persons;
+
+    @Mock
+    private static FireStationsDao fireStationsDao;
+
+    @Mock
+    private static MedicalRecordsDao medicalRecordsDao;
 
     @BeforeAll
     private static void setUp() throws Exception {
@@ -68,13 +78,34 @@ public class PersonsDAOTest {
         List<Persons> listPersons = personsDaoImpl.findByNames("Michael","Jackson");
         assertNotNull(listPersons);
     }
-    /*
+
     @Test
     public void findPersonsAgesTest() throws ParseException {
-        List<MedicalRecords> listRecord = null;
-        List<Persons> listPersons = null;
-        personsDaoImpl.findPersonsAges(listRecord,listPersons);
-        
-    }*/
+        List<MedicalRecords> listRecord = new ArrayList<>();
+        List<Persons> listPersons = new ArrayList<>();
+        List<String> list = personsDaoImpl.findPersonsAges(listRecord,listPersons);
+        assertNotNull(list);
+    }
+
+    @Test
+    public void findByCityTest(){
+        saveTest();
+        List<Persons> list = personsDaoImpl.findByCity("OldCity");
+        assertNotNull(list);
+    }
+
+    @Test
+    public void findByAddressTest(){
+        saveTest();
+        List<Persons> list = personsDaoImpl.findByAddress("HisAddress");
+        assertNotNull(list);
+    }
+
+    @Test
+    public void findAddressFoyerTest() throws ParseException {
+        List<String> listString = Arrays.asList("1","2","3","4");
+        List<AddressList> listAddressFoyer = personsDaoImpl.findAddressFoyer(listString,fireStationsDao,medicalRecordsDao);
+        assertNotNull(listAddressFoyer);
+    }
 
 }
