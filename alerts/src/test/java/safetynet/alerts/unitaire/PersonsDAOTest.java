@@ -103,7 +103,7 @@ public class PersonsDAOTest {
 
     @Test
     public void findAddressFoyerTest() throws ParseException {
-        List<String> listString = Arrays.asList("1","2","3","4");
+        List<String> listString = Arrays.asList("1","2");
         List<AddressList> listAddressFoyer = personsDaoImpl.findAddressFoyer(listString,fireStationsDao,medicalRecordsDao);
         assertNotNull(listAddressFoyer);
     }

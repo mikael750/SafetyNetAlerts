@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d0055eb-dd6f-48b4-8f46-f25c90aaa8a0" name="Changes" comment="MHE - Amelioration + Cleaning Up">
+    <list default="true" id="9d0055eb-dd6f-48b4-8f46-f25c90aaa8a0" name="Changes" comment="MHE - PersonsDAOTest complete">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/integration/PersonsIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/integration/PersonsIT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/unitaire/PersonsDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/unitaire/PersonsDAOTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,100 +82,100 @@
       <recent name="safetynet.alerts" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.PersonsDAOTest.findAddressFoyerTest">
-    <configuration name="PersonsDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.PersonsIT.personsController_ShouldGetChildList">
+    <configuration name="PersonsIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="alerts" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="safetynet.alerts.unitaire.*" />
+          <option name="PATTERN" value="safetynet.alerts.integration.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="safetynet.alerts.unitaire" />
-      <option name="MAIN_CLASS_NAME" value="safetynet.alerts.unitaire.PersonsDAOTest" />
+      <option name="PACKAGE_NAME" value="safetynet.alerts.integration" />
+      <option name="MAIN_CLASS_NAME" value="safetynet.alerts.integration.PersonsIT" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PersonsDAOTest.findAddressFoyerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PersonsIT.personsController_ShouldGetChildList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="alerts" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="safetynet.alerts.unitaire.*" />
+          <option name="PATTERN" value="safetynet.alerts.integration.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="safetynet.alerts.unitaire" />
-      <option name="MAIN_CLASS_NAME" value="safetynet.alerts.unitaire.PersonsDAOTest" />
-      <option name="METHOD_NAME" value="findAddressFoyerTest" />
+      <option name="PACKAGE_NAME" value="safetynet.alerts.integration" />
+      <option name="MAIN_CLASS_NAME" value="safetynet.alerts.integration.PersonsIT" />
+      <option name="METHOD_NAME" value="personsController_ShouldGetChildList" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PersonsDAOTest.findByAddressTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PersonsIT.personsController_ShouldGetInfoOnPerson" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="alerts" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="safetynet.alerts.unitaire.*" />
+          <option name="PATTERN" value="safetynet.alerts.integration.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="safetynet.alerts.unitaire" />
-      <option name="MAIN_CLASS_NAME" value="safetynet.alerts.unitaire.PersonsDAOTest" />
-      <option name="METHOD_NAME" value="findByAddressTest" />
+      <option name="PACKAGE_NAME" value="safetynet.alerts.integration" />
+      <option name="MAIN_CLASS_NAME" value="safetynet.alerts.integration.PersonsIT" />
+      <option name="METHOD_NAME" value="personsController_ShouldGetInfoOnPerson" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PersonsDAOTest.findByCityTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PersonsIT.personsController_ShouldGetListPhoneNumber" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="alerts" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="safetynet.alerts.unitaire.*" />
+          <option name="PATTERN" value="safetynet.alerts.integration.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="safetynet.alerts.unitaire" />
-      <option name="MAIN_CLASS_NAME" value="safetynet.alerts.unitaire.PersonsDAOTest" />
-      <option name="METHOD_NAME" value="findByCityTest" />
+      <option name="PACKAGE_NAME" value="safetynet.alerts.integration" />
+      <option name="MAIN_CLASS_NAME" value="safetynet.alerts.integration.PersonsIT" />
+      <option name="METHOD_NAME" value="personsController_ShouldGetListPhoneNumber" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PersonsDAOTest.findPersonsAgesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PersonsIT.personsController_ShouldGetStationNumber" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="alerts" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="safetynet.alerts.unitaire.*" />
+          <option name="PATTERN" value="safetynet.alerts.integration.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="safetynet.alerts.unitaire" />
-      <option name="MAIN_CLASS_NAME" value="safetynet.alerts.unitaire.PersonsDAOTest" />
-      <option name="METHOD_NAME" value="findPersonsAgesTest" />
+      <option name="PACKAGE_NAME" value="safetynet.alerts.integration" />
+      <option name="MAIN_CLASS_NAME" value="safetynet.alerts.integration.PersonsIT" />
+      <option name="METHOD_NAME" value="personsController_ShouldGetStationNumber" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.PersonsDAOTest" />
-      <item itemvalue="JUnit.PersonsDAOTest.findPersonsAgesTest" />
-      <item itemvalue="JUnit.PersonsDAOTest.findByCityTest" />
-      <item itemvalue="JUnit.PersonsDAOTest.findByAddressTest" />
-      <item itemvalue="JUnit.PersonsDAOTest.findAddressFoyerTest" />
+      <item itemvalue="JUnit.PersonsIT.personsController_ShouldGetListPhoneNumber" />
+      <item itemvalue="JUnit.PersonsIT.personsController_ShouldGetInfoOnPerson" />
+      <item itemvalue="JUnit.PersonsIT.personsController_ShouldGetChildList" />
+      <item itemvalue="JUnit.PersonsIT.personsController_ShouldGetStationNumber" />
+      <item itemvalue="JUnit.PersonsIT" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.PersonsDAOTest.findAddressFoyerTest" />
-        <item itemvalue="JUnit.PersonsDAOTest" />
-        <item itemvalue="JUnit.PersonsDAOTest.findByAddressTest" />
-        <item itemvalue="JUnit.PersonsDAOTest.findByCityTest" />
-        <item itemvalue="JUnit.PersonsDAOTest.findPersonsAgesTest" />
+        <item itemvalue="JUnit.PersonsIT.personsController_ShouldGetChildList" />
+        <item itemvalue="JUnit.PersonsIT" />
+        <item itemvalue="JUnit.PersonsIT.personsController_ShouldGetStationNumber" />
+        <item itemvalue="JUnit.PersonsIT.personsController_ShouldGetListPhoneNumber" />
+        <item itemvalue="JUnit.PersonsIT.personsController_ShouldGetInfoOnPerson" />
       </list>
     </recent_temporary>
   </component>
@@ -439,7 +440,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680884021546</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="MHE - PersonsDAOTest complete">
+      <created>1681139766685</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1681139766685</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -466,7 +474,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="MHE - lier fichier JSON a Persons" />
     <MESSAGE value="MHE - lier fichier JSON a FireSation et MedicalRecords" />
     <MESSAGE value="MHE - Update persons GET,POST,PUT,DELETE" />
     <MESSAGE value="MHE - Update medical GET,POST,PUT,DELETE" />
@@ -491,7 +498,8 @@
     <MESSAGE value="MHE - commentaire et cleaning up" />
     <MESSAGE value="MHE - test unitaire FireStationsDAO" />
     <MESSAGE value="MHE - Amelioration + Cleaning Up" />
-    <option name="LAST_COMMIT_MESSAGE" value="MHE - Amelioration + Cleaning Up" />
+    <MESSAGE value="MHE - PersonsDAOTest complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="MHE - PersonsDAOTest complete" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
