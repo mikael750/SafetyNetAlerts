@@ -3,9 +3,9 @@ package safetynet.alerts.Util;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
-import safetynet.alerts.DAO.FireStationsDaoImpl;
-import safetynet.alerts.DAO.MedicalRecordsDaoImpl;
-import safetynet.alerts.DAO.PersonsDaoImpl;
+import safetynet.alerts.service.FireStationsDaoImpl;
+import safetynet.alerts.service.MedicalRecordsDaoImpl;
+import safetynet.alerts.service.PersonsDaoImpl;
 import safetynet.alerts.model.MedicalRecords;
 
 import java.io.FileWriter;

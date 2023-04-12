@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d0055eb-dd6f-48b4-8f46-f25c90aaa8a0" name="Changes" comment="MHE - PersonsDAOTest complete">
+    <list default="true" id="9d0055eb-dd6f-48b4-8f46-f25c90aaa8a0" name="Changes" comment="MHE - PersonsIT complete + cleaning up">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/integration/PersonsIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/integration/PersonsIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/AlertsApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/AlertsApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/FireStationsDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/service/FireStationsDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/MedicalRecordsDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/service/MedicalRecordsDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/DAO/PersonsDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/service/PersonsDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/Util/AlertsUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/Util/AlertsUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/unitaire/FireStationsDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/unitaire/FireStationsDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/unitaire/MedicalRecordsDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/unitaire/MedicalRecordsDAOTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/unitaire/PersonsDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/unitaire/PersonsDAOTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +88,20 @@
       <recent name="safetynet.alerts" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.PersonsIT.personsController_ShouldGetChildList">
+  <component name="RunManager" selected="Application.AlertsApplication">
+    <configuration name="AlertsApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="safetynet.alerts.AlertsApplication" />
+      <module name="alerts" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="safetynet.alerts.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PersonsIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="alerts" />
       <extension name="coverage">
@@ -109,22 +128,6 @@
       <option name="PACKAGE_NAME" value="safetynet.alerts.integration" />
       <option name="MAIN_CLASS_NAME" value="safetynet.alerts.integration.PersonsIT" />
       <option name="METHOD_NAME" value="personsController_ShouldGetChildList" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PersonsIT.personsController_ShouldGetInfoOnPerson" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="alerts" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="safetynet.alerts.integration.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="safetynet.alerts.integration" />
-      <option name="MAIN_CLASS_NAME" value="safetynet.alerts.integration.PersonsIT" />
-      <option name="METHOD_NAME" value="personsController_ShouldGetInfoOnPerson" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -164,18 +167,18 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.PersonsIT.personsController_ShouldGetListPhoneNumber" />
-      <item itemvalue="JUnit.PersonsIT.personsController_ShouldGetInfoOnPerson" />
       <item itemvalue="JUnit.PersonsIT.personsController_ShouldGetChildList" />
       <item itemvalue="JUnit.PersonsIT.personsController_ShouldGetStationNumber" />
       <item itemvalue="JUnit.PersonsIT" />
+      <item itemvalue="Application.AlertsApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.PersonsIT.personsController_ShouldGetChildList" />
+        <item itemvalue="Application.AlertsApplication" />
         <item itemvalue="JUnit.PersonsIT" />
+        <item itemvalue="JUnit.PersonsIT.personsController_ShouldGetChildList" />
         <item itemvalue="JUnit.PersonsIT.personsController_ShouldGetStationNumber" />
         <item itemvalue="JUnit.PersonsIT.personsController_ShouldGetListPhoneNumber" />
-        <item itemvalue="JUnit.PersonsIT.personsController_ShouldGetInfoOnPerson" />
       </list>
     </recent_temporary>
   </component>
@@ -447,7 +450,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681139766685</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="MHE - PersonsIT complete + cleaning up">
+      <created>1681148782083</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1681148782083</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -474,7 +484,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="MHE - lier fichier JSON a FireSation et MedicalRecords" />
     <MESSAGE value="MHE - Update persons GET,POST,PUT,DELETE" />
     <MESSAGE value="MHE - Update medical GET,POST,PUT,DELETE" />
     <MESSAGE value="MHE - Update GET,POST,PUT,DELETE" />
@@ -499,7 +508,8 @@
     <MESSAGE value="MHE - test unitaire FireStationsDAO" />
     <MESSAGE value="MHE - Amelioration + Cleaning Up" />
     <MESSAGE value="MHE - PersonsDAOTest complete" />
-    <option name="LAST_COMMIT_MESSAGE" value="MHE - PersonsDAOTest complete" />
+    <MESSAGE value="MHE - PersonsIT complete + cleaning up" />
+    <option name="LAST_COMMIT_MESSAGE" value="MHE - PersonsIT complete + cleaning up" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

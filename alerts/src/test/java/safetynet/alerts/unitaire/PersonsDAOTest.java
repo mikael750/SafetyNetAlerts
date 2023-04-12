@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import safetynet.alerts.DAO.FireStationsDao;
 import safetynet.alerts.DAO.MedicalRecordsDao;
-import safetynet.alerts.DAO.PersonsDaoImpl;
+import safetynet.alerts.service.PersonsDaoImpl;
 import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
 import safetynet.alerts.model.response.AddressList;

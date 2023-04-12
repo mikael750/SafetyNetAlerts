@@ -1,10 +1,12 @@
-package safetynet.alerts.DAO;
+package safetynet.alerts.service;
 
 import com.jsoniter.JsonIterator;
 import com.jsoniter.any.Any;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
+import safetynet.alerts.DAO.FireStationsDao;
+import safetynet.alerts.DAO.PersonsDao;
 import safetynet.alerts.Util.AlertsUtils;
 import safetynet.alerts.model.FireStations;
 import safetynet.alerts.model.Persons;
@@ -18,7 +20,7 @@ import java.util.Objects;
 import static safetynet.alerts.Util.AlertsUtils.deleteDoublon;
 
 @Service
-public class FireStationsDaoImpl implements FireStationsDao{
+public class FireStationsDaoImpl implements FireStationsDao {
 
     public static List<FireStations> fireStations = new ArrayList<>();
     private static final Logger logger = LogManager.getLogger(FireStationsDaoImpl.class);

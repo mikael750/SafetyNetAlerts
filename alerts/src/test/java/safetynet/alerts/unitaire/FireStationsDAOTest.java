@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import safetynet.alerts.DAO.FireStationsDaoImpl;
+import safetynet.alerts.service.FireStationsDaoImpl;
 import safetynet.alerts.DAO.PersonsDao;
 import safetynet.alerts.model.FireStations;
 import safetynet.alerts.model.Persons;

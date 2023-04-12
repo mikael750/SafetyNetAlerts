@@ -1,10 +1,13 @@
-package safetynet.alerts.DAO;
+package safetynet.alerts.service;
 
 import com.jsoniter.JsonIterator;
 import com.jsoniter.any.Any;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
+import safetynet.alerts.DAO.FireStationsDao;
+import safetynet.alerts.DAO.MedicalRecordsDao;
+import safetynet.alerts.DAO.PersonsDao;
 import safetynet.alerts.Util.AlertsUtils;
 import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
@@ -18,7 +21,7 @@ import java.util.*;
 import static safetynet.alerts.Util.AlertsUtils.calculateAge;
 
 @Service
-public class PersonsDaoImpl implements PersonsDao{
+public class PersonsDaoImpl implements PersonsDao {
 
     public static List<Persons> persons = new ArrayList<>();
     private static final Logger logger = LogManager.getLogger(PersonsDaoImpl.class);

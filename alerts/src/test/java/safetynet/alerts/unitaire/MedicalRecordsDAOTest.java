@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import safetynet.alerts.DAO.MedicalRecordsDaoImpl;
+import safetynet.alerts.service.MedicalRecordsDaoImpl;
 import safetynet.alerts.model.MedicalRecords;
 
 import java.util.ArrayList;
