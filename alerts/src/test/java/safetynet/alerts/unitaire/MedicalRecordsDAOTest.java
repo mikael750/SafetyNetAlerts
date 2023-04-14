@@ -37,7 +37,6 @@ public class MedicalRecordsDAOTest {
         medicalRecordsDaoImpl.save(medicalRecords);
         assertTrue(medicalRecordsDaoImpl.findAll().contains(medicalRecords));
     }
-    //TODO test unitaire par fonction
 
     @Test
     public void findByIdTest(){

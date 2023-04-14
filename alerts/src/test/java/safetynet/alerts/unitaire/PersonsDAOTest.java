@@ -49,7 +49,6 @@ public class PersonsDAOTest {
         personsDaoImpl.save(persons);
         assertTrue(personsDaoImpl.findAll().contains(persons));
     }
-    //TODO test unitaire par fonction
 
     @Test
     public void findByIdTest(){
