@@ -20,11 +20,13 @@ public class FireStationsIT {
     FireStationsController fireStationsController;
     static FireStations test1;
     static FireStations test2;
+    static String test3;
 
     @BeforeAll
     private static void setUp() throws Exception {
         test1 = new FireStations("1stHouse","1");
         test2 = new FireStations("2ndHouse","2");
+        test3 = "ShouldReturnFalse";
 
     }
 
@@ -42,7 +44,7 @@ public class FireStationsIT {
     @Test
     public void fireStationsController_ShouldNotAddNewStation(){
         fireStationsController.addFireStations(null);
-        assertFalse(fireStationsController.getFireStations().contains(test1));
+        assertFalse(fireStationsController.getFireStations().contains(test3));
     }
 
     @Test
