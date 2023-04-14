@@ -2,7 +2,6 @@ package safetynet.alerts.Util;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.json.JSONObject;
 import org.springframework.util.FileCopyUtils;
 import safetynet.alerts.service.FireStationsDaoImpl;
@@ -26,10 +25,15 @@ public class AlertsUtils {
 
     public final static String FILE_NAME = "saveData.json";
     private final static String FILE_PATH = "alerts/src/main/resources/";
-    private final static String FINAL_FILE_PATH = "alerts/src/main/resources/"+FILE_NAME;
+    private final static String FINAL_FILE_PATH = FILE_PATH+FILE_NAME;
 
     private static final Logger logger = LogManager.getLogger(MedicalRecordsDaoImpl.class);
 
+    /**
+     * Initialise la dataBase, si saveData n'existe pas, la crée.
+     *
+     * @throws IOException FileCopyUtils.copy
+     */
     public static void initDataBase() throws IOException {
         FileCopyUtils.copy(new File(FILE_PATH+"data.json"),new File(FINAL_FILE_PATH));
     }
