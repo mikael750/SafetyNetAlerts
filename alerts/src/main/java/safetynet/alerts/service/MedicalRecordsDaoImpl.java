@@ -26,7 +26,7 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao {
      */
     public static void load(){
         logger.info("Chargement des donner des records medicals.");
-        try (InputStream file = MedicalRecordsDaoImpl.class.getResourceAsStream("/saveData")){
+        try (InputStream file = MedicalRecordsDaoImpl.class.getResourceAsStream("/saveData.json")){
             assert file != null;
             JsonIterator iter = JsonIterator.parse(file.readAllBytes());
             Any any = iter.readAny();

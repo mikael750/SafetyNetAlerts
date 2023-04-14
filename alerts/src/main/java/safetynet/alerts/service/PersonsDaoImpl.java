@@ -31,7 +31,7 @@ public class PersonsDaoImpl implements PersonsDao {
      */
     public static void load(){
         logger.info("Chargement des donner des personnes.");
-        try (InputStream file = PersonsDaoImpl.class.getResourceAsStream("/saveData")){
+        try (InputStream file = PersonsDaoImpl.class.getResourceAsStream("/saveData.json")){
             assert file != null;
             JsonIterator iter = JsonIterator.parse(file.readAllBytes());
             Any any = iter.readAny();
