@@ -31,7 +31,7 @@ public class AlertsUtils {
     private static final Logger logger = LogManager.getLogger(MedicalRecordsDaoImpl.class);
 
     public static void initDataBase() throws IOException {
-        FileCopyUtils.copy(new File(FILE_PATH+"/data.json"),new File(FINAL_FILE_PATH));
+        FileCopyUtils.copy(new File(FILE_PATH+"data.json"),new File(FINAL_FILE_PATH));
     }
 
     /**
@@ -45,7 +45,7 @@ public class AlertsUtils {
         Objet.put("medicalrecords",MedicalRecordsDaoImpl.medicalRecords);
         Objet.put("firestations",FireStationsDaoImpl.fireStations);
 
-        var file = new File(FILE_PATH);
+        var file = new File(FINAL_FILE_PATH);
         try (PrintWriter out = new PrintWriter(new FileWriter(file))) {
             out.write(Objet.toString());
         } catch (Exception e) {
