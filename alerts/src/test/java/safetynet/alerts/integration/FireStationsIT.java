@@ -40,6 +40,12 @@ public class FireStationsIT {
     }
 
     @Test
+    public void fireStationsController_ShouldNotAddNewStation(){
+        fireStationsController.addFireStations(null);
+        assertFalse(fireStationsController.getFireStations().contains(test1));
+    }
+
+    @Test
     public void fireStationsController_ShouldUpdateStation(){
         fireStationsController.addFireStations(test2);
         FireStations fireStationsDetail = new FireStations("2ndHouse","3");
