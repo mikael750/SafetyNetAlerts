@@ -9,10 +9,7 @@ import safetynet.alerts.service.MedicalRecordsDaoImpl;
 import safetynet.alerts.service.PersonsDaoImpl;
 import safetynet.alerts.model.MedicalRecords;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,7 +24,7 @@ public class AlertsUtils {
     private final static String FILE_PATH = "alerts/src/main/resources/";
     private final static String FINAL_FILE_PATH = FILE_PATH+FILE_NAME;
 
-    private static final Logger logger = LogManager.getLogger(MedicalRecordsDaoImpl.class);
+    private static final Logger logger = LogManager.getLogger(AlertsUtils.class);
 
     /**
      * Initialise la dataBase, si saveData n'existe pas, la crée.
@@ -35,7 +32,7 @@ public class AlertsUtils {
      * @throws IOException FileCopyUtils.copy
      */
     public static void initDataBase() throws IOException {
-        FileCopyUtils.copy(new File(FILE_PATH+"data.json"),new File(FINAL_FILE_PATH));
+        FileCopyUtils.copy((new File(FILE_PATH+"data.json")),new File(FINAL_FILE_PATH));
     }
 
     /**
@@ -49,8 +46,7 @@ public class AlertsUtils {
         Objet.put("medicalrecords",MedicalRecordsDaoImpl.medicalRecords);
         Objet.put("firestations",FireStationsDaoImpl.fireStations);
 
-        var file = new File(FINAL_FILE_PATH);
-        try (PrintWriter out = new PrintWriter(new FileWriter(file))) {
+        try (PrintWriter out = new PrintWriter(new FileWriter(FINAL_FILE_PATH))) {
             out.write(Objet.toString());
         } catch (Exception e) {
             logger.error(e);
