@@ -1,5 +1,6 @@
 package safetynet.alerts.integration;
 
+import java.util.Objects;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,25 +31,27 @@ public class PersonsIT {
     @Autowired
     private MedicalRecordsDao medicalRecordsDao;
 
-    PersonsController personsController;
-    static Persons test1;
-    static Persons test2;
-    static MedicalRecords medicalRecord1;
-    static FireStations fireStations1;
 
-    @BeforeAll
+    @Autowired
+    private PersonsController personsController;
+    private Persons test1 = new Persons("Michael","Jackson","2nd House Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
+    private Persons test2 = new Persons("Jean","Dujardin","2nd House Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
+    private MedicalRecords medicalRecord1 = new MedicalRecords("Michael","Jackson","01/01/2020",new ArrayList<>(),new ArrayList<>());
+    private FireStations fireStations1 = new FireStations("2nd House Street","1");
+
+  /*  @BeforeAll
     private static void setUp() throws Exception {
-        test1 = new Persons("Michael","Jackson","2nd House Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
-        test2 = new Persons("Jean","Dujardin","2nd House Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
-        medicalRecord1 = new MedicalRecords("Michael","Jackson","01/01/2020",new ArrayList<>(),new ArrayList<>());
-        fireStations1 = new FireStations("2nd House Street","1");
-    }
+        test1 =
+        test2 =
+        medicalRecord1
+        fireStations1
+    }*/
 
     @BeforeEach
     private void setUpPerTest() {
         medicalRecordsDao.save(medicalRecord1);
         fireStationDao.save(fireStations1);
-        personsController = new PersonsController(personsDao,fireStationDao,medicalRecordsDao);
+        // personsController = new PersonsController(personsDao,fireStationDao,medicalRecordsDao);
     }
 
     @Test
@@ -80,7 +83,7 @@ public class PersonsIT {
     @Test
     public void personsController_ShouldGetListForFlood() throws ParseException {
         List<String> listStationNumber = Arrays.asList("1","2");
-        assertNotNull(personsController.getListForFlood(listStationNumber));
+        assertTrue( Objects.requireNonNull( personsController.getListForFlood( listStationNumber ).getBody() ).size() > 0);
     }
 
     @Test
@@ -96,7 +99,7 @@ public class PersonsIT {
 
     @Test
     public void personsController_ShouldGetListForFire() throws ParseException {
-        assertNotNull(personsController.getListForFire("2nd House Street"));
+        assertTrue( Objects.requireNonNull( personsController.getListForFire( "2nd House Street" ).getBody() ).size() > 0 );
     }
 
     @Test
@@ -108,7 +111,7 @@ public class PersonsIT {
     @Test
     public void personsController_ShouldGetChildList() throws ParseException {
         personsController.addPersons(test1);
-        assertNotNull(personsController.getChildList("2nd House Street"));
+        assertTrue( Objects.requireNonNull( personsController.getChildList( "2nd House Street" ).getBody() ).size() > 0);
     }
 
     @Test

@@ -83,28 +83,27 @@ public class PersonsDAOTest {
         List<MedicalRecords> listRecord = new ArrayList<>();
         List<Persons> listPersons = new ArrayList<>();
         List<String> list = personsDaoImpl.findPersonsAges(listRecord,listPersons);
-        assertNotNull(list);
-    }
+        assertTrue(list.size() > 0 );    }
 
     @Test
     public void findByCityTest(){
         saveTest();
         List<Persons> list = personsDaoImpl.findByCity("OldCity");
-        assertNotNull(list);
+        assertTrue(list.size() > 0 );
     }
 
     @Test
     public void findByAddressTest(){
         saveTest();
         List<Persons> list = personsDaoImpl.findByAddress("HisAddress");
-        assertNotNull(list);
+        assertTrue(list.size() > 0);
     }
 
     @Test
     public void findAddressFoyerTest() throws ParseException {
         List<String> listString = Arrays.asList("1","2");
         List<AddressList> listAddressFoyer = personsDaoImpl.findAddressFoyer(listString,fireStationsDao,medicalRecordsDao);
-        assertNotNull(listAddressFoyer);
+        assertTrue(listAddressFoyer.size() > 0);
     }
 
 }
