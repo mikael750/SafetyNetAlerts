@@ -6,7 +6,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import safetynet.alerts.DAO.MedicalRecordsDao;
-import safetynet.alerts.Util.AlertsUtils;
+import safetynet.alerts.util.AlertsUtils;
 import safetynet.alerts.model.MedicalRecords;
 
 import java.io.IOException;

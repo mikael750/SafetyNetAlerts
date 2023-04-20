@@ -3,7 +3,7 @@ package safetynet.alerts;
 import org.apache.log4j.BasicConfigurator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import safetynet.alerts.Util.AlertsUtils;
+import safetynet.alerts.util.AlertsUtils;
 import safetynet.alerts.service.FireStationsDaoImpl;
 import safetynet.alerts.service.MedicalRecordsDaoImpl;
 import safetynet.alerts.service.PersonsDaoImpl;
