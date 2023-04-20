@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import safetynet.alerts.DAO.FireStationsDao;
 import safetynet.alerts.DAO.MedicalRecordsDao;
 import safetynet.alerts.DAO.PersonsDao;
-import safetynet.alerts.Util.AlertsUtils;
+import safetynet.alerts.util.AlertsUtils;
 import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
 import safetynet.alerts.model.response.AddressList;
@@ -18,7 +18,7 @@ import java.io.*;
 import java.text.ParseException;
 import java.util.*;
 
-import static safetynet.alerts.Util.AlertsUtils.calculateAge;
+import static safetynet.alerts.util.AlertsUtils.calculateAge;
 
 @Service
 public class PersonsDaoImpl implements PersonsDao {

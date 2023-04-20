@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import safetynet.alerts.DAO.FireStationsDao;
 import safetynet.alerts.DAO.PersonsDao;
-import safetynet.alerts.Util.AlertsUtils;
+import safetynet.alerts.util.AlertsUtils;
 import safetynet.alerts.model.FireStations;
 import safetynet.alerts.model.Persons;
 
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static safetynet.alerts.Util.AlertsUtils.deleteDoublon;
+import static safetynet.alerts.util.AlertsUtils.deleteDoublon;
 
 @Service
 public class FireStationsDaoImpl implements FireStationsDao {

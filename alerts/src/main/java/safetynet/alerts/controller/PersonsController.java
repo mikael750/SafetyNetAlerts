@@ -1,10 +1,13 @@
 package safetynet.alerts.controller;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import safetynet.alerts.DAO.FireStationsDao;
 import safetynet.alerts.DAO.MedicalRecordsDao;
 import safetynet.alerts.DAO.PersonsDao;
-import safetynet.alerts.Util.AlertsUtils;
+import safetynet.alerts.service.PersonsDaoImpl;
+import safetynet.alerts.util.AlertsUtils;
 import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,12 +22,15 @@ import safetynet.alerts.model.response.*;
 import java.text.ParseException;
 import java.util.*;
 
-import static safetynet.alerts.Util.AlertsUtils.deleteDoublon;
+import static safetynet.alerts.util.AlertsUtils.deleteDoublon;
 
 @RestController
 public class PersonsController {
 
-    private PersonsDao personsDao;
+	private static final Logger logger = LogManager.getLogger( PersonsController.class);
+
+
+	private PersonsDao personsDao;
     private FireStationsDao fireStationDao;
     private MedicalRecordsDao medicalRecordsDao;
 
@@ -126,7 +132,7 @@ public class PersonsController {
      * @throws ParseException
      */
     @GetMapping(value = "/firestation")
-    public ResponseEntity getStationNumber(@RequestParam String stationNumber) throws ParseException {
+    public ResponseEntity<CountPersons> getStationNumber(@RequestParam String stationNumber) throws ParseException {
         List<MedicalRecords> findMedicalRecords = medicalRecordsDao.findAll();
         List<Persons> listPersonsStations = fireStationDao.findByNumberStation(stationNumber,personsDao);
         List<String> ages = personsDao.findPersonsAges(findMedicalRecords,listPersonsStations);
@@ -135,11 +141,11 @@ public class PersonsController {
         for (String age : ages){
             if (Integer.parseInt(age) < 18){children++;}else{adults++;}
         }
-        CountPersons result = new CountPersons();
+        var result = new CountPersons();
         result.setPersons(listPersonsStations.stream().map((x)-> new SimplePerson(x)).toList());
         result.setAdults(adults);
         result.setChildren(children);
-        return  ResponseEntity.status(HttpStatus.OK).body(result);
+        return  ResponseEntity.ok(result);
     }
 
     /**
@@ -150,8 +156,8 @@ public class PersonsController {
      * @throws ParseException calculateAge
      */
     @GetMapping(value = "/childAlert")
-    public ResponseEntity getChildList(@RequestParam String address) throws ParseException {
-        List<Persons> listByAddress = personsDao.findByAddress(address);
+    public ResponseEntity<List<ChildAlert>> getChildList(@RequestParam String address) throws ParseException {
+        var listByAddress = personsDao.findByAddress(address);
         List<ChildAlert> childList = new ArrayList<>();
         List<Persons> foyer = new ArrayList<>(listByAddress);
         for (Persons personne : listByAddress){
@@ -161,7 +167,7 @@ public class PersonsController {
                 childList.add(new ChildAlert(personne, age, foyer));
             }
         }
-        return  ResponseEntity.status(HttpStatus.OK).body(childList);
+        return  ResponseEntity.ok(childList);
     }
 
     /**
@@ -172,14 +178,14 @@ public class PersonsController {
      * @return listPhoneNumber
      */
     @GetMapping(value = "/phoneAlert")
-    public ResponseEntity getListPhoneNumber(@RequestParam String fireStation) {
-        List<Persons> listPersonsStations = fireStationDao.findByNumberStation(fireStation,personsDao);
+    public ResponseEntity<List<Object>> getListPhoneNumber(@RequestParam String fireStation) {
+        var listPersonsStations = fireStationDao.findByNumberStation(fireStation,personsDao);
         List<Object> listPhoneNumber = new ArrayList<>();
         for(Persons fireStations : listPersonsStations){
             listPhoneNumber.add(fireStations.getPhone());
         }
         deleteDoublon(listPhoneNumber);
-        return ResponseEntity.status(HttpStatus.OK).body(listPhoneNumber);
+        return ResponseEntity.ok(listPhoneNumber);
     }
 
     /**
@@ -191,17 +197,17 @@ public class PersonsController {
      * @throws ParseException calculateAge
      */
     @GetMapping(value = "/fire")
-    public ResponseEntity getListForFire(@RequestParam String address) throws ParseException {
+    public ResponseEntity<List<EmergencyList>> getListForFire(@RequestParam String address) throws ParseException {
         List<EmergencyList> emergencyList = new ArrayList<>();
-        List<Persons> listPersons = personsDao.findByAddress(address);
+        var listPersons = personsDao.findByAddress(address);
 
         for(Persons person : listPersons){
             MedicalRecords medicalRecord = medicalRecordsDao.findById(person.getFirstName(),person.getLastName());
-            int age = AlertsUtils.calculateAge(medicalRecord);
+            var age = AlertsUtils.calculateAge(medicalRecord);
             emergencyList.add(new EmergencyList(person, age, medicalRecord));
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(emergencyList);
+        return ResponseEntity.ok(emergencyList);
     }
 
     /**
@@ -213,9 +219,10 @@ public class PersonsController {
      * @throws ParseException calculateAge
      */
     @GetMapping(value = "/flood/stations")
-    public ResponseEntity getListForFlood(@RequestParam List<String> stations) throws ParseException {
-        List<AddressList> listAddressFoyer = personsDao.findAddressFoyer(stations,fireStationDao,medicalRecordsDao);
-        return ResponseEntity.status(HttpStatus.OK).body(listAddressFoyer);
+    public ResponseEntity<List<AddressList>> getListForFlood(@RequestParam List<String> stations) throws ParseException {
+        logger.info( "Size"+stations.size() );
+		System.out.println("Size"+stations.size());
+		return ResponseEntity.ok(personsDao.findAddressFoyer(stations,fireStationDao,medicalRecordsDao));
     }
 
     /**
@@ -228,9 +235,9 @@ public class PersonsController {
      * @throws ParseException calculateAge
      */
     @GetMapping(value = "/personInfo")
-    public ResponseEntity getInfoOnPerson(@RequestParam String firstName,@RequestParam String lastName) throws ParseException {
+    public ResponseEntity<List<InfoList>> getInfoOnPerson(@RequestParam String firstName,@RequestParam String lastName) throws ParseException {
         List<InfoList> infoList = new ArrayList<>();
-        List<Persons> listPersons = personsDao.findByNames(firstName,lastName);
+        var listPersons = personsDao.findByNames(firstName,lastName);
 
         for(Persons person : listPersons){
             MedicalRecords medicalRecord = medicalRecordsDao.findById(person.getFirstName(),person.getLastName());
@@ -238,7 +245,7 @@ public class PersonsController {
             infoList.add(new InfoList(person, age, medicalRecord));
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(infoList);
+        return ResponseEntity.ok(infoList);
     }
 
     /**
@@ -248,13 +255,13 @@ public class PersonsController {
      * @return listEmail
      */
     @GetMapping(value = "/communityEmail")
-    public ResponseEntity getAllMailOfCity(@RequestParam String city){
+    public ResponseEntity<List<String>> getAllMailOfCity(@RequestParam String city){
         List<String> listEmail = new ArrayList<>();
-        List<Persons> listPerson = personsDao.findByCity(city);
+        var listPerson = personsDao.findByCity(city);
         for (Persons email : listPerson){
             listEmail.add(email.getEmail());
         }
-        return ResponseEntity.status(HttpStatus.OK).body(listEmail);
+        return ResponseEntity.ok(listEmail);
     }
 
 }
