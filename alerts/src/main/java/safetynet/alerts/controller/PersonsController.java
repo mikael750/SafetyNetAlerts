@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 
 import safetynet.alerts.model.response.*;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
 
@@ -38,6 +39,15 @@ public class PersonsController {
         this.personsDao = personsDao;
         this.fireStationDao = fireStationDao;
         this.medicalRecordsDao = medicalRecordsDao;
+    }
+
+    /**
+     * Initialise la dataBase
+     *
+     * @throws IOException
+     */
+    public static void getDataBase() throws IOException {
+        AlertsUtils.initDataBase();
     }
 
     /**
