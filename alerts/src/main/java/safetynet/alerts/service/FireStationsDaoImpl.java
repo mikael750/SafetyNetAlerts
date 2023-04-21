@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static safetynet.alerts.files.PathConstant.FILE_NAME;
 import static safetynet.alerts.util.AlertsUtils.deleteDoublon;
 
 @Service
@@ -30,7 +31,7 @@ public class FireStationsDaoImpl implements FireStationsDao {
      */
     public static void load(){
         logger.info("Chargement des donner des casernes.");
-        try (InputStream file = FireStationsDaoImpl.class.getResourceAsStream("/saveData.json")){
+        try (InputStream file = FireStationsDaoImpl.class.getResourceAsStream(FILE_NAME)){
             assert file != null;
             JsonIterator iter = JsonIterator.parse(file.readAllBytes());
             Any any = iter.readAny();

@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static safetynet.alerts.files.PathConstant.FILE_NAME;
+
 @Service
 public class MedicalRecordsDaoImpl implements MedicalRecordsDao {
 
@@ -26,7 +28,7 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao {
      */
     public static void load(){
         logger.info("Chargement des donner des records medicals.");
-        try (InputStream file = MedicalRecordsDaoImpl.class.getResourceAsStream("/saveData.json")){
+        try (InputStream file = MedicalRecordsDaoImpl.class.getResourceAsStream(FILE_NAME)){
             assert file != null;
             JsonIterator iter = JsonIterator.parse(file.readAllBytes());
             Any any = iter.readAny();

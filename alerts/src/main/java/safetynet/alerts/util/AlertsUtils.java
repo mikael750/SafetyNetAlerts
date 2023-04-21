@@ -18,13 +18,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import static safetynet.alerts.files.PathConstant.*;
+
 public class AlertsUtils {
 
-    public final static String FILE_NAME = "saveData.json";
-    private final static String FILE_PATH = "alerts/src/main/resources/";
-    private final static String FINAL_FILE_PATH = FILE_PATH+FILE_NAME;
-
-    private static final Logger logger = LogManager.getLogger(AlertsUtils.class);
+    private static final Logger logger = LogManager.getLogger("AlertsUtils");
 
     /**
      * Initialise la dataBase, si saveData n'existe pas, la crée.
@@ -32,7 +30,7 @@ public class AlertsUtils {
      * @throws IOException FileCopyUtils.copy
      */
     public static void initDataBase() throws IOException {
-        FileCopyUtils.copy((new File(FILE_PATH+"data.json")),new File(FINAL_FILE_PATH));
+        FileCopyUtils.copy((new File(ORIGINAL_FILE_PATH)),new File(FINAL_FILE_PATH));
     }
 
     /**

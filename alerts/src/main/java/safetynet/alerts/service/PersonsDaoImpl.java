@@ -18,6 +18,7 @@ import java.io.*;
 import java.text.ParseException;
 import java.util.*;
 
+import static safetynet.alerts.files.PathConstant.FILE_NAME;
 import static safetynet.alerts.util.AlertsUtils.calculateAge;
 
 @Service
@@ -31,7 +32,7 @@ public class PersonsDaoImpl implements PersonsDao {
      */
     public static void load(){
         logger.info("Chargement des donner des personnes.");
-        try (InputStream file = PersonsDaoImpl.class.getResourceAsStream("/saveData.json")){
+        try (InputStream file = PersonsDaoImpl.class.getResourceAsStream(FILE_NAME)){
             assert file != null;
             JsonIterator iter = JsonIterator.parse(file.readAllBytes());
             Any any = iter.readAny();
