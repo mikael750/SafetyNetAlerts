@@ -1,7 +1,6 @@
 package safetynet.alerts.service;
 
 import com.jsoniter.JsonIterator;
-import com.jsoniter.any.Any;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -25,18 +24,17 @@ import static safetynet.alerts.util.AlertsUtils.calculateAge;
 public class PersonsDaoImpl implements PersonsDao {
 
     public static List<Persons> persons = new ArrayList<>();
-    private static final Logger logger = LogManager.getLogger(PersonsDaoImpl.class);
+    private static final Logger logger = LogManager.getLogger("PersonsDaoImpl");
 
     /**
      * Charge les informations de la database persons
      */
     public static void load(){
         logger.info("Chargement des donner des personnes.");
-        try (InputStream file = PersonsDaoImpl.class.getResourceAsStream(FILE_NAME)){
+        try (var file = PersonsDaoImpl.class.getResourceAsStream(FILE_NAME)){
             assert file != null;
-            JsonIterator iter = JsonIterator.parse(file.readAllBytes());
-            Any any = iter.readAny();
-            Any personAny = any.get("persons");
+            var iter = JsonIterator.parse(file.readAllBytes());
+            var personAny = iter.readAny().get("persons");
             personAny.forEach(a -> {
                 persons.add(new Persons(a.get("firstName").toString() , a.get("lastName").toString(), a.get("address").toString(), a.get("city").toString(), a.get("zip").toString(),a.get("phone").toString(), a.get("email").toString()));
             });

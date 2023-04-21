@@ -70,7 +70,7 @@ public class PersonsController {
      */
     @PostMapping(value = "/person")
     public ResponseEntity<Persons> addPersons(@RequestBody Persons persons) {
-        Persons personsAdded = personsDao.save(persons);
+        var personsAdded = personsDao.save(persons);
         if (Objects.isNull(personsAdded)) {
             return ResponseEntity.noContent().build();
         }
@@ -88,7 +88,7 @@ public class PersonsController {
      */
     @PutMapping(value = "/person/{firstName}/{lastName}")
     public ResponseEntity<Persons> updatePersons(@PathVariable String firstName, @PathVariable String lastName,@RequestBody Persons personsDetails) throws Exception {
-        Persons updatePersons = personsDao.findById(firstName, lastName);
+        var updatePersons = personsDao.findById(firstName, lastName);
         if (Objects.isNull(updatePersons)){
             throw new Exception(firstName + " n'est pas inscrit");
         }
@@ -113,7 +113,7 @@ public class PersonsController {
     @DeleteMapping(value = "/person/{firstName}/{lastName}")
     public ResponseEntity<String> deletePersons(@PathVariable String firstName, @PathVariable String lastName) {
 
-        boolean isDeleted = personsDao.delete(firstName, lastName);
+        var isDeleted = personsDao.delete(firstName, lastName);
 
         if (!isDeleted) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -136,8 +136,8 @@ public class PersonsController {
         List<MedicalRecords> findMedicalRecords = medicalRecordsDao.findAll();
         List<Persons> listPersonsStations = fireStationDao.findByNumberStation(stationNumber,personsDao);
         List<String> ages = personsDao.findPersonsAges(findMedicalRecords,listPersonsStations);
-        int children = 0;
-        int adults = 0;
+        var children = 0;
+        var adults = 0;
         for (String age : ages){
             if (Integer.parseInt(age) < 18){children++;}else{adults++;}
         }
@@ -161,7 +161,7 @@ public class PersonsController {
         List<ChildAlert> childList = new ArrayList<>();
         List<Persons> foyer = new ArrayList<>(listByAddress);
         for (Persons personne : listByAddress){
-            int age = AlertsUtils.calculateAge(medicalRecordsDao.findById(personne.getFirstName(),personne.getLastName()));
+            var age = AlertsUtils.calculateAge(medicalRecordsDao.findById(personne.getFirstName(),personne.getLastName()));
             if (age < 18){
                 foyer.remove(personne);
                 childList.add(new ChildAlert(personne, age, foyer));
@@ -202,7 +202,7 @@ public class PersonsController {
         var listPersons = personsDao.findByAddress(address);
 
         for(Persons person : listPersons){
-            MedicalRecords medicalRecord = medicalRecordsDao.findById(person.getFirstName(),person.getLastName());
+            var medicalRecord = medicalRecordsDao.findById(person.getFirstName(),person.getLastName());
             var age = AlertsUtils.calculateAge(medicalRecord);
             emergencyList.add(new EmergencyList(person, age, medicalRecord));
         }
@@ -240,8 +240,8 @@ public class PersonsController {
         var listPersons = personsDao.findByNames(firstName,lastName);
 
         for(Persons person : listPersons){
-            MedicalRecords medicalRecord = medicalRecordsDao.findById(person.getFirstName(),person.getLastName());
-            int age = AlertsUtils.calculateAge(medicalRecord);
+            var medicalRecord = medicalRecordsDao.findById(person.getFirstName(),person.getLastName());
+            var age = AlertsUtils.calculateAge(medicalRecord);
             infoList.add(new InfoList(person, age, medicalRecord));
         }
 

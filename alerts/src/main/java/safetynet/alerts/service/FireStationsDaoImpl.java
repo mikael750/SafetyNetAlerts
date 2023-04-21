@@ -1,7 +1,6 @@
 package safetynet.alerts.service;
 
 import com.jsoniter.JsonIterator;
-import com.jsoniter.any.Any;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,6 @@ import safetynet.alerts.model.FireStations;
 import safetynet.alerts.model.Persons;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -24,18 +22,17 @@ import static safetynet.alerts.util.AlertsUtils.deleteDoublon;
 public class FireStationsDaoImpl implements FireStationsDao {
 
     public static List<FireStations> fireStations = new ArrayList<>();
-    private static final Logger logger = LogManager.getLogger(FireStationsDaoImpl.class);
+    private static final Logger logger = LogManager.getLogger("FireStationsDaoImpl");
 
     /**
      * Charge les information de la database medicalrecords
      */
     public static void load(){
         logger.info("Chargement des donner des casernes.");
-        try (InputStream file = FireStationsDaoImpl.class.getResourceAsStream(FILE_NAME)){
+        try (var file = FireStationsDaoImpl.class.getResourceAsStream(FILE_NAME)){
             assert file != null;
-            JsonIterator iter = JsonIterator.parse(file.readAllBytes());
-            Any any = iter.readAny();
-            Any fireStationsAny = any.get("firestations");
+            var iter = JsonIterator.parse(file.readAllBytes());
+            var fireStationsAny = iter.readAny().get("firestations");
             fireStationsAny.forEach(a -> {
                 fireStations.add(new FireStations(a.get("address").toString() , a.get("station").toString()));
             });

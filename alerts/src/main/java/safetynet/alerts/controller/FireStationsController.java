@@ -51,7 +51,7 @@ public class FireStationsController {
      */
     @PostMapping(value = "/firestation")
     public ResponseEntity<FireStations> addFireStations(@RequestBody FireStations fireStations) {
-        FireStations fireStationsAdded = fireStationsDao.save(fireStations);
+        var fireStationsAdded = fireStationsDao.save(fireStations);
         if (Objects.isNull(fireStationsAdded)) {
             return ResponseEntity.noContent().build();
         }
@@ -68,7 +68,7 @@ public class FireStationsController {
      */
     @PutMapping(value = "/firestation/{address}")
     public ResponseEntity<FireStations> updateFireStations(@PathVariable String address, @RequestBody FireStations fireStationsDetails) throws Exception {
-        FireStations updateFireStations = fireStationsDao.findById(address);
+        var updateFireStations = fireStationsDao.findById(address);
         if (Objects.isNull(updateFireStations)){
             throw new Exception(address + " n'est pas une bonne adresse");
         }
@@ -88,7 +88,7 @@ public class FireStationsController {
     @DeleteMapping(value = "/firestation/{address}")
     public ResponseEntity<String> deleteAddress(@PathVariable String address) {
 
-        boolean isDeleted = fireStationsDao.delete(address);
+        var isDeleted = fireStationsDao.delete(address);
 
         if (!isDeleted) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

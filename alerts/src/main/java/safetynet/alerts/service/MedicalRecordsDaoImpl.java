@@ -1,7 +1,6 @@
 package safetynet.alerts.service;
 
 import com.jsoniter.JsonIterator;
-import com.jsoniter.any.Any;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -10,7 +9,6 @@ import safetynet.alerts.util.AlertsUtils;
 import safetynet.alerts.model.MedicalRecords;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,18 +19,17 @@ import static safetynet.alerts.files.PathConstant.FILE_NAME;
 public class MedicalRecordsDaoImpl implements MedicalRecordsDao {
 
     public static List<MedicalRecords> medicalRecords = new ArrayList<>();
-    private static final Logger logger = LogManager.getLogger(MedicalRecordsDaoImpl.class);
+    private static final Logger logger = LogManager.getLogger("MedicalRecordsDaoImpl");
 
     /**
      * Charge les informations de la database firestations
      */
     public static void load(){
         logger.info("Chargement des donner des records medicals.");
-        try (InputStream file = MedicalRecordsDaoImpl.class.getResourceAsStream(FILE_NAME)){
+        try (var file = MedicalRecordsDaoImpl.class.getResourceAsStream(FILE_NAME)){
             assert file != null;
-            JsonIterator iter = JsonIterator.parse(file.readAllBytes());
-            Any any = iter.readAny();
-            Any medicalRecordsAny = any.get("medicalrecords");
+            var iter = JsonIterator.parse(file.readAllBytes());
+            var medicalRecordsAny = iter.readAny().get("medicalrecords");
             medicalRecordsAny.forEach(a -> {
                 medicalRecords.add(new MedicalRecords(a.get("firstName").toString() , a.get("lastName").toString(), a.get("birthdate").toString(), a.get("medications").as(List.class), a.get("allergies").as(List.class)));
             });

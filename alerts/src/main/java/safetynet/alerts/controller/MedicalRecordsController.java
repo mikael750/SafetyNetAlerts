@@ -52,7 +52,7 @@ public class MedicalRecordsController {
      */
     @PostMapping(value = "/medicalRecord")
     public ResponseEntity<MedicalRecords> addMedicalRecords(@RequestBody MedicalRecords medicalRecords) {
-        MedicalRecords medicalRecordsAdded = medicalRecordsDao.save(medicalRecords);
+        var medicalRecordsAdded = medicalRecordsDao.save(medicalRecords);
         if (Objects.isNull(medicalRecordsAdded)) {
             return ResponseEntity.noContent().build();
         }
@@ -70,7 +70,7 @@ public class MedicalRecordsController {
      */
     @PutMapping(value = "/medicalRecord/{firstName}/{lastName}")
      public ResponseEntity<MedicalRecords> updateMedicalRecords(@PathVariable String firstName, @PathVariable String lastName, @RequestBody MedicalRecords medicalRecordsDetails) throws Exception {
-        MedicalRecords updateMedicalRecords = medicalRecordsDao.findById(firstName,lastName);
+        var updateMedicalRecords = medicalRecordsDao.findById(firstName,lastName);
         if (Objects.isNull(updateMedicalRecords)){
             throw new Exception(firstName + lastName + " na pas de donnee medical");
         }
@@ -93,7 +93,7 @@ public class MedicalRecordsController {
     @DeleteMapping(value = "/medicalRecord/{firstName}/{lastName}")
     public ResponseEntity<String> deleteMedicalRecord(@PathVariable String firstName, @PathVariable String lastName) {
 
-        boolean isDeleted = medicalRecordsDao.delete(firstName, lastName);
+        var isDeleted = medicalRecordsDao.delete(firstName, lastName);
 
         if (!isDeleted) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
