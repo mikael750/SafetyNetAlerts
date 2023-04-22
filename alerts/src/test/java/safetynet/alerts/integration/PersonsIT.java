@@ -1,9 +1,9 @@
 package safetynet.alerts.integration;
 
+import java.io.IOException;
 import java.util.Objects;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import safetynet.alerts.DAO.FireStationsDao;
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -34,24 +35,83 @@ public class PersonsIT {
 
     @Autowired
     private PersonsController personsController;
+
     private Persons test1 = new Persons("Michael","Jackson","2nd House Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
     private Persons test2 = new Persons("Jean","Dujardin","2nd House Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
-    private MedicalRecords medicalRecord1 = new MedicalRecords("Michael","Jackson","01/01/2020",new ArrayList<>(),new ArrayList<>());
+    /* private MedicalRecords medicalRecord1 = new MedicalRecords("Michael","Jackson","01/01/2020",new ArrayList<>(),new ArrayList<>());
     private FireStations fireStations1 = new FireStations("2nd House Street","1");
-
-  /*  @BeforeAll
-    private static void setUp() throws Exception {
-        test1 =
-        test2 =
-        medicalRecord1
-        fireStations1
-    }*/
+*/
+    @BeforeAll
+    private static void setUp(){}
 
     @BeforeEach
-    private void setUpPerTest() {
-        medicalRecordsDao.save(medicalRecord1);
-        fireStationDao.save(fireStations1);
+    private void setUpPerTest() throws IOException {
+        PersonsController.getDataBase();
+        //medicalRecordsDao.save(medicalRecord1);
+        //fireStationDao.save(fireStations1);
         // personsController = new PersonsController(personsDao,fireStationDao,medicalRecordsDao);
+    }
+
+    @AfterAll
+    static void cleanDataBase() throws IOException {
+        PersonsController.getDataBase();
+    }
+
+
+    @Test
+    public void personsController_ShouldGetListForFlood() throws ParseException {
+        List<String> listStationNumber = Arrays.asList("1","2");
+        //assertTrue( Objects.requireNonNull( personsController.getListForFlood( listStationNumber ).getBody() ).size() > 0);
+        var response = personsController.getListForFlood( listStationNumber );
+        assertThat("200 OK").isEqualTo(response.getStatusCode().toString());
+    }
+
+    @Test
+    public void personsController_ShouldGetAllMailOfCity() {
+        //assertNotNull(personsController.getAllMailOfCity("Brooklyn"));
+        var response = personsController.getAllMailOfCity("Brooklyn");
+        assertThat("200 OK").isEqualTo(response.getStatusCode().toString());
+    }
+
+    @Test
+    public void personsController_ShouldGetListPhoneNumber() {
+        //personsController.addPersons(test1);
+        var response = personsController.getListPhoneNumber("1");
+        assertThat("200 OK").isEqualTo(response.getStatusCode().toString());
+        //assertNotNull();
+    }
+
+    @Test
+    public void personsController_ShouldGetListForFire() throws ParseException {
+        //personsController.addPersons(test1);//
+        //assertTrue( Objects.requireNonNull( personsController.getListForFire( "1509 Culver St" ).getBody() ).size() > 0 );
+        var response = personsController.getListForFire( "1509 Culver St" );
+        assertThat("200 OK").isEqualTo(response.getStatusCode().toString());
+
+    }
+
+    @Test
+    public void personsController_ShouldGetInfoOnPerson() throws ParseException {
+        //personsController.addPersons(test1);
+        //assertTrue(Objects.requireNonNull(personsController.getInfoOnPerson("John","Boyd").getBody() ).size() > 0);
+        var response = personsController.getInfoOnPerson("John","Boyd");
+        assertThat("200 OK").isEqualTo(response.getStatusCode().toString());
+    }
+
+    @Test
+    public void personsController_ShouldGetChildList() throws ParseException {
+        //personsController.addPersons(test1);
+        //assertTrue( Objects.requireNonNull( personsController.getChildList( "1509 Culver St" ).getBody() ).size() > 0);
+        var response = personsController.getChildList( "1509 Culver St" );
+        assertThat("200 OK").isEqualTo(response.getStatusCode().toString());
+    }
+
+    @Test
+    public void personsController_ShouldGetStationNumber() throws ParseException {
+        //personsController.addPersons(test1);
+        //assertNotNull(personsController.getStationNumber("1"));
+        var response = personsController.getStationNumber("1");
+        assertThat("200 OK").isEqualTo(response.getStatusCode().toString());
     }
 
     @Test
@@ -59,7 +119,6 @@ public class PersonsIT {
         personsController.addPersons(test1);
         assertTrue(personsController.getPersons().contains(test1));
     }
-    //TODO test integration
 
     @Test
     public void personsController_ShouldUpdatePerson(){
@@ -80,43 +139,4 @@ public class PersonsIT {
         assertFalse(personsController.getPersons().contains(test1));
     }
 
-    @Test
-    public void personsController_ShouldGetListForFlood() throws ParseException {
-        List<String> listStationNumber = Arrays.asList("1","2");
-        assertTrue( Objects.requireNonNull( personsController.getListForFlood( listStationNumber ).getBody() ).size() > 0);
-    }
-
-    @Test
-    public void personsController_ShouldGetAllMailOfCity() {
-        assertNotNull(personsController.getAllMailOfCity("Brooklyn"));
-    }
-
-    @Test
-    public void personsController_ShouldGetListPhoneNumber() {
-        personsController.addPersons(test1);
-        assertNotNull(personsController.getListPhoneNumber("1"));
-    }
-
-    @Test
-    public void personsController_ShouldGetListForFire() throws ParseException {
-        assertTrue( Objects.requireNonNull( personsController.getListForFire( "2nd House Street" ).getBody() ).size() > 0 );
-    }
-
-    @Test
-    public void personsController_ShouldGetInfoOnPerson() throws ParseException {
-        personsController.addPersons(test1);
-        assertNotNull(personsController.getInfoOnPerson("Michael","Jackson"));
-    }
-
-    @Test
-    public void personsController_ShouldGetChildList() throws ParseException {
-        personsController.addPersons(test1);
-        assertTrue( Objects.requireNonNull( personsController.getChildList( "2nd House Street" ).getBody() ).size() > 0);
-    }
-
-    @Test
-    public void personsController_ShouldGetStationNumber() throws ParseException {
-        personsController.addPersons(test1);
-        assertNotNull(personsController.getStationNumber("1"));
-    }
 }

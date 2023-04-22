@@ -1,13 +1,17 @@
 package safetynet.alerts.unitaire;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import safetynet.alerts.controller.FireStationsController;
+import safetynet.alerts.controller.MedicalRecordsController;
 import safetynet.alerts.service.MedicalRecordsDaoImpl;
 import safetynet.alerts.model.MedicalRecords;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,9 +31,15 @@ public class MedicalRecordsDAOTest {
     }
 
     @BeforeEach
-    private void setUpPerTest() {
+    private void setUpPerTest() throws IOException {
+        MedicalRecordsController.getDataBase();
         medicalRecordsDaoImpl = new MedicalRecordsDaoImpl();
         medicalRecords = new MedicalRecords("Michael","Jackson","01/01/1987", new ArrayList<>(),new ArrayList<>());
+    }
+
+    @AfterAll
+    static void cleanDataBase() throws IOException {
+        MedicalRecordsController.getDataBase();
     }
 
     @Test

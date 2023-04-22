@@ -1,15 +1,18 @@
 package safetynet.alerts.unitaire;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import safetynet.alerts.controller.FireStationsController;
 import safetynet.alerts.service.FireStationsDaoImpl;
 import safetynet.alerts.DAO.PersonsDao;
 import safetynet.alerts.model.FireStations;
 import safetynet.alerts.model.Persons;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,9 +34,15 @@ public class FireStationsDAOTest {
     }
 
     @BeforeEach
-    private void setUpPerTest() {
+    private void setUpPerTest() throws IOException {
+        FireStationsController.getDataBase();
         fireStationsDaoImpl = new FireStationsDaoImpl();
         fireStations = new FireStations("stationAddress","7");
+    }
+
+    @AfterAll
+    static void cleanDataBase() throws IOException {
+        FireStationsController.getDataBase();
     }
 
     @Test
