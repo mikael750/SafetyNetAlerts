@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import safetynet.alerts.DAO.FireStationsDao;
 import safetynet.alerts.DAO.MedicalRecordsDao;
 import safetynet.alerts.controller.PersonsController;
+import safetynet.alerts.controller.SystemController;
 import safetynet.alerts.model.FireStations;
 import safetynet.alerts.service.PersonsDaoImpl;
 import safetynet.alerts.model.MedicalRecords;
@@ -42,20 +43,16 @@ public class PersonsDAOTest {
 
     @BeforeAll
     private static void setUp() throws Exception {
-        PersonsDaoImpl.load();
+		SystemController.initDataBase();
+		PersonsDaoImpl.load();
     }
 
     @BeforeEach
     private void setUpPerTest() throws IOException {
-        PersonsController.getDataBase();
         personsDaoImpl = new PersonsDaoImpl();
         persons = new Persons("Michael","Jackson","HisAddress","OldCity","zip","555","not@hisemail.com");
     }
 
-    @AfterAll
-    static void cleanDataBase() throws IOException {
-        PersonsController.getDataBase();
-    }
 
     @Test
     public void saveTest(){

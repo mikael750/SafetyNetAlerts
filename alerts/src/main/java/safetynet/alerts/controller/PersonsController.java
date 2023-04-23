@@ -42,22 +42,13 @@ public class PersonsController {
     }
 
     /**
-     * Initialise la dataBase
-     *
-     * @throws IOException
-     */
-    public static void getDataBase() throws IOException {
-        AlertsUtils.initDataBase();
-    }
-
-    /**
      * affiche une liste des personnes dans la database
      *
      * @return List Persons
      */
     @GetMapping(value = "/person")
-    public List<Persons> getPersons() {
-        return personsDao.findAll();
+    public ResponseEntity<List<Persons>> getPersons() {
+		return ResponseEntity.ok(personsDao.findAll());
     }
 
     /**
