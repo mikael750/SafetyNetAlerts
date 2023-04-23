@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import safetynet.alerts.DAO.FireStationsDao;
 import safetynet.alerts.DAO.MedicalRecordsDao;
 import safetynet.alerts.DAO.PersonsDao;
-import safetynet.alerts.service.PersonsDaoImpl;
 import safetynet.alerts.util.AlertsUtils;
 import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
@@ -39,15 +38,6 @@ public class PersonsController {
         this.personsDao = personsDao;
         this.fireStationDao = fireStationDao;
         this.medicalRecordsDao = medicalRecordsDao;
-    }
-
-    /**
-     * Initialise la dataBase
-     *
-     * @throws IOException
-     */
-    public static void getDataBase() throws IOException {
-        AlertsUtils.initDataBase();
     }
 
     /**
