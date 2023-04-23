@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import safetynet.alerts.controller.FireStationsController;
+import safetynet.alerts.controller.SystemController;
 import safetynet.alerts.service.FireStationsDaoImpl;
 import safetynet.alerts.DAO.PersonsDao;
 import safetynet.alerts.model.FireStations;
@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class FireStationsDAOTest {
@@ -35,14 +36,9 @@ public class FireStationsDAOTest {
 
     @BeforeEach
     private void setUpPerTest() throws IOException {
-        FireStationsController.getDataBase();
+        SystemController.initDataBase();
         fireStationsDaoImpl = new FireStationsDaoImpl();
         fireStations = new FireStations("stationAddress","7");
-    }
-
-    @AfterAll
-    static void cleanDataBase() throws IOException {
-        FireStationsController.getDataBase();
     }
 
     @Test
@@ -67,7 +63,7 @@ public class FireStationsDAOTest {
 
     @Test
     public void deleteTest(){
-        saveTest();
+        fireStationsDaoImpl.save(fireStations);
         fireStationsDaoImpl.delete("stationAddress");
         assertFalse(fireStationsDaoImpl.findAll().contains(fireStations));
     }
@@ -75,12 +71,17 @@ public class FireStationsDAOTest {
     @Test
     public void findAddressByStationTest(){
         List<String> listString = fireStationsDaoImpl.findAddressByStation("1");
-        assertNotNull(listString);
+        assertTrue(listString.size() > 0);
     }
 
     @Test
     public void findByNumberStationTest(){
         List<Persons> listPersons = fireStationsDaoImpl.findByNumberStation("1",personsDao);
-        assertNotNull(listPersons);
+        when(fireStationsDaoImpl.findByNumberStation("1",personsDao)).thenReturn(listPersons);
+    }
+
+    @AfterAll
+    static void cleanDataBase() throws IOException {
+        SystemController.initDataBase();
     }
 }

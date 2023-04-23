@@ -25,22 +25,13 @@ public class FireStationsController {
     }
 
     /**
-     * Initialise la dataBase
-     *
-     * @throws IOException
-     */
-    public static void getDataBase() throws IOException {
-        AlertsUtils.initDataBase();
-    }
-
-    /**
      * affiche une liste des Stations dans la database
      *
      * @return List FireStations
      */
     @GetMapping(value = "/fireStation")
-    public List<FireStations> getFireStations() {
-        return fireStationsDao.findAll();
+    public ResponseEntity<List<FireStations>> getFireStations() {
+        return ResponseEntity.ok(fireStationsDao.findAll());
     }
 
     /**

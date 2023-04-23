@@ -6,8 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import safetynet.alerts.controller.FireStationsController;
-import safetynet.alerts.controller.MedicalRecordsController;
+import safetynet.alerts.controller.SystemController;
 import safetynet.alerts.service.MedicalRecordsDaoImpl;
 import safetynet.alerts.model.MedicalRecords;
 
@@ -32,14 +31,9 @@ public class MedicalRecordsDAOTest {
 
     @BeforeEach
     private void setUpPerTest() throws IOException {
-        MedicalRecordsController.getDataBase();
+        SystemController.initDataBase();
         medicalRecordsDaoImpl = new MedicalRecordsDaoImpl();
         medicalRecords = new MedicalRecords("Michael","Jackson","01/01/1987", new ArrayList<>(),new ArrayList<>());
-    }
-
-    @AfterAll
-    static void cleanDataBase() throws IOException {
-        MedicalRecordsController.getDataBase();
     }
 
     @Test
@@ -69,4 +63,8 @@ public class MedicalRecordsDAOTest {
         assertFalse(medicalRecordsDaoImpl.findAll().contains(medicalRecords));
     }
 
+    @AfterAll
+    static void cleanDataBase() throws IOException {
+        SystemController.initDataBase();
+    }
 }

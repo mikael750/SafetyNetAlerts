@@ -6,12 +6,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import safetynet.alerts.DAO.MedicalRecordsDao;
 import safetynet.alerts.controller.MedicalRecordsController;
+import safetynet.alerts.controller.SystemController;
 import safetynet.alerts.model.MedicalRecords;
+import safetynet.alerts.service.FireStationsDaoImpl;
+import safetynet.alerts.service.MedicalRecordsDaoImpl;
+import safetynet.alerts.service.PersonsDaoImpl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,39 +23,31 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MedicalRecordsIT {
 
     @Autowired
-    private MedicalRecordsDao medicalRecordsDao;
+    private MedicalRecordsController medicalRecordsController;
 
-    MedicalRecordsController medicalRecordsController;
-    static MedicalRecords test1;
-    static MedicalRecords test2;
 
     @BeforeAll
     private static void setUp() throws IOException {
-        MedicalRecordsController.getDataBase();
-        test1 = new MedicalRecords("Michael","Jackson","01/01/2000",new ArrayList<>(),new ArrayList<>());
-        test2 = new MedicalRecords("Jean","Dujardin","02/02/2002",new ArrayList<>(),new ArrayList<>());
-
-    }
-
-    @AfterAll
-    static void cleanDataBase() throws IOException {
-        MedicalRecordsController.getDataBase();
+        SystemController.initDataBase();
+        PersonsDaoImpl.load();
+        FireStationsDaoImpl.load();
+        MedicalRecordsDaoImpl.load();
     }
 
     @BeforeEach
-    private void setUpPerTest() {
-        medicalRecordsController = new MedicalRecordsController(medicalRecordsDao);
-    }
+    private void setUpPerTest() {}
 
     @Test
     public void medicalRecordsController_ShouldAddNewRecord(){
-        medicalRecordsController.addMedicalRecords(test1);
-        assertTrue(medicalRecordsController.getMedicalRecords().contains(test1));
+        var test = new MedicalRecords("Michael","Jackson","01/01/2000",new ArrayList<>(),new ArrayList<>());
+        medicalRecordsController.addMedicalRecords(test);
+        assertTrue(Objects.requireNonNull(medicalRecordsController.getMedicalRecords().getBody()).contains(test));
     }
 
     @Test
     public void medicalRecordsController_ShouldUpdateRecord(){
-        medicalRecordsController.addMedicalRecords(test2);
+        var test = new MedicalRecords("Jean","Dujardin","02/02/2002",new ArrayList<>(),new ArrayList<>());
+        medicalRecordsController.addMedicalRecords(test);
         MedicalRecords recordsDetail = new MedicalRecords("Jean","Dujardin","03/03/2003",new ArrayList<>(),new ArrayList<>());
         try {
             medicalRecordsController.updateMedicalRecords("Jean","Dujardin", recordsDetail);
@@ -63,9 +59,14 @@ public class MedicalRecordsIT {
 
     @Test
     public void medicalRecordsController_ShouldDeleteRecord() {
-        medicalRecordsController_ShouldAddNewRecord();
+        var test = new MedicalRecords("Michael","Jackson","01/01/2000",new ArrayList<>(),new ArrayList<>());
+        medicalRecordsController.addMedicalRecords(test);
         medicalRecordsController.deleteMedicalRecord("Michael","Jackson");
-        assertFalse(medicalRecordsController.getMedicalRecords().contains(test1));
+        assertFalse(Objects.requireNonNull(medicalRecordsController.getMedicalRecords().getBody()).contains(test));
     }
 
+    @AfterAll
+    static void cleanDataBase() throws IOException {
+        SystemController.initDataBase();
+    }
 }

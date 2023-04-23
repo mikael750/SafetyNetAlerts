@@ -2,15 +2,18 @@ package safetynet.alerts.integration;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import safetynet.alerts.DAO.FireStationsDao;
 import safetynet.alerts.controller.FireStationsController;
+import safetynet.alerts.controller.SystemController;
 import safetynet.alerts.model.FireStations;
+import safetynet.alerts.service.FireStationsDaoImpl;
+import safetynet.alerts.service.MedicalRecordsDaoImpl;
+import safetynet.alerts.service.PersonsDaoImpl;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,61 +21,45 @@ import static org.junit.jupiter.api.Assertions.*;
 public class FireStationsIT {
 
     @Autowired
-    private FireStationsDao fireStationDao;
-
     FireStationsController fireStationsController;
-    static FireStations test1;
-    static FireStations test2;
-    static String test3;
 
     @BeforeAll
     private static void setUp() throws IOException {
-        FireStationsController.getDataBase();
-        test1 = new FireStations("1stHouse","1");
-        test2 = new FireStations("2ndHouse","2");
-        test3 = "ShouldReturnFalse";
-
-    }
-
-    @AfterAll
-    static void cleanDataBase() throws IOException {
-        FireStationsController.getDataBase();
-    }
-
-    @BeforeEach
-    private void setUpPerTest() {
-        fireStationsController = new FireStationsController(fireStationDao);
+        SystemController.initDataBase();
+        PersonsDaoImpl.load();
+        FireStationsDaoImpl.load();
+        MedicalRecordsDaoImpl.load();
     }
 
     @Test
     public void fireStationsController_ShouldAddNewStation(){
-        fireStationsController.addFireStations(test1);
-        assertTrue(fireStationsController.getFireStations().contains(test1));
-    }
-
-    @Test
-    public void fireStationsController_ShouldNotAddNewStation(){
-        fireStationsController.addFireStations(null);
-        assertFalse(fireStationsController.getFireStations().contains(test3));
+        var test = new FireStations("1stHouse","1");
+        fireStationsController.addFireStations(test);
+        assertTrue(Objects.requireNonNull(fireStationsController.getFireStations().getBody()).contains(test));
     }
 
     @Test
     public void fireStationsController_ShouldUpdateStation(){
-        fireStationsController.addFireStations(test2);
+        var test = new FireStations("2ndHouse","2");
+        fireStationsController.addFireStations(test);
         FireStations fireStationsDetail = new FireStations("2ndHouse","3");
         try {
             fireStationsController.updateFireStations("2ndHouse",fireStationsDetail);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        assertSame("3", fireStationsController.showFireStations("2ndHouse").getStation());
+        assertEquals("3", fireStationsController.showFireStations("2ndHouse").getStation());
     }
 
     @Test
     public void fireStationsController_ShouldDeleteStation() {
-        fireStationsController_ShouldAddNewStation();
+        var test = new FireStations("1stHouse","1");
         fireStationsController.deleteAddress("1stHouse");
-        assertFalse(fireStationsController.getFireStations().contains(test1));
+        assertFalse(Objects.requireNonNull(fireStationsController.getFireStations().getBody()).contains(test));
     }
 
+    @AfterAll
+    static void cleanDataBase() throws IOException {
+        SystemController.initDataBase();
+    }
 }

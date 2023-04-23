@@ -25,22 +25,13 @@ public class MedicalRecordsController {
     }
 
     /**
-     * Initialise la dataBase
-     *
-     * @throws IOException
-     */
-    public static void getDataBase() throws IOException {
-        AlertsUtils.initDataBase();
-    }
-
-    /**
      * affiche une liste des record medical dans la database
      *
      * @return List MedicalRecords
      */
     @GetMapping(value = "/medicalRecord")
-    public List<MedicalRecords> getMedicalRecords() {
-        return medicalRecordsDao.findAll();
+    public ResponseEntity<List<MedicalRecords>> getMedicalRecords() {
+        return ResponseEntity.ok(medicalRecordsDao.findAll());
     }
 
     /**

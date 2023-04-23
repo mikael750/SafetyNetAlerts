@@ -46,8 +46,8 @@ public class PersonsController {
      * @return List Persons
      */
     @GetMapping(value = "/person")
-    public List<Persons> getPersons() {
-        return personsDao.findAll();
+    public ResponseEntity<List<Persons>> getPersons() {
+        return ResponseEntity.ok(personsDao.findAll());
     }
 
     /**
