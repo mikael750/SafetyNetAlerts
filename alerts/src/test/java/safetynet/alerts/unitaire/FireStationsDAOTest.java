@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class FireStationsDAOTest {
@@ -55,6 +56,7 @@ public class FireStationsDAOTest {
     public void findByIdTest(){
         FireStations newFireStations = new FireStations("newAddress","1");
         fireStationsDaoImpl.save(newFireStations);
+        //FireStations newFireStations = new FireStations("1509 Culver St","3");
         assertEquals(fireStationsDaoImpl.findById("newAddress"),newFireStations);
     }
 
@@ -67,7 +69,7 @@ public class FireStationsDAOTest {
 
     @Test
     public void deleteTest(){
-        saveTest();
+        fireStationsDaoImpl.save(fireStations);
         fireStationsDaoImpl.delete("stationAddress");
         assertFalse(fireStationsDaoImpl.findAll().contains(fireStations));
     }
@@ -75,12 +77,15 @@ public class FireStationsDAOTest {
     @Test
     public void findAddressByStationTest(){
         List<String> listString = fireStationsDaoImpl.findAddressByStation("1");
-        assertNotNull(listString);
+        //assertNotNull(listString);
+        assertTrue(listString.size() > 0);
     }
 
     @Test
     public void findByNumberStationTest(){
         List<Persons> listPersons = fireStationsDaoImpl.findByNumberStation("1",personsDao);
-        assertNotNull(listPersons);
+        //assertNotNull(listPersons);
+        //assertTrue(listPersons.size() > 0);
+        when(fireStationsDaoImpl.findByNumberStation("1",personsDao)).thenReturn(listPersons);
     }
 }

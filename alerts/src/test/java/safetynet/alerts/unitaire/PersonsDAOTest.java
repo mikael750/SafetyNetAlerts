@@ -85,7 +85,7 @@ public class PersonsDAOTest {
 
     @Test
     public void updateTest(){
-        saveTest();
+        //saveTest();
         Persons person = new Persons("Michael","Jackson","HisAddress","OldCity","zip","555","not@hisemail.com");
         person.setCity("newCity");
         personsDaoImpl.update(person);
@@ -119,8 +119,9 @@ public class PersonsDAOTest {
 
     @Test
     public void deleteTest(){
-        saveTest();
+        //saveTest();
         Persons person = new Persons("Michael","Jackson","HisAddress","OldCity","zip","555","not@hisemail.com");
+        personsDaoImpl.save(person);
         personsDaoImpl.delete("Michael","Jackson");
         assertFalse(personsDaoImpl.findAll().contains(person));
     }

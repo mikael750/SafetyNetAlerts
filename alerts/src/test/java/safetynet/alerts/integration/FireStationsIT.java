@@ -1,14 +1,15 @@
 package safetynet.alerts.integration;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import safetynet.alerts.DAO.FireStationsDao;
 import safetynet.alerts.controller.FireStationsController;
+import safetynet.alerts.controller.SystemController;
 import safetynet.alerts.model.FireStations;
+import safetynet.alerts.service.FireStationsDaoImpl;
+import safetynet.alerts.service.MedicalRecordsDaoImpl;
+import safetynet.alerts.service.PersonsDaoImpl;
 
 import java.io.IOException;
 
@@ -27,16 +28,17 @@ public class FireStationsIT {
 
     @BeforeAll
     private static void setUp() throws IOException {
-        FireStationsController.getDataBase();
         test1 = new FireStations("1stHouse","1");
         test2 = new FireStations("2ndHouse","2");
         test3 = "ShouldReturnFalse";
-
+        SystemController.initDataBase();
+        PersonsDaoImpl.load();
+        FireStationsDaoImpl.load();
+        MedicalRecordsDaoImpl.load();
     }
 
     @AfterAll
     static void cleanDataBase() throws IOException {
-        FireStationsController.getDataBase();
     }
 
     @BeforeEach

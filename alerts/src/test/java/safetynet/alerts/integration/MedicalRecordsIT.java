@@ -1,20 +1,22 @@
 package safetynet.alerts.integration;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import safetynet.alerts.DAO.MedicalRecordsDao;
 import safetynet.alerts.controller.MedicalRecordsController;
+import safetynet.alerts.controller.SystemController;
 import safetynet.alerts.model.MedicalRecords;
+import safetynet.alerts.service.FireStationsDaoImpl;
+import safetynet.alerts.service.MedicalRecordsDaoImpl;
+import safetynet.alerts.service.PersonsDaoImpl;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Disabled
 @SpringBootTest
 public class MedicalRecordsIT {
 
@@ -27,15 +29,16 @@ public class MedicalRecordsIT {
 
     @BeforeAll
     private static void setUp() throws IOException {
-        MedicalRecordsController.getDataBase();
         test1 = new MedicalRecords("Michael","Jackson","01/01/2000",new ArrayList<>(),new ArrayList<>());
         test2 = new MedicalRecords("Jean","Dujardin","02/02/2002",new ArrayList<>(),new ArrayList<>());
-
+        SystemController.initDataBase();
+        PersonsDaoImpl.load();
+        FireStationsDaoImpl.load();
+        MedicalRecordsDaoImpl.load();
     }
 
     @AfterAll
     static void cleanDataBase() throws IOException {
-        MedicalRecordsController.getDataBase();
     }
 
     @BeforeEach

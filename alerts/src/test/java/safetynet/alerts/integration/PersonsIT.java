@@ -1,7 +1,6 @@
 package safetynet.alerts.integration;
 
 import java.io.IOException;
-import java.util.Objects;
 
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +10,9 @@ import safetynet.alerts.DAO.MedicalRecordsDao;
 import safetynet.alerts.DAO.PersonsDao;
 import safetynet.alerts.controller.PersonsController;
 import safetynet.alerts.controller.SystemController;
-import safetynet.alerts.model.FireStations;
-import safetynet.alerts.model.MedicalRecords;
 import safetynet.alerts.model.Persons;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import safetynet.alerts.service.FireStationsDaoImpl;
@@ -26,6 +22,7 @@ import safetynet.alerts.service.PersonsDaoImpl;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+//@Disabled
 @SpringBootTest
 public class PersonsIT {
 
@@ -40,8 +37,8 @@ public class PersonsIT {
     @Autowired
     private PersonsController personsController;
 
-    private Persons test1 = new Persons("Michael","Jackson","2nd House Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
-    private Persons test2 = new Persons("Jean","Dujardin","2nd House Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
+    //private Persons test1 = new Persons("Michael","Jackson","2nd House Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
+    //private Persons test2 = new Persons("Jean","Dujardin","2nd House Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
     /* private MedicalRecords medicalRecord1 = new MedicalRecords("Michael","Jackson","01/01/2020",new ArrayList<>(),new ArrayList<>());
     private FireStations fireStations1 = new FireStations("2nd House Street","1");
 */
@@ -116,27 +113,35 @@ public class PersonsIT {
 	//a corriger
     /*@Test*/
  /*   public void personsController_ShouldAddNewPerson(){
-        personsController.addPersons(test1);
-        assertTrue(personsController.getPersons().contains(test1));
+        Persons test = new Persons("Michael","Jackson","2nd House Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
+        personsController.addPersons(test);
+        assertTrue(personsController.getPersons().contains(test));
     }*/
 
     @Test
     public void personsController_ShouldUpdatePerson(){
-        personsController.addPersons(test2);
+        //personsController.addPersons(test2);
+        Persons test = new Persons("Jean","Dujardin","2nd House Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
+        personsController.addPersons(test);
         Persons personsDetail = new Persons("Jean","Dujardin","3rd Manor Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
         try {
             personsController.updatePersons("Jean","Dujardin", personsDetail);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        assertSame("3rd Manor Street", personsController.showAPerson("Jean", "Dujardin").getAddress());
+        assertEquals("3rd Manor Street", personsController.showAPerson("Jean","Dujardin").getAddress());
     }
 
   /*  @Test
     public void personsController_ShouldDeletePerson() {
+        Persons test = new Persons("Michael","Jackson","2nd House Street","Brooklyn","123-4567","555-04-02-07","MicSon@notmail.com");
         personsController_ShouldAddNewPerson();
         personsController.deletePersons("Michael","Jackson");
-        assertFalse(personsController.getPersons().contains(test1));
+        assertFalse(personsController.getPersons().contains(test));
     }*/
 
+    @AfterAll
+    static void afterAll() throws IOException {
+        SystemController.initDataBase();
+    }
 }
