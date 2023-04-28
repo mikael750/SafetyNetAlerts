@@ -16,7 +16,6 @@ import safetynet.alerts.service.PersonsDaoImpl;
 import java.text.ParseException;
 import java.util.Arrays;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -42,44 +41,43 @@ public class PersonsIT {
     public void personsController_ShouldGetListForFlood() throws ParseException {
         var listStationNumber = Arrays.asList("1","2");
         var response = personsController.getListForFlood( listStationNumber );
-        assertThat("200 OK").isEqualTo(response.getStatusCode().toString());
+        assertTrue(Objects.requireNonNull(response.getBody()).size() > 0);
     }
 
     @Test
     public void personsController_ShouldGetAllMailOfCity() {
-        var response = personsController.getAllMailOfCity("Brooklyn");
-        assertThat("200 OK").isEqualTo(response.getStatusCode().toString());
+        var response = personsController.getAllMailOfCity("Culver");
+        assertTrue(Objects.requireNonNull(response.getBody()).size() > 0);
     }
 
     @Test
     public void personsController_ShouldGetListPhoneNumber() {
         var response = personsController.getListPhoneNumber("1");
-        assertThat("200 OK").isEqualTo(response.getStatusCode().toString());
+        assertTrue(Objects.requireNonNull(response.getBody()).size() > 0);
     }
 
     @Test
     public void personsController_ShouldGetListForFire() throws ParseException {
         var response = personsController.getListForFire( "1509 Culver St" );
-        assertThat("200 OK").isEqualTo(response.getStatusCode().toString());
-
+        assertTrue(Objects.requireNonNull(response.getBody()).size() > 0);
     }
 
     @Test
     public void personsController_ShouldGetInfoOnPerson() throws ParseException {
         var response = personsController.getInfoOnPerson("John","Boyd");
-        assertThat("200 OK").isEqualTo(response.getStatusCode().toString());
+        assertTrue(Objects.requireNonNull(response.getBody()).size() > 0);
     }
 
     @Test
     public void personsController_ShouldGetChildList() throws ParseException {
         var response = personsController.getChildList( "1509 Culver St" );
-        assertThat("200 OK").isEqualTo(response.getStatusCode().toString());
+        assertTrue(Objects.requireNonNull(response.getBody()).size() > 0);
     }
 
     @Test
     public void personsController_ShouldGetStationNumber() throws ParseException {
         var response = personsController.getStationNumber("1");
-        assertThat("200 OK").isEqualTo(response.getStatusCode().toString());
+        assertTrue((Objects.requireNonNull(response.getBody()).getPersons()).size() > 0);
     }
 
     @Test
