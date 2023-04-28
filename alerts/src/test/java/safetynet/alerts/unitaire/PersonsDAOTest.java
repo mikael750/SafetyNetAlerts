@@ -40,7 +40,7 @@ public class PersonsDAOTest {
     @BeforeAll
     private static void setUp() throws Exception {
         SystemController.initDataBase();
-        PersonsDaoImpl.load();    }
+    }
 
     @BeforeEach
     private void setUpPerTest() throws IOException {

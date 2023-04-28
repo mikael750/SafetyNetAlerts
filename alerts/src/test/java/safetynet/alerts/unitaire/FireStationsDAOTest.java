@@ -31,7 +31,7 @@ public class FireStationsDAOTest {
 
     @BeforeAll
     private static void setUp() throws Exception {
-        FireStationsDaoImpl.load();
+        SystemController.initDataBase();
     }
 
     @BeforeEach

@@ -29,9 +29,6 @@ public class MedicalRecordsIT {
     @BeforeAll
     private static void setUp() throws IOException {
         SystemController.initDataBase();
-        PersonsDaoImpl.load();
-        FireStationsDaoImpl.load();
-        MedicalRecordsDaoImpl.load();
     }
 
     @BeforeEach

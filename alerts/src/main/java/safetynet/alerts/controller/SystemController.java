@@ -5,6 +5,9 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import safetynet.alerts.service.FireStationsDaoImpl;
+import safetynet.alerts.service.MedicalRecordsDaoImpl;
+import safetynet.alerts.service.PersonsDaoImpl;
 import safetynet.alerts.util.AlertsUtils;
 
 @RestController
@@ -24,5 +27,9 @@ public class SystemController {
     public static void initDataBase() throws IOException {
         logger.info("Initialisation de la dataBase");
         AlertsUtils.initDataBase();
+        PersonsDaoImpl.load();
+        FireStationsDaoImpl.load();
+        MedicalRecordsDaoImpl.load();
+        logger.info("Base de donnee initialiser");
     }
 }

@@ -26,7 +26,7 @@ public class MedicalRecordsDAOTest {
 
     @BeforeAll
     private static void setUp() throws Exception {
-        MedicalRecordsDaoImpl.load();
+        SystemController.initDataBase();
     }
 
     @BeforeEach
