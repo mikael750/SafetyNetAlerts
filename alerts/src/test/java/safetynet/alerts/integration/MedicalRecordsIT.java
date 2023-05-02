@@ -2,16 +2,12 @@ package safetynet.alerts.integration;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import safetynet.alerts.controller.MedicalRecordsController;
 import safetynet.alerts.controller.SystemController;
 import safetynet.alerts.model.MedicalRecords;
-import safetynet.alerts.service.FireStationsDaoImpl;
-import safetynet.alerts.service.MedicalRecordsDaoImpl;
-import safetynet.alerts.service.PersonsDaoImpl;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,9 +26,6 @@ public class MedicalRecordsIT {
     private static void setUp() throws IOException {
         SystemController.initDataBase();
     }
-
-    @BeforeEach
-    private void setUpPerTest() {}
 
     @Test
     public void medicalRecordsController_ShouldAddNewRecord(){

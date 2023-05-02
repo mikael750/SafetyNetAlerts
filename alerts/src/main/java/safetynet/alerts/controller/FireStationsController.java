@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.http.ResponseEntity;
-import safetynet.alerts.util.AlertsUtils;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 

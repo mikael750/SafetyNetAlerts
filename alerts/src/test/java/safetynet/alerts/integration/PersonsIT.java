@@ -9,9 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import safetynet.alerts.controller.PersonsController;
 import safetynet.alerts.controller.SystemController;
 import safetynet.alerts.model.Persons;
-import safetynet.alerts.service.FireStationsDaoImpl;
-import safetynet.alerts.service.MedicalRecordsDaoImpl;
-import safetynet.alerts.service.PersonsDaoImpl;
 
 import java.text.ParseException;
 import java.util.Arrays;

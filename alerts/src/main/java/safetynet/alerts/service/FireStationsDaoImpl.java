@@ -72,7 +72,6 @@ public class FireStationsDaoImpl implements FireStationsDao {
         logger.info("Recherche par station.");
         List<Persons> listPersonsFireStations = new ArrayList<>();
         for (FireStations station : fireStations) {
-            // si le numéro de station = fireStationNumber
             if (Integer.parseInt(station.getStation()) == Integer.parseInt(fireStationNumber)) {
                 listPersonsFireStations.addAll(personsDao.findByAddress(station.getAddress()));
             }

@@ -18,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 
 import safetynet.alerts.model.response.*;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
 
@@ -220,8 +219,6 @@ public class PersonsController {
      */
     @GetMapping(value = "/flood/stations")
     public ResponseEntity<List<AddressList>> getListForFlood(@RequestParam List<String> stations) throws ParseException {
-        logger.info( "Size"+stations.size() );
-        System.out.println("Size"+stations.size());
         return ResponseEntity.ok(personsDao.findAddressFoyer(stations,fireStationDao,medicalRecordsDao));
     }
 

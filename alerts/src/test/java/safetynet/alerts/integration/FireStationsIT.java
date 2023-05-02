@@ -8,9 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import safetynet.alerts.controller.FireStationsController;
 import safetynet.alerts.controller.SystemController;
 import safetynet.alerts.model.FireStations;
-import safetynet.alerts.service.FireStationsDaoImpl;
-import safetynet.alerts.service.MedicalRecordsDaoImpl;
-import safetynet.alerts.service.PersonsDaoImpl;
 
 import java.io.IOException;
 import java.util.Objects;
