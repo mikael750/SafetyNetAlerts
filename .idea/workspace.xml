@@ -6,15 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9d0055eb-dd6f-48b4-8f46-f25c90aaa8a0" name="Changes" comment="MHE - update initDataBase">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/FireStationsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/FireStationsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/MedicalRecordsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/MedicalRecordsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/PersonsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/controller/PersonsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/response/AddressList.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/response/AddressList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/response/ChildAlert.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/response/ChildAlert.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/response/CountPersons.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/main/java/safetynet/alerts/model/response/CountPersons.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/integration/FireStationsIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/integration/FireStationsIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/integration/MedicalRecordsIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/integration/MedicalRecordsIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/integration/PersonsIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/integration/PersonsIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +20,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="develop" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
