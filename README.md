@@ -13,9 +13,17 @@ L'application fonctionne avec Java 17 et Maven
 Vous pouvez importer le code dans n'importe quel IDE et le lancé.
 Le projet a été réalisé avec IntelliJ IDEA.
 
+Pour installer l'API depuis un terminal,
+aller dans alerts, la ou il y a le pom.xml,
+et faite la commande :
+```
+mvn install
+```
 Après l'avoir installé,
-vous retrouverer le jar du projet dans
+vous retrouverez le jar du projet dans
 SafetyNetAlerts\alerts\target.
-Pour le lancer avec le jar, ouvrer un terminal ici et faire la commande:
+Pour le lancer avec le jar, 
+ouvrer un terminal ici et faire la commande :
+```
 java -jar alerts-0.0.1-SNAPSHOT.jar
-
+```
