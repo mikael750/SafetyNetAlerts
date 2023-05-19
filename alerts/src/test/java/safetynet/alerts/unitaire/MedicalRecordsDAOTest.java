@@ -31,7 +31,6 @@ public class MedicalRecordsDAOTest {
 
     @BeforeEach
     private void setUpPerTest() throws IOException {
-        SystemController.initDataBase();
         medicalRecordsDaoImpl = new MedicalRecordsDaoImpl();
         medicalRecords = new MedicalRecords("Michael","Jackson","01/01/1987", new ArrayList<>(),new ArrayList<>());
     }

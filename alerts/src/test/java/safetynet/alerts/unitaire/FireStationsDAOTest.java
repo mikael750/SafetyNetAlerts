@@ -36,7 +36,6 @@ public class FireStationsDAOTest {
 
     @BeforeEach
     private void setUpPerTest() throws IOException {
-        SystemController.initDataBase();
         fireStationsDaoImpl = new FireStationsDaoImpl();
         fireStations = new FireStations("stationAddress","7");
     }

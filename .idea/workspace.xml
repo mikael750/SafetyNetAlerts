@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d0055eb-dd6f-48b4-8f46-f25c90aaa8a0" name="Changes" comment="MHE - update initDataBase">
+    <list default="true" id="9d0055eb-dd6f-48b4-8f46-f25c90aaa8a0" name="Changes" comment="MHE - update README.md">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/unitaire/FireStationsDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/unitaire/FireStationsDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/unitaire/MedicalRecordsDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/alerts/src/test/java/safetynet/alerts/unitaire/MedicalRecordsDAOTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +78,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/alerts/src/main/resources" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../application" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/alerts/src/main/resources/saveData.json" />
   </component>
@@ -199,20 +200,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676057888531</updated>
-    </task>
-    <task id="LOCAL-00011" summary="MHE - Retirer ID de Persons">
-      <created>1676809723776</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1676809723776</updated>
-    </task>
-    <task id="LOCAL-00012" summary="MHE - Put et Delete de FireStations et Retirer ID">
-      <created>1676832003633</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1676832003633</updated>
     </task>
     <task id="LOCAL-00013" summary="MHE - Put et Delete de MedicalRecords et Retirer ID">
       <created>1676837305752</created>
@@ -543,7 +530,21 @@
       <option name="project" value="LOCAL" />
       <updated>1682706559475</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="MHE - commit README.md">
+      <created>1683207304622</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1683207304623</updated>
+    </task>
+    <task id="LOCAL-00061" summary="MHE - update README.md">
+      <created>1683303988788</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1683303988788</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -571,8 +572,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="MHE - commentaire et cleaning up" />
-    <MESSAGE value="MHE - test unitaire FireStationsDAO" />
     <MESSAGE value="MHE - Amelioration + Cleaning Up" />
     <MESSAGE value="MHE - PersonsDAOTest complete" />
     <MESSAGE value="MHE - PersonsIT complete + cleaning up" />
@@ -596,7 +595,9 @@
     <MESSAGE value="MHE - amelioration et erreur resolu" />
     <MESSAGE value="MHE - amelioration des tests IT" />
     <MESSAGE value="MHE - update initDataBase" />
-    <option name="LAST_COMMIT_MESSAGE" value="MHE - update initDataBase" />
+    <MESSAGE value="MHE - commit README.md" />
+    <MESSAGE value="MHE - update README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="MHE - update README.md" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
